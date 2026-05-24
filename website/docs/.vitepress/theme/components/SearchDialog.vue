@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import { computed, nextTick, ref, watch } from 'vue';
 import { withBase } from 'vitepress';
 import rulesIndex from '../../../../src/data/rules-index.json';
@@ -30,7 +31,14 @@ const domainTitles = new Map(
 );
 const query = ref('');
 const dialogRef = ref<HTMLDialogElement | null>(null);
+const panelRef = ref<HTMLElement | null>(null);
 const inputRef = ref<HTMLInputElement | null>(null);
+
+const { activate, deactivate } = useFocusTrap(panelRef, {
+  allowOutsideClick: true,
+  clickOutsideDeactivates: true,
+  escapeDeactivates: true,
+});
 
 function searchScore(rule: RuleIndexEntry, q: string): number {
   const id = rule.id.toLowerCase();
@@ -81,9 +89,11 @@ watch(
       query.value = '';
       if (!dialog.open) dialog.showModal();
       await nextTick();
+      activate();
       inputRef.value?.focus();
-    } else if (dialog.open) {
-      dialog.close();
+    } else {
+      deactivate();
+      if (dialog.open) dialog.close();
     }
   },
 );
@@ -95,7 +105,7 @@ function handleClose() {
 
 <template>
   <dialog ref="dialogRef" class="arch-search-dialog" @close="handleClose" @click="(e) => e.target === dialogRef && handleClose()">
-    <div class="arch-search-panel">
+    <div ref="panelRef" class="arch-search-panel">
       <div class="arch-search-input-row">
         <input
           ref="inputRef"

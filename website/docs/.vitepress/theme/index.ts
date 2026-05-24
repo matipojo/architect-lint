@@ -1,5 +1,4 @@
 import DefaultTheme from 'vitepress/theme';
-import { applyTheme, getStoredTheme } from './theme';
 import Layout from './Layout.vue';
 import RuleHeader from './components/RuleHeader.vue';
 import RuleStatusBanner from './components/RuleStatusBanner.vue';
@@ -29,9 +28,5 @@ export default {
     app.component('FeaturesSection', FeaturesSection);
     app.component('RulesOverview', RulesOverview);
     app.component('HomeBelow', HomeBelow);
-
-    if (typeof window !== 'undefined') {
-      applyTheme(getStoredTheme());
-    }
   },
 };

@@ -48,9 +48,8 @@ export default defineConfig({
   },
   themeConfig: {
     logo: '/logo.svg',
-    nav: [{ text: 'Principles', link: '/rules/' }],
+    nav: [{ text: 'Principles', link: '/rules/', activeMatch: '/rules/' }],
     sidebar: mapSidebar(sidebarData as SidebarGroup[]),
-    search: { provider: 'local' },
     editLink: {
       text: 'Suggest change on GitHub',
     },
@@ -63,6 +62,5 @@ export default defineConfig({
       message: 'Released under the MIT License.',
       copyright: 'Copyright © matipojo/architect-lint',
     },
-    socialLinks: [{ icon: 'github', link: 'https://github.com/matipojo/architect-lint' }],
   },
 });

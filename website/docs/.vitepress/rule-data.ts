@@ -105,6 +105,40 @@ function langAlias(language: string): string {
   return aliases[language.toLowerCase()] ?? language.toLowerCase();
 }
 
+const SHELL_LANGUAGES = new Set(['bash', 'sh', 'shell', 'zsh']);
+
+function exampleLanguage(bad: RuleCodeExample, good?: RuleCodeExample): string {
+  const badLang = langAlias(bad.language);
+  if (badLang !== 'text' || !good) {
+    return badLang;
+  }
+  const goodLang = langAlias(good.language);
+  return SHELL_LANGUAGES.has(goodLang) ? goodLang : badLang;
+}
+
+function buildCodeCompareColumn(
+  label: string,
+  ariaLabel: string,
+  tone: 'bad' | 'good',
+  language: string,
+  code: string,
+): string[] {
+  let fence = '```';
+  while (code.includes(fence)) {
+    fence += '`';
+  }
+
+  return [
+    `<div class="code-compare-col code-compare-col-${tone}">`,
+    `<div class="code-compare-tabbar"><span class="code-compare-label ${tone}" role="status" aria-label="${ariaLabel}">${label}</span></div>`,
+    '',
+    `${fence}${language}`,
+    code,
+    fence,
+    '</div>',
+  ];
+}
+
 export function sanitizeMarkdown(markdown: string): string {
   return markdown
     .split(/(```[\s\S]*?```)/g)
@@ -120,28 +154,34 @@ export function buildRuleContentMarkdown(rule: RuleDocument): string {
     '',
   ];
 
-  if (rule.bad) {
+  if (rule.bad && rule.good) {
+    const badLang = exampleLanguage(rule.bad, rule.good);
+    const goodLang = langAlias(rule.good.language);
     parts.push(
-      '## Incorrect',
+      '## Examples',
       '',
-      '<p class="code-compare-label bad">Incorrect</p>',
-      '',
-      `\`\`\`${langAlias(rule.bad.language)}`,
-      rule.bad.code,
-      '```',
+      '<div class="code-compare">',
+      ...buildCodeCompareColumn('Bad', 'Incorrect example', 'bad', badLang, rule.bad.code),
+      ...buildCodeCompareColumn('Good', 'Correct example', 'good', goodLang, rule.good.code),
+      '</div>',
       '',
     );
-  }
-
-  if (rule.good) {
+  } else if (rule.bad) {
     parts.push(
-      '## Correct',
+      '## Examples',
       '',
-      '<p class="code-compare-label good">Correct</p>',
+      '<div class="code-compare">',
+      ...buildCodeCompareColumn('Bad', 'Incorrect example', 'bad', exampleLanguage(rule.bad), rule.bad.code),
+      '</div>',
       '',
-      `\`\`\`${langAlias(rule.good.language)}`,
-      rule.good.code,
-      '```',
+    );
+  } else if (rule.good) {
+    parts.push(
+      '## Examples',
+      '',
+      '<div class="code-compare">',
+      ...buildCodeCompareColumn('Good', 'Correct example', 'good', langAlias(rule.good.language), rule.good.code),
+      '</div>',
       '',
     );
   }

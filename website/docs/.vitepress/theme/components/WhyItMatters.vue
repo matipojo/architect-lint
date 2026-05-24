@@ -25,20 +25,19 @@ function issueLabel(type: string): string {
   return type;
 }
 
-function groupItems(items: WhyItem[]): WhyGroup[] {
-  const groups: WhyGroup[] = [];
+function groupByType(items: WhyItem[]): WhyGroup[] {
+  const order: string[] = [];
+  const textsByType = new Map<string, string[]>();
 
   for (const item of items) {
-    const last = groups.at(-1);
-    if (last?.type === item.type) {
-      last.texts.push(item.text);
-      continue;
+    if (!textsByType.has(item.type)) {
+      order.push(item.type);
+      textsByType.set(item.type, []);
     }
-
-    groups.push({ type: item.type, texts: [item.text] });
+    textsByType.get(item.type)!.push(item.text);
   }
 
-  return groups;
+  return order.map((type) => ({ type, texts: textsByType.get(type)! }));
 }
 
 const fallbackItems = computed(() =>
@@ -50,39 +49,43 @@ const fallbackItems = computed(() =>
 );
 
 const items = computed(() => (props.items?.length ? props.items : fallbackItems.value));
-const groups = computed(() => groupItems(items.value));
-
-const summary = computed(() => {
-  const total = items.value.length;
-  if (total < 3) return null;
-
-  const counts = new Map<string, number>();
-  for (const group of groups.value) {
-    counts.set(group.type, (counts.get(group.type) ?? 0) + group.texts.length);
-  }
-
-  return [...counts.entries()]
-    .map(([type, count]) => `${count} ${issueLabel(type).toLowerCase()}`)
-    .join(', ');
-});
+const groups = computed(() => groupByType(items.value));
 </script>
 
 <template>
   <section v-if="groups.length > 0" class="why-section">
     <h2 id="why-it-matters" class="rule-section-title">Why it matters</h2>
-    <p v-if="summary" class="why-summary">{{ summary }}</p>
-    <ul class="issue-list">
-      <li v-for="(group, index) in groups" :key="`${group.type}-${index}`" class="issue-item">
-        <span class="issue-tag" :class="`issue-tag-${group.type}`">{{ issueLabel(group.type) }}</span>
-        <div class="issue-texts" :class="{ 'issue-texts-multiple': group.texts.length > 1 }">
-          <p
-            v-for="(text, textIndex) in group.texts"
-            :key="textIndex"
-            class="issue-text"
-            v-html="renderInlineMarkdown(text)"
-          />
-        </div>
-      </li>
-    </ul>
+    <table class="issue-table">
+      <caption class="issue-table-caption">Failure modes if this rule is ignored</caption>
+      <thead>
+        <tr>
+          <th scope="col">Stake</th>
+          <th scope="col">If ignored</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="group in groups"
+          :key="group.type"
+          class="issue-row"
+          :class="`issue-row-${group.type}`"
+        >
+          <th scope="row" class="issue-stake">
+            <span class="issue-tag" :class="`issue-tag-${group.type}`">{{ issueLabel(group.type) }}</span>
+          </th>
+          <td class="issue-consequences-cell">
+            <ul class="issue-consequences">
+              <li
+                v-for="(text, textIndex) in group.texts"
+                :key="textIndex"
+                class="issue-consequence"
+              >
+                <span class="issue-consequence-text" v-html="renderInlineMarkdown(text)" />
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 </template>

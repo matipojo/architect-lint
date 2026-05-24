@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T22:51:52.612Z",
+  "generatedAt": "2026-05-24T22:55:52.427Z",
   "rules": [
     {
       "id": "nestjs-auth-one-passport-strategy-per-method",

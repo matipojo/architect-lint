@@ -894,47 +894,92 @@
   font-size: 1.375rem;
 }
 
-.why-summary {
-  margin: 0 0 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--vp-c-text-2);
-}
-
-.issue-list {
-  list-style: none;
-  padding: 0;
+.issue-table {
+  width: 100%;
+  border-collapse: collapse;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  --issue-tag-width: 10.75rem;
+  table-layout: fixed;
 }
 
-.issue-item {
-  display: grid;
-  grid-template-columns: var(--issue-tag-width) minmax(0, 1fr);
-  align-items: start;
-  gap: 0.75rem;
-  padding: 1rem 0;
-  border: none;
-  border-bottom: 1px solid var(--vp-c-divider);
-  border-radius: 0;
+.vp-doc table.issue-table {
+  display: table;
+  margin: 0;
+  overflow-x: visible;
+}
+
+.vp-doc table.issue-table tr {
   background: transparent;
+  border-top: none;
 }
 
-.issue-item:first-child {
-  padding-top: 0;
+.vp-doc table.issue-table th,
+.vp-doc table.issue-table td {
+  border: none;
+  background: transparent;
+  padding: 1rem 0;
 }
 
-.issue-item:last-child {
+.vp-doc table.issue-table td.issue-consequences-cell {
+  padding: 1rem 0 1rem 1.25rem;
+}
+
+.vp-doc table.issue-table th.issue-stake {
+  font-weight: 400;
+  font-size: inherit;
+  color: inherit;
+}
+
+.issue-table-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.issue-table thead th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-3);
+  padding: 0 0 0.75rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.issue-table tbody tr {
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.issue-table tbody tr:last-child {
   border-bottom: none;
-  padding-bottom: 0;
+}
+
+.issue-table thead th:first-child,
+.issue-table th.issue-stake {
+  width: 10.75rem;
+}
+
+.issue-table th[scope='row'] {
+  vertical-align: top;
+  padding: 1rem 0;
+}
+
+.issue-stake {
+  padding-right: 0;
+}
+
+.issue-stake .issue-tag {
+  width: 100%;
 }
 
 .issue-tag {
   box-sizing: border-box;
-  width: 100%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -947,33 +992,59 @@
   letter-spacing: 0.03em;
   text-align: center;
   border: 1px solid transparent;
+  white-space: normal;
 }
 
-.issue-texts {
-  min-width: 0;
-}
-
-.issue-texts-multiple {
+.issue-consequences {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.issue-text {
+.vp-doc ul.issue-consequences {
   margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.vp-doc ul.issue-consequences > li.issue-consequence {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.vp-doc ul.issue-consequences > li.issue-consequence + li.issue-consequence {
+  margin-top: 0;
+}
+
+.issue-consequence {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
   color: var(--vp-c-text-1);
   line-height: 1.65;
   font-size: 1rem;
-  padding-top: 0.05rem;
 }
 
-.issue-texts-multiple .issue-text {
-  padding-top: 0;
-  padding-left: 0.85rem;
-  border-left: 2px solid var(--vp-c-divider);
+.issue-consequence::before {
+  content: '•';
+  flex: 0 0 0.625rem;
+  text-align: center;
+  color: var(--vp-c-text-3);
+  line-height: 1.65;
 }
 
-.issue-text code {
+.issue-consequence-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.issue-consequence code {
   font-family: var(--vp-font-family-mono);
   font-size: 0.875em;
   background: var(--vp-c-bg-soft);
@@ -1115,17 +1186,87 @@
 }
 
 @media (max-width: 640px) {
-  .issue-list {
-    --issue-tag-width: 100%;
+  .issue-table thead {
+    display: none;
   }
 
-  .issue-item {
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
+  .issue-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .issue-tag {
+  .issue-table tbody tr {
+    display: block;
+    padding: 0.85rem 0.85rem 0.85rem 0.75rem;
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 8px;
+    border-left-width: 3px;
+  }
+
+  .issue-table th[scope='row'],
+  .issue-table td {
+    display: block;
+    padding: 0;
+  }
+
+  .issue-stake {
+    margin-bottom: 0.5rem;
+  }
+
+  .issue-stake .issue-tag {
     width: fit-content;
-    max-width: 100%;
+  }
+
+  .issue-consequences-cell {
+    padding-left: 0;
+  }
+
+  .issue-row-slow-ci,
+  .issue-row-hard-to-test,
+  .issue-row-unclear-failure {
+    border-left-color: var(--issue-testing-border);
+  }
+
+  .issue-row-agent-gets-lost,
+  .issue-row-hard-to-change,
+  .issue-row-safe-to-delete {
+    border-left-color: var(--issue-agent-border);
+  }
+
+  .issue-row-data-leak,
+  .issue-row-secret-exposure,
+  .issue-row-abuse-vulnerable {
+    border-left-color: var(--issue-security-border);
+  }
+
+  .issue-row-data-corruption,
+  .issue-row-double-charge,
+  .issue-row-wastes-money {
+    border-left-color: var(--issue-data-money-border);
+  }
+
+  .issue-row-hidden-coupling,
+  .issue-row-spreads-failure,
+  .issue-row-cant-run-alone,
+  .issue-row-layer-mixing {
+    border-left-color: var(--issue-structure-border);
+  }
+
+  .issue-row-api-drift,
+  .issue-row-breaking-change {
+    border-left-color: var(--issue-api-border);
+  }
+
+  .issue-row-drops-connection,
+  .issue-row-bad-ux,
+  .issue-row-cant-scale {
+    border-left-color: var(--issue-runtime-border);
+  }
+
+  .issue-row-no-ownership,
+  .issue-row-blind-in-prod,
+  .issue-row-cant-rollback {
+    border-left-color: var(--issue-ops-border);
   }
 }

@@ -23,7 +23,7 @@ If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't hel
 - [slow-ci] If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't help.
 - [unclear-failure] One red e2e — is it logic, wiring, or API? Hours split across layers before anyone knows.
 - [api-drift] Contract checks only in browser e2e — every DTO tweak runs the full 40-minute suite.
-- [slow-ci] cI runs every test on every PR — feedback loops stretch to 40+ minutes.
+- [slow-ci] CI runs every test on every PR — feedback loops stretch to 40+ minutes.
 - [unclear-failure] a failing test doesn't tell you whether logic, wiring, or the public contract broke.
 - [slow-ci] `nx affected --target=test` can't skip irrelevant tiers when everything is lumped into e2e.
 

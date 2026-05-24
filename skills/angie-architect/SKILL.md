@@ -17,7 +17,7 @@ Orchestrator for the nine Angie professional-architecture skills bundled in this
 | `professional-architecture-nestjs-data-errors` | Guards doing queries, typed exceptions, repository interfaces, transactions, cross-domain async |
 | `professional-architecture-auth-security` | Auth vs authz, Passport strategies, policies, IDOR, tenant scoping, secrets, rate limits |
 | `professional-architecture-platform-composition` | Shared UI across hosts, feature flags, configuration over context branching |
-| `professional-architecture-realtime-streaming` | SSE vs WebSocket, LLM stream cancel/backpressure, agent run durability |
+| `professional-architecture-realtime-streaming` | SSE vs WebSocket, LLM stream cancel/backpressure, agent run durability; see rule 42 cancellation modes vs 47 |
 | `professional-architecture-runtime-resilience` | Error boundaries, structured observability, per-domain migrations |
 | `professional-architecture-testing-contracts` | Typed API clients, unit/integration/e2e split, compile-time contract checks |
 

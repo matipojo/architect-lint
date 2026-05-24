@@ -122,6 +122,28 @@ stream(@Body() dto: PromptDto, @Req() req: Request): Observable<MessageEvent> {
 
 Client disconnects → the LLM call stops → you don't pay for the rest.
 
+### Cancellation mode depends on run durability (rules 47, 45)
+
+The example above applies to **ephemeral streams** — no durable run, no Redis resume. When you implement **durable / resumable runs** (rule 47) with cross-instance relay (rule 45), HTTP disconnect is not always abandonment.
+
+| Mode | When | Cancel on HTTP disconnect? |
+| --- | --- | --- |
+| **Ephemeral** | One-shot SSE, no resume | Yes — `req.on('close')` → abort |
+| **Durable / resumable** | Run persisted, Redis buffer, `GET .../stream` resume | **Ask the user** — product trade-off, not a fixed default |
+| **Cost guard** (add-on) | Durable + idle timeout | Abort if no consumer reconnects within N minutes |
+| **Explicit only** | Host opts into cost-first | Only `DELETE` / Stop aborts |
+
+Page refresh and tab close look **identical** to the server (TCP drop). For durable/resumable runs, **ask the user** before choosing cancel-on-disconnect — unconditional `req.on('close')` abort breaks page-refresh resume, but keeping the LLM alive after every drop wastes cost.
+
+When the run is durable/resumable, present these options and record the choice:
+
+- **Resume-first** — keep generating after disconnect; client rejoins via `GET .../stream` (page refresh works)
+- **Cost guard** — resume-first plus idle timeout: abort upstream if no resume GET within N minutes
+- **Abort-on-disconnect** — `req.on('close')` → abort (cost-first; breaks page-refresh resume unless the client never reloads mid-run)
+- **Explicit cancel only** — only `DELETE .../stream`, Stop button, or `POST .../cancel` aborts upstream (always required regardless of policy)
+
+Backpressure (second half of rule 42) applies in **both** modes — propagate consumer backpressure to the LLM stream regardless of cancel policy.
+
 ---
 
 ## 43. WebSocket Gateways — thin transport, not business logic
@@ -240,6 +262,8 @@ app.useWebSocketAdapter(ioAdapter);
 
 `server.to(roomId).emit(...)` now reaches every instance and every user in the room.
 
+For **SSE resumable streams**, the same Redis (or similar) broker lets instance B serve a `GET .../stream` resume when instance A handled the original `POST /stream`. That satisfies rule 45 for relay — it does **not** require keeping the LLM alive after disconnect. Relay + abort-on-idle is valid.
+
 ---
 
 ## 46. Rooms and channels — always namespaced by domain and tenant
@@ -317,6 +341,8 @@ async cancel(@Param('id') runId: string, @CurrentUser() user: User) {
 ```
 
 The stream is a window into the resource, not the resource itself.
+
+Implementing rule 47 requires a **documented disconnect policy** (see rule 42 cancellation modes and "How rules 42, 45, and 47 interact" below). Explicit cancel (`DELETE` / Stop) must exist. Client resume must not be broken by naive `req.on('close')` abort.
 
 ---
 
@@ -407,3 +433,32 @@ streamRun(@Param('id') runId: string): Observable<MessageEvent> {
 const sse = new EventSource(`/runs/${runId}/events`);
 // EventSource auto-reconnects with Last-Event-Id, if the server emits `id:` on every event
 ```
+
+---
+
+## How rules 42, 45, and 47 interact
+
+These rules are not in conflict — they address different layers. The common mistake is applying rule 42's ephemeral-stream example to a durable/resumable system.
+
+| Rule | Layer | Answers |
+| --- | --- | --- |
+| **42** | Cost / cancellation | When should the upstream LLM stop generating? |
+| **45** | Multi-instance relay | How do instances share stream state for resume? |
+| **47** | Durable run | Is the run a persisted resource the client can rejoin? |
+
+```mermaid
+graph LR
+  R42["Rule 42: cancel policy"]
+  R45["Rule 45: Redis relay"]
+  R47["Rule 47: durable run"]
+
+  R45 -->|"compatible"| R42
+  R45 -->|"compatible"| R47
+  R42 -->|"choose policy"| R47
+```
+
+- **Rule 45 + 42:** Redis relay with abort-on-idle — relay stops receiving when upstream aborts.
+- **Rule 45 + 47:** Redis relay with resume-first — disconnect keeps generating until explicit cancel or idle timeout.
+- **Rule 42 + 47 tension:** resolved by cancel policy (ephemeral vs durable table under rule 42), not by dropping either rule.
+
+**Page refresh:** client drops POST SSE → reload → `GET .../stream/status` → resume via `GET .../stream`. For durable/resumable hosts, ask the user whether disconnect should abort upstream or allow resume — do not assume resume-first without confirmation.

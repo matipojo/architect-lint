@@ -23,11 +23,6 @@ Global state is the fastest way to destroy a platform — untraceable dependenci
 - Global state is the fastest way to destroy a platform — untraceable dependencies.
 - Without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
 
-## Issues
-
-- [coupling] Global state is the fastest way to destroy a platform — untraceable dependencies.
-- [blast-radius] Without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
-
 
 ## How to fix
 
@@ -40,24 +35,24 @@ No singletons holding cross-domain state. No global store every app writes to. I
 export const globalStore = {
   currentUser: null,
   currentSite: null,
-  activeAgent: null,
-  isTestMode: false,
+  activeWorkflow: null,
+  isDevMode: false,
 };
 ```
 
 ## Correct
 
 ```typescript
-// libs/studio/feature-agent-builder/src/lib/agent-runner.ts
-type RunAgentOptions = { agent: Agent; testMode: boolean };
+// libs/workspace/feature-workflow-builder/src/lib/workflow-runner.ts
+type RunWorkflowOptions = { workflow: Workflow; devMode: boolean };
 
-export function runAgent({ agent, testMode }: RunAgentOptions) {
-  if (testMode) { /* ... */ }
-  return agent.run();
+export function runWorkflow({ workflow, devMode }: RunWorkflowOptions) {
+  if (devMode) { /* ... */ }
+  return workflow.run();
 }
 
-// apps/studio/src/main.tsx — composing layer
+// apps/workspace/src/main.tsx — composing layer
 const user = await usersApi.getCurrent();
 const site = await sitesApi.get(siteId);
-runAgent({ agent: site.agent, testMode: user.preferences.testMode });
+runWorkflow({ workflow: site.workflow, devMode: user.preferences.devMode });
 ```

@@ -23,11 +23,9 @@ Authenticating per message = JWT verify on every keystroke. Expensive.
 
 - Authenticating per message = JWT verify on every keystroke. Expensive.
 - An unauthenticated open connection is a resource leak.
+- jWT verification runs on every message — expensive at chat scale.
+- unauthenticated sockets stay open until the first message — resource leak.
 
-## Issues
-
-- [performance] jWT verification runs on every message — expensive at chat scale.
-- [security] unauthenticated sockets stay open until the first message — resource leak.
 
 
 ## How to fix

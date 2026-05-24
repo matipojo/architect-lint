@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 const command = '/architect-lint-review --explain';
 const outputLines = [
   { type: 'error', text: "❌ nestjs-realtime-transport-sse-vs-websocket — Pick one mechanism per flow — don't confuse SSE with WebSocket" },
-  { type: 'link', text: '   https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-sse-vs-websocket' },
+  { type: 'link', text: '   https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-sse-vs-websocket' },
   { type: 'dim', text: '   File: src/chat/chat.gateway.ts:8' },
   { type: 'dim', text: '   Problem: WebSocket for one-way LLM token stream' },
   { type: 'dim', text: '   Fix: Use SSE for server→client streaming' },

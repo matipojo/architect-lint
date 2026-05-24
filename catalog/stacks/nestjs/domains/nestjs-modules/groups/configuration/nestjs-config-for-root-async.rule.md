@@ -23,11 +23,6 @@ Lets the same module run with different configs in different environments withou
 - Lets the same module run with different configs in different environments without code changes.
 - Lets tests assemble the module with synthetic config.
 
-## Issues
-
-- [maintainability] Lets the same module run with different configs in different environments without code changes.
-- [testability] Lets tests assemble the module with synthetic config.
-
 
 ## How to fix
 

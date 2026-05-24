@@ -36,7 +36,7 @@ export interface RuleDocument {
   title: string;
   summary: string;
   why_it_matters: string;
-  issues: RuleIssue[];
+  why: RuleIssue[];
   do_this_instead: string;
   details: string;
   priority: string;
@@ -70,6 +70,18 @@ export function loadRule(filePath: string): RuleDocument {
   return JSON.parse(fs.readFileSync(filePath, 'utf8')) as RuleDocument;
 }
 
+export function findRuleJsonById(id: string): string | undefined {
+  return findRuleJsonFiles(RULES_ROOT).find((filePath) => path.basename(filePath, '.json') === id);
+}
+
+export function loadRuleById(id: string): RuleDocument {
+  const filePath = findRuleJsonById(id);
+  if (!filePath) {
+    throw new Error(`Rule not found: ${id}`);
+  }
+  return loadRule(filePath);
+}
+
 export function rulePath(stack: string, domain: string, id: string): string {
   return path.join(RULES_ROOT, stack, domain, `${id}.json`);
 }
@@ -99,14 +111,19 @@ export function sanitizeMarkdown(markdown: string): string {
 }
 
 export function buildRuleContentMarkdown(rule: RuleDocument): string {
-  const parts: string[] = [sanitizeMarkdown(rule.details.trim()), ''];
+  const parts: string[] = [
+    '## How to fix',
+    '',
+    sanitizeMarkdown(rule.do_this_instead.trim()),
+    '',
+  ];
 
   if (rule.bad) {
-    parts.push('## Incorrect', '', `<p class="code-compare-label bad">${rule.bad.label}</p>`, '', `\`\`\`${langAlias(rule.bad.language)}`, rule.bad.code, '```', '');
+    parts.push('## Incorrect', '', `\`\`\`${langAlias(rule.bad.language)}`, rule.bad.code, '```', '');
   }
 
   if (rule.good) {
-    parts.push('## Correct', '', `<p class="code-compare-label good">${rule.good.label}</p>`, '', `\`\`\`${langAlias(rule.good.language)}`, rule.good.code, '```', '');
+    parts.push('## Correct', '', `\`\`\`${langAlias(rule.good.language)}`, rule.good.code, '```', '');
   }
 
   if (rule.when_not_to_apply) {
@@ -121,7 +138,7 @@ export function buildRuleContentMarkdown(rule: RuleDocument): string {
     parts.push('');
   }
 
-  return parts.join('\n');
+  return `${parts.join('\n')}\n`;
 }
 
 export function applyRulePageData(pageData: {
@@ -133,14 +150,17 @@ export function applyRulePageData(pageData: {
   const params = pageData.params;
   if (!params) return;
 
-  const { stack, domain, id } = params;
-  if (!stack || !domain || !id) return;
+  const { id } = params;
+  if (!id) return;
 
-  const rule = loadRule(rulePath(stack, domain, id));
+  const rule = loadRuleById(id);
   const { details: _details, ...ruleMeta } = rule;
 
-  pageData.title = rule.id;
-  pageData.description = rule.title;
-  pageData.frontmatter.rule = ruleMeta;
-  pageData.frontmatter.editLink = rule.resources.suggestChange;
+  pageData.title = rule.title;
+  pageData.description = rule.summary;
+  pageData.frontmatter = {
+    ...pageData.frontmatter,
+    rule: ruleMeta,
+    editLink: rule.resources.suggestChange,
+  };
 }

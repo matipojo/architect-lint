@@ -19,7 +19,7 @@ export interface RuleDocument {
   title: string;
   summary: string;
   why_it_matters: string;
-  issues: Array<{ type: string; text: string }>;
+  why: Array<{ type: string; text: string }>;
   do_this_instead: string;
   details: string;
   rationale: string;
@@ -55,7 +55,7 @@ export function buildRuleDocument(
     title: rule.title,
     summary: rule.summary,
     why_it_matters: rule.why_it_matters,
-    issues: rule.issues,
+    why: rule.why,
     do_this_instead: rule.do_this_instead,
     details: rule.details.trim(),
     rationale: rule.rationale,
@@ -75,11 +75,11 @@ export function buildRuleDocument(
         id: relatedId,
         stack,
         domain,
-        href: `/rules/${stack}/${domain}/${relatedId}`,
+        href: `/rules/${relatedId}`,
       };
     }),
     resources: {
-      permalink: rulePermalink(rule.stack, rule.domain, rule.id),
+      permalink: rulePermalink(rule.id),
       viewSource: githubBlobUrl(catalogPath),
       suggestChange: githubEditUrl(catalogPath),
       discuss: githubDiscussUrl(rule.id),
@@ -125,7 +125,7 @@ export function buildIndexEntry(rule: Rule) {
     status: rule.status,
     tags: rule.tags,
     catalogPath,
-    docUrl: rulePermalink(rule.stack, rule.domain, rule.id),
+    docUrl: rulePermalink(rule.id),
     rationale: rule.rationale,
     related: rule.related,
   };

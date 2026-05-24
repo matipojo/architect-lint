@@ -24,11 +24,6 @@ The gateway is transport, not business logic. It receives a message, authorizes,
 - The gateway is transport, not business logic. It receives a message, authorizes, hands off to a service.
 - The same service must be reachable over HTTP for debugging and tests, without a socket.
 
-## Issues
-
-- [maintainability] The gateway is transport, not business logic. It receives a message, authorizes, hands off to a service.
-- [testability] The same service must be reachable over HTTP for debugging and tests, without a socket.
-
 
 ## How to fix
 

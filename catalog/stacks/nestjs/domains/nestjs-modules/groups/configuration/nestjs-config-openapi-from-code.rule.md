@@ -23,11 +23,9 @@ A hand-maintained spec rots the moment code changes. Wrong docs are worse than n
 
 - A hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.
 - One source of truth: the controller + DTO. Frontend, docs, and tests consume the same spec.
+- hand-maintained OpenAPI drifts from controllers — wrong docs are worse than no docs.
+- frontend client codegen builds against a spec that doesn't match runtime behavior.
 
-## Issues
-
-- [contract] hand-maintained OpenAPI drifts from controllers — wrong docs are worse than no docs.
-- [ux] frontend client codegen builds against a spec that doesn't match runtime behavior.
 
 
 ## How to fix
@@ -58,7 +56,7 @@ export class SiteDto {
 }
 
 // apps/api/src/main.ts
-const config = new DocumentBuilder().setTitle('Angie API').build();
+const config = new DocumentBuilder().setTitle('Example API').build();
 const document = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('docs', app, document);
 // + export to JSON in CI so the frontend can codegen

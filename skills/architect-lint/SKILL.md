@@ -20,7 +20,7 @@ Orchestrator for stack-specific architecture principle skills. Each skill refere
 1. Read `.architect-lint.yaml` in the consumer repo (if present) to select stacks and review scope.
 2. Pick the narrowest stack skill for the change (nx / react / nestjs).
 3. **Read** each referenced `*.rule.md` file before citing a violation.
-4. Output findings with permalinks to `https://matipojo.github.io/architect-lint/rules/{stack}/{domain}/{rule-id}`.
+4. Output findings with permalinks to `https://matipojo.github.io/architect-lint/rules/{rule-id}`.
 
 ## Review command
 

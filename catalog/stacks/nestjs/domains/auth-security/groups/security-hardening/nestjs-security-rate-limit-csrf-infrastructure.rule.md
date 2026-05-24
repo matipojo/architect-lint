@@ -22,11 +22,9 @@ Without rate limiting, the login endpoint is open to brute force; an expensive e
 
 - Without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.
 - "We'll handle it later" = never.
+- login endpoints are open to brute force without per-route throttling.
+- expensive endpoints have no protection against intentional or accidental DoS.
 
-## Issues
-
-- [security] login endpoints are open to brute force without per-route throttling.
-- [security] expensive endpoints have no protection against intentional or accidental DoS.
 
 
 ## How to fix

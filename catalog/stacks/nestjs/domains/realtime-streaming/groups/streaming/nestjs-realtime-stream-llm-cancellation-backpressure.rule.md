@@ -25,23 +25,21 @@ Without cancellation, you pay for a response no one reads. At scale this is real
 
 - Without cancellation, you pay for a response no one reads. At scale this is real money.
 - Without backpressure, the server accumulates unsent responses and explodes on memory.
+- When the client disconnected — downstream work keeps running
 
-## Issues
-
-- [reliability] When the client disconnected — downstream work keeps running
 
 
 ## How to fix
 
-The user closes the tab mid-response? The OpenAI call must abort. The server stops paying.
+The user closes the tab mid-response? The upstream LLM call must abort. The server stops paying.
 The LLM emits faster than the client can consume? Push backpressure.
 
 ## Incorrect
 
 ```typescript
 async streamPrompt(prompt: string, res: Response) {
-  const stream = await this.openai.chat.completions.create({
-    model: 'gpt-4', messages: [{ role: 'user', content: prompt }], stream: true,
+  const stream = await this.llmClient.streamCompletion({
+    model: 'default-model', messages: [{ role: 'user', content: prompt }], stream: true,
   });
   for await (const chunk of stream) {
     res.write(`data: ${JSON.stringify(chunk)}\n\n`);
@@ -61,8 +59,8 @@ stream(@Body() dto: PromptDto, @Req() req: Request): Observable<MessageEvent> {
   return new Observable((subscriber) => {
     (async () => {
       try {
-        const stream = await this.openai.chat.completions.create({
-          model: 'gpt-4',
+        const stream = await this.llmClient.streamCompletion({
+          model: 'default-model',
           messages: [{ role: 'user', content: dto.prompt }],
           stream: true,
         }, { signal: abortController.signal });

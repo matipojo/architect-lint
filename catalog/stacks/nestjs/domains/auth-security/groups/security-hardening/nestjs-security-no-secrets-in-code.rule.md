@@ -16,17 +16,12 @@ related: []
 
 # Secrets don't sit in code or logs
 
-A leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotation is the only fix.
+A leaked secret = a secret leaked to anyone with access to your log platform. Rotation is the only fix.
 
 ## Why it matters
 
-- A leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotation is the only fix.
+- A leaked secret = a secret leaked to anyone with access to your log platform. Rotation is the only fix.
 - Without an automatic redactor, the moment a log prints a request body, passwords leak.
-
-## Issues
-
-- [security] A leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotation is the only fix.
-- [security] Without an automatic redactor, the moment a log prints a request body, passwords leak.
 
 
 ## How to fix

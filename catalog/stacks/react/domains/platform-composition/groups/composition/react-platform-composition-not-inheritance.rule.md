@@ -23,11 +23,6 @@ A component that inherits from context cannot be rendered alone in Storybook wit
 - A component that inherits from context cannot be rendered alone in Storybook without faking the context.
 - Composition is what enables reuse without "variants". One component, assembled differently.
 
-## Issues
-
-- [testability] A component that inherits from context cannot be rendered alone in Storybook without faking the context.
-- [maintainability] Composition is what enables reuse without "variants". One component, assembled differently.
-
 
 ## How to fix
 
@@ -38,11 +33,11 @@ UI libs do not inherit behavior from context. They receive it — as props, as c
 ```tsx
 // libs/shared/ui-chat/src/lib/chat-panel.tsx
 function ChatPanel() {
-  const wpContext = useWordPressContext();
-  const studioContext = useStudioContext();
+  const hostContext = useHostContext();
+  const workspaceContext = useWorkspaceContext();
   return (
     <div>
-      <ChatHeader title={wpContext?.siteName ?? studioContext?.agentName} />
+      <ChatHeader title={hostContext?.siteName ?? workspaceContext?.workflowName} />
       <ChatMessages />
     </div>
   );
@@ -60,7 +55,7 @@ export function ChatPanel({ header, children }: {
   return <div>{header}{children}</div>;
 }
 
-// libs/wordpress/feature-chat/src/lib/wp-chat.tsx
+// libs/embedded-host/feature-chat/src/lib/host-chat.tsx
 <ChatPanel header={<ChatHeader title={site.name} />}>
   <ChatMessages />
 </ChatPanel>

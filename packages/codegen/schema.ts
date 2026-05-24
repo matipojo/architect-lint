@@ -44,7 +44,7 @@ export const RuleSchema = z
     title: z.string().min(5, 'title must be at least 5 characters'),
     summary: z.string().min(10, 'summary must be at least 10 characters'),
     why_it_matters: z.string().min(10, 'why_it_matters must be at least 10 characters'),
-    issues: z.array(IssueSchema).min(1, 'issues must contain at least one entry'),
+    why: z.array(IssueSchema).min(1, 'why must contain at least one entry'),
     do_this_instead: z.string().min(10, 'do_this_instead must be at least 10 characters'),
     details: z.string().min(20, 'details must be at least 20 characters'),
     rationale: z.string().min(10, 'rationale must be at least 10 characters'),

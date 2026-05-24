@@ -26,10 +26,8 @@ The user closes the tab mid-response and re-opens — you need to show where it 
 - The user closes the tab mid-response and re-opens — you need to show where it stopped.
 - You need history, debugging, and a record of what you paid for.
 - Two devices of the same user need to see the same run.
+- streaming straight to the client, nothing persisted except the final message
 
-## Issues
-
-- [data-integrity] streaming straight to the client, nothing persisted except the final message
 
 
 ## How to fix

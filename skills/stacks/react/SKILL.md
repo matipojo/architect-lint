@@ -9,10 +9,10 @@ When reviewing, **READ** each rule file below. Do not use cached or inlined cont
 
 | Rule | Catalog path | Permalink |
 | --- | --- | --- |
-| react-platform-composition-not-inheritance | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-composition-not-inheritance.rule.md` | https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-composition-not-inheritance |
-| react-platform-config-not-conditionals | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-config-not-conditionals.rule.md` | https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-config-not-conditionals |
-| react-platform-feature-flags-not-branches | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-feature-flags-not-branches.rule.md` | https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-feature-flags-not-branches |
-| react-platform-version-public-contracts | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-version-public-contracts.rule.md` | https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-version-public-contracts |
+| react-platform-composition-not-inheritance | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-composition-not-inheritance.rule.md` | https://matipojo.github.io/architect-lint/rules/react-platform-composition-not-inheritance |
+| react-platform-config-not-conditionals | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-config-not-conditionals.rule.md` | https://matipojo.github.io/architect-lint/rules/react-platform-config-not-conditionals |
+| react-platform-feature-flags-not-branches | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-feature-flags-not-branches.rule.md` | https://matipojo.github.io/architect-lint/rules/react-platform-feature-flags-not-branches |
+| react-platform-version-public-contracts | `catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-version-public-contracts.rule.md` | https://matipojo.github.io/architect-lint/rules/react-platform-version-public-contracts |
 
 ## Output format (Tier 1)
 

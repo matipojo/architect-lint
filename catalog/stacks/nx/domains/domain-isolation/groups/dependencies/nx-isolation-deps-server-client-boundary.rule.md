@@ -23,11 +23,6 @@ Server code leaking to client = bloated bundle, or worse, secret leak.
 - Server code leaking to client = bloated bundle, or worse, secret leak.
 - Client code leaking to server = runtime errors on `window`.
 
-## Issues
-
-- [security] Server code leaking to client = bloated bundle, or worse, secret leak.
-- [security] Client code leaking to server = runtime errors on `window`.
-
 
 ## How to fix
 

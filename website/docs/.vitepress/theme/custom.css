@@ -427,10 +427,12 @@
   overflow-x: auto;
 }
 
+.why-section,
 .issue-section {
   margin-bottom: 1.5rem;
 }
 
+.why-section h2,
 .issue-section h2 {
   margin-top: 0;
 }

@@ -22,7 +22,6 @@ export const RULE_MD_FRONTMATTER_KEYS = [
 /** Required H2 narrative + example sections in document order */
 export const RULE_MD_H2_NARRATIVE = [
   'Why it matters',
-  'Issues',
   'How to fix',
 ] as const;
 

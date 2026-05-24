@@ -23,11 +23,6 @@ A migration that needs two-team coordination = a feature that slips by a month.
 - A migration that needs two-team coordination = a feature that slips by a month.
 - The moment a domain edits another's tables, separation is in code only — not in the DB.
 
-## Issues
-
-- [maintainability] A migration that needs two-team coordination = a feature that slips by a month.
-- [maintainability] The moment a domain edits another's tables, separation is in code only — not in the DB.
-
 
 ## How to fix
 
@@ -38,12 +33,12 @@ A DB migration lives in the domain's `data-access` lib. One domain doesn't touch
 ```sql
 -- migrations/2026_05_add_agent_to_sites.sql (where does it live? who owns it?)
 ALTER TABLE sites ADD COLUMN active_agent_id UUID REFERENCES agents(id);
--- now sites knows about agents. The Studio domain injected a column into Sites.
+-- now catalog knows about workflows. The workspace domain injected a column into catalog.
 ```
 
 ## Correct
 
 ```sql
--- libs/sites-management/data-access/migrations/2026_05_add_slug_index.sql
+-- libs/catalog/data-access/migrations/2026_05_add_slug_index.sql
 CREATE INDEX CONCURRENTLY sites_slug_idx ON sites (slug);
 ```

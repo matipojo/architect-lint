@@ -25,11 +25,6 @@ Pure UI lib runs in Storybook with zero mocks.
 - feature is the only lib that knows both — and is the only one that composes.
 - Without this split, every lib drags the whole system behind it.
 
-## Issues
-
-- [testability] Pure UI lib runs in Storybook with zero mocks.
-- [testability] data-access lib can be replaced with a mock in one shot.
-
 
 ## How to fix
 

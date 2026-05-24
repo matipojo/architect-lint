@@ -25,11 +25,6 @@ No surprises. All settings in one reviewable place.
 - Validation at startup — if a var is missing, the app doesn't boot. Better than crashing an hour later.
 - Tests receive config as a prop, not by stubbing `process.env`.
 
-## Issues
-
-- [governance] No surprises. All settings in one reviewable place.
-- [reliability] Validation at startup — if a var is missing, the app doesn't boot. Better than crashing an hour later.
-
 
 ## How to fix
 
@@ -47,19 +42,19 @@ const timeout = parseInt(process.env.TIMEOUT_MS ?? '5000');
 ## Correct
 
 ```typescript
-// apps/studio/src/config.ts
+// apps/workspace/src/config.ts
 import { z } from 'zod';
 
 const ConfigSchema = z.object({
-  openaiApiKey: z.string().min(1),
-  databaseUrl:  z.string().url(),
-  timeoutMs:    z.coerce.number().default(5000),
+  llmApiKey:   z.string().min(1),
+  databaseUrl: z.string().url(),
+  timeoutMs:   z.coerce.number().default(5000),
 });
 
 export const config = ConfigSchema.parse({
-  openaiApiKey: process.env.OPENAI_API_KEY,
-  databaseUrl:  process.env.DATABASE_URL,
-  timeoutMs:    process.env.TIMEOUT_MS,
+  llmApiKey:   process.env.LLM_API_KEY,
+  databaseUrl: process.env.DATABASE_URL,
+  timeoutMs:   process.env.TIMEOUT_MS,
 });
 
 // everywhere else

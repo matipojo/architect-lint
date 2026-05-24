@@ -23,11 +23,9 @@ Free-text streams can't drive UI state for tool calls, errors, or completion.
 
 - The UI needs to know when to show a "searching the site" spinner, when to show the result, when to show an error. From free text — impossible.
 - Typed events feed logging, analytics, and debugging — from the same stream.
+- uI can't show tool-call spinners or error states from a plain text stream.
+- logging and analytics can't parse unstructured token output.
 
-## Issues
-
-- [ux] uI can't show tool-call spinners or error states from a plain text stream.
-- [maintainability] logging and analytics can't parse unstructured token output.
 
 
 ## How to fix
@@ -45,7 +43,7 @@ sse.addEventListener('message', (e) => {
 ## Correct
 
 ```typescript
-// libs/studio/data-access/src/lib/run-events.ts
+// libs/workspace/data-access/src/lib/run-events.ts
 export type RunEvent =
   | { type: 'text-delta';          delta: string }
   | { type: 'tool-call-started';   toolCallId: string; tool: string; args: unknown }

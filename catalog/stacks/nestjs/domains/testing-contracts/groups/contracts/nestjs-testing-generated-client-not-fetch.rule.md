@@ -25,10 +25,8 @@ An endpoint change breaks the compile, not the runtime.
 - An endpoint change breaks the compile, not the runtime.
 - No more "what's the response shape?" — the type is guaranteed.
 - Removes the need to maintain types twice (see also `professional-architecture-monorepo-hygiene` rule 13).
+- what fields? who knows. backend change? runtime errors.
 
-## Issues
-
-- [contract] what fields? who knows. backend change? runtime errors.
 
 
 ## How to fix

@@ -23,12 +23,10 @@ If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't hel
 - If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't help.
 - Tiers tell you where the bug is: unit fails → logic. integration fails → wiring. e2e fails → contract.
 - A generated client gives e2e tests a typed surface; the three-tier split keeps contract test cost low.
+- cI runs every test on every PR — feedback loops stretch to 40+ minutes.
+- a failing test doesn't tell you whether logic, wiring, or the public contract broke.
+- `nx affected --target=test` can't skip irrelevant tiers when everything is lumped into e2e.
 
-## Issues
-
-- [testability] cI runs every test on every PR — feedback loops stretch to 40+ minutes.
-- [contract] a failing test doesn't tell you whether logic, wiring, or the public contract broke.
-- [testability] `nx affected --target=test` can't skip irrelevant tiers when everything is lumped into e2e.
 
 
 ## How to fix

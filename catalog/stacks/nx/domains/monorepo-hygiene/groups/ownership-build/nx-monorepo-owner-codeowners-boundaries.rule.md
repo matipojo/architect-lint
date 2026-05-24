@@ -22,11 +22,9 @@ Without it, someone "just" tweaks the core at 2 AM and three domains break by mo
 
 - Turns architectural boundaries from suggestion into process — cannot be bypassed in review.
 - Shared code changes get platform-lead eyes before they land.
+- Without domain-scoped owners, cross-domain edits merge without the team that will be paged.
+- a late-night tweak to `libs/shared/*` can break multiple apps before anyone notices.
 
-## Issues
-
-- [governance] Without domain-scoped owners, cross-domain edits merge without the team that will be paged.
-- [blast-radius] a late-night tweak to `libs/shared/*` can break multiple apps before anyone notices.
 
 
 ## How to fix
@@ -37,18 +35,18 @@ Map `.github/CODEOWNERS` per domain. A PR touching `libs/studio/*` requires Stud
 
 ```text
 # .github/CODEOWNERS
-* @angie/everyone
+* @acme/everyone
 ```
 
 ## Correct
 
 ```text
 # .github/CODEOWNERS
-/apps/sites-management/      @angie/team-sites
-/libs/sites-management/      @angie/team-sites
-/apps/studio/                @angie/team-studio
-/libs/studio/                @angie/team-studio
-/libs/shared/                @angie/platform-leads
-/nx.json                     @angie/platform-leads
-/.github/                    @angie/platform-leads
+/apps/sites-management/      @acme/team-sites
+/libs/sites-management/      @acme/team-sites
+/apps/studio/                @acme/team-studio
+/libs/studio/                @acme/team-studio
+/libs/shared/                @acme/platform-leads
+/nx.json                     @acme/platform-leads
+/.github/                    @acme/platform-leads
 ```

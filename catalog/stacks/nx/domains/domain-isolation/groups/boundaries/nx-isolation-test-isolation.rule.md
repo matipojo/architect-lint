@@ -24,11 +24,6 @@ Without this, rule 1 is empty words — if tests need the whole system, dependen
 - CI times stay sane as the system grows.
 - When a test fails, it's clear who broke what.
 
-## Issues
-
-- [blast-radius] Without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.
-- [testability] CI times stay sane as the system grows.
-
 
 ## How to fix
 

@@ -75,7 +75,7 @@ function loadDomains(): Array<{ id: string; stack: string; title: string; descri
 }
 
 function ruleHref(rule: Rule): string {
-  return `/rules/${rule.stack}/${rule.domain}/${rule.id}`;
+  return `/rules/${rule.id}`;
 }
 
 function generateWebsiteData(rules: Rule[]) {
@@ -114,9 +114,8 @@ function generateWebsiteData(rules: Rule[]) {
         text: `${stack.title} · ${domain.title}`,
         collapsed: true,
         items: domainRules.map((r) => ({
-          text: r.id,
+          text: r.title,
           id: r.id,
-          title: r.title,
           href: ruleHref(r),
         })),
       });
@@ -194,7 +193,7 @@ function generateSkills(rules: Rule[]) {
 
     const rows = stackRules.map((r) => {
       const catalogPath = ruleCatalogPath(r.stack, r.domain, r.group, r.id);
-      const permalink = rulePermalink(r.stack, r.domain, r.id);
+      const permalink = rulePermalink(r.id);
       return `| ${r.id} | \`${catalogPath}\` | ${permalink} |`;
     });
 
@@ -259,7 +258,7 @@ ${stacks
 1. Read \`.architect-lint.yaml\` in the consumer repo (if present) to select stacks and review scope.
 2. Pick the narrowest stack skill for the change (nx / react / nestjs).
 3. **Read** each referenced \`*.rule.md\` file before citing a violation.
-4. Output findings with permalinks to \`${rulePermalink('{stack}', '{domain}', '{rule-id}')}\`.
+4. Output findings with permalinks to \`${rulePermalink('{rule-id}')}\`.
 
 ## Review command
 
@@ -292,7 +291,7 @@ Review changed code against principles in \`catalog/stacks/\` (via stack skills)
 
 \`\`\`
 ❌ nestjs-realtime-transport-sse-vs-websocket — Pick one mechanism per flow — don't confuse SSE with WebSocket
-   https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-sse-vs-websocket
+   https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-sse-vs-websocket
    File: src/chat.gateway.ts:12
    Problem: WebSocket used for one-way LLM stream
    Fix: Use SSE for server→client streaming

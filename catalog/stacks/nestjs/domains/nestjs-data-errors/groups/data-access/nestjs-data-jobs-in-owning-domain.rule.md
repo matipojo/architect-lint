@@ -16,17 +16,12 @@ related: []
 
 # Background jobs and events — inside the owning domain
 
-If Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.
+If the workspace domain pushes a job to the catalog domain's queue, it knows the catalog's internal job structure. Hidden coupling.
 
 ## Why it matters
 
-- If Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.
+- If the workspace domain pushes a job to the catalog domain's queue, it knows the catalog's internal job structure. Hidden coupling.
 - Events are how domains coordinate without one knowing the other's internals.
-
-## Issues
-
-- [coupling] If Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.
-- [maintainability] Events are how domains coordinate without one knowing the other's internals.
 
 
 ## How to fix
@@ -38,16 +33,16 @@ Cross-domain communication via events — a typed event bus, not a direct call i
 ## Incorrect
 
 ```typescript
-// libs/studio/backend-feature/src/lib/agents.service.ts
+// libs/workspace/backend-feature/src/lib/workflows.service.ts
 @Injectable()
-export class AgentsService {
+export class WorkflowsService {
   constructor(
-    @InjectQueue('sites-cleanup') private sitesQueue: Queue,   // ← another domain's queue
+    @InjectQueue('catalog-cleanup') private catalogQueue: Queue,   // ← another domain's queue
   ) {}
 
-  async deleteAgent(id: string) {
+  async deleteWorkflow(id: string) {
     await this.repo.delete(id);
-    await this.sitesQueue.add('rebuild-index', { agentId: id });   // ← Studio knows Sites internals
+    await this.catalogQueue.add('rebuild-index', { workflowId: id });   // ← workspace knows catalog internals
   }
 }
 ```
@@ -56,32 +51,32 @@ export class AgentsService {
 
 ```typescript
 // libs/shared/backend-events/src/lib/events.ts
-export type AgentDeletedEvent = {
-  type: 'agent.deleted';
-  agentId: string;
+export type WorkflowDeletedEvent = {
+  type: 'workflow.deleted';
+  workflowId: string;
   at: string;
 };
 
-// libs/studio/backend-feature/src/lib/agents.service.ts
+// libs/workspace/backend-feature/src/lib/workflows.service.ts
 @Injectable()
-export class AgentsService {
+export class WorkflowsService {
   constructor(private events: EventBus) {}
 
-  async deleteAgent(id: string) {
+  async deleteWorkflow(id: string) {
     await this.repo.delete(id);
-    await this.events.publish<AgentDeletedEvent>({
-      type: 'agent.deleted',
-      agentId: id,
+    await this.events.publish<WorkflowDeletedEvent>({
+      type: 'workflow.deleted',
+      workflowId: id,
       at: new Date().toISOString(),
     });
   }
 }
 
-// libs/sites-management/backend-feature/src/lib/agent-deleted.handler.ts
-@EventHandler('agent.deleted')
-export class AgentDeletedHandler {
-  async handle(event: AgentDeletedEvent) {
-    // Sites decides what to do, at its own pace
+// libs/catalog/backend-feature/src/lib/workflow-deleted.handler.ts
+@EventHandler('workflow.deleted')
+export class WorkflowDeletedHandler {
+  async handle(event: WorkflowDeletedEvent) {
+    // catalog decides what to do, at its own pace
   }
 }
 ```

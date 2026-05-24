@@ -19,12 +19,8 @@ One-line summary shown in listings and Tier 1 review output.
 
 Platform-level stakes — why this principle exists.
 
-## Issues
-
-Concrete failure modes if you ignore it — one tag per bullet:
-
-- [security] First bad outcome
-- [reliability] Second bad outcome
+- First bad outcome
+- Second bad outcome
 
 ## How to fix
 

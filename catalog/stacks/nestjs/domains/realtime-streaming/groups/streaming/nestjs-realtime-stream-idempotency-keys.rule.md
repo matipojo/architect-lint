@@ -22,12 +22,10 @@ Unreliable networks + client retries = duplicate runs of the same prompt = doubl
 ## Why it matters
 
 - Unreliable networks + client retries = duplicate runs of the same prompt = double charges.
-- This is the industry standard (Stripe). For expensive agent runs — mandatory.
+- This is the industry standard idempotency pattern. For expensive long-running jobs — mandatory.
+- client retries create duplicate job runs — double charges on expensive LLM calls.
+- double-clicks spawn two runs for the same user intent.
 
-## Issues
-
-- [data-integrity] client retries create duplicate agent runs — double charges on expensive LLM calls.
-- [ux] double-clicks spawn two runs for the same user intent.
 
 
 ## How to fix

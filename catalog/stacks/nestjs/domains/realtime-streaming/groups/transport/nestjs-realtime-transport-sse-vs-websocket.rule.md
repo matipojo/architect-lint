@@ -23,11 +23,9 @@ WebSocket is operationally more expensive (sticky sessions, scaling, connections
 
 - WebSocket is operationally more expensive (sticky sessions, scaling, connections that don't close).
 - For LLM response streaming — SSE wins big: works through HTTP/2, through proxies, with regular infrastructure.
+- webSocket for one-way LLM streaming adds sticky sessions, socket auth, and reconnect complexity.
+- proxies and load balancers treat long-lived sockets differently from plain HTTP/SSE.
 
-## Issues
-
-- [security] webSocket for one-way LLM streaming adds sticky sessions, socket auth, and reconnect complexity.
-- [maintainability] proxies and load balancers treat long-lived sockets differently from plain HTTP/SSE.
 
 
 ## How to fix

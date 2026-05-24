@@ -21,7 +21,7 @@ Run an architecture review against the catalog principles with progressive discl
 
 ```
 ❌ nestjs-realtime-transport-sse-vs-websocket — Pick one mechanism per flow — don't confuse SSE with WebSocket
-   https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-sse-vs-websocket
+   https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-sse-vs-websocket
    File: src/chat.gateway.ts:12
    Problem: WebSocket used for one-way LLM stream
    Fix: Use SSE for server→client streaming

@@ -23,11 +23,6 @@ Authentication and Authorization are two different layers
 - When `AuthGuard` both authenticates and decides permissions, you can't swap auth method (JWT → session, OAuth → API key) without touching every permission check.
 - Permission checks belong inside the domain that knows the resource. Auth checks are cross-cutting infrastructure.
 
-## Issues
-
-- [maintainability] When `AuthGuard` both authenticates and decides permissions, you can't swap auth method (JWT → session, OAuth → API key) without touching every permission check.
-- [maintainability] Permission checks belong inside the domain that knows the resource. Auth checks are cross-cutting infrastructure.
-
 
 ## How to fix
 

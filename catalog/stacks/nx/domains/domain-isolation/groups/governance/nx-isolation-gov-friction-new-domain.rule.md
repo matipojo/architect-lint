@@ -23,12 +23,10 @@ Every new feature shouldn't become its own domain — a domain is a business cap
 - Anti-pattern: every new feature becomes a domain → 40 micro-domains → the platform turns into the inverse mess of a monolith.
 - A domain should be a business capability, not a feature.
 - Simple test: if domain X disappears tomorrow, what business capability vanishes? If the answer is "kind of a widget" — that's not a domain, it's a feature lib inside an existing domain.
+- new domains appear without owners, READMEs, or boundary tags.
+- `enforce-module-boundaries` can't protect libs that were never tagged.
+- platform graph grows unreadable — every feature is a top-level domain.
 
-## Issues
-
-- [governance] new domains appear without owners, READMEs, or boundary tags.
-- [maintainability] `enforce-module-boundaries` can't protect libs that were never tagged.
-- [maintainability] platform graph grows unreadable — every feature is a top-level domain.
 
 
 ## How to fix

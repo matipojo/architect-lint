@@ -23,11 +23,6 @@ Once `shared` knows a domain, it's not shared anymore.
 - Once `shared` knows a domain, it's not shared anymore.
 - This is what lets you add a new domain without touching `shared`.
 
-## Issues
-
-- [coupling] Once `shared` knows a domain, it's not shared anymore.
-- [maintainability] This is what lets you add a new domain without touching `shared`.
-
 
 ## How to fix
 
@@ -37,8 +32,8 @@ Layering: `apps → features → data-access/ui → util/shared`. `shared` may n
 
 ```typescript
 // libs/shared/auth/src/lib/permissions.ts
-import { StudioPermissions } from '@angie/studio/permissions';
-import { SitesPermissions } from '@angie/sites-management/permissions';
+import { StudioPermissions } from '@acme/studio/permissions';
+import { SitesPermissions } from '@acme/sites-management/permissions';
 
 export function canAccess(user: User, resource: string) {
   if (resource.startsWith('studio/')) return StudioPermissions.check(user);
@@ -63,7 +58,7 @@ export function canAccess(user: User, resource: string) {
 }
 
 // apps/studio/src/main.ts
-import { registerPermissionChecker } from '@angie/shared/auth';
-import { StudioPermissions } from '@angie/studio/feature-permissions';
+import { registerPermissionChecker } from '@acme/shared/auth';
+import { StudioPermissions } from '@acme/studio/feature-permissions';
 registerPermissionChecker('studio', StudioPermissions.check);
 ```

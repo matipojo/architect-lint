@@ -23,11 +23,6 @@ When something breaks, the first question is "which domain?" If the logs don't k
 - When something breaks, the first question is "which domain?" If the logs don't know — you're blind.
 - Without a standard, you end up with five log formats and can't search anything.
 
-## Issues
-
-- [maintainability] When something breaks, the first question is "which domain?" If the logs don't know — you're blind.
-- [maintainability] Without a standard, you end up with five log formats and can't search anything.
-
 
 ## How to fix
 
@@ -55,7 +50,7 @@ export function createLogger(domain: string) {
 }
 
 // in a domain
-import { createLogger } from '@angie/shared/observability';
+import { createLogger } from '@acme/shared/observability';
 const log = createLogger('sites-management');
 
 log.info({ event: 'site.created', siteId });

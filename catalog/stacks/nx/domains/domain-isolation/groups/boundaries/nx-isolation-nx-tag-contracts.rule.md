@@ -24,11 +24,6 @@ The moment one domain reaches into another's internals, rule 1 silently breaks.
 - Internal changes must not break consumers — if they do, you have hidden coupling.
 - The public API is the only surface that needs strict review.
 
-## Issues
-
-- [reliability] The moment one domain reaches into another's internals, rule 1 silently breaks.
-- [coupling] Internal changes must not break consumers — if they do, you have hidden coupling.
-
 
 ## How to fix
 
@@ -37,7 +32,7 @@ A domain may not import from `src/` of another domain. Only via the library barr
 ## Incorrect
 
 ```typescript
-// apps/studio/src/agent-builder.ts
+// apps/workspace/src/workflow-builder.ts
 import { SiteModel } from '../../../libs/sites-management/data-access/src/lib/internal/models/site';
 import { validateSlug } from '../../../libs/sites-management/data-access/src/lib/utils/validation';
 ```

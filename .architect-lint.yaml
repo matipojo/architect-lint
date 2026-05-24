@@ -1,4 +1,4 @@
-# Recommended stacks for a typical Angie/Nx + NestJS monorepo
+# Recommended stacks for a typical Nx + NestJS monorepo
 stacks:
   - nx
   - nestjs

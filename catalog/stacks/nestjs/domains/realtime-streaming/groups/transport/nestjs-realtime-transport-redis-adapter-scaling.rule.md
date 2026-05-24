@@ -26,11 +26,9 @@ Without it, user A is on instance 1, user B on instance 2 — they don't see eac
 - Without it, user A is on instance 1, user B on instance 2 — they don't see each other.
 - Every real-time system going to production needs this on day one, or it will hurt later.
 - SSE resume across instances also needs a shared broker — in-memory streams can't hand off to another node.
+- room broadcasts only reach clients on the same process.
+- sSE stream resume fails when the resume lands on a different instance than the original POST.
 
-## Issues
-
-- [maintainability] room broadcasts only reach clients on the same process.
-- [maintainability] sSE stream resume fails when the resume lands on a different instance than the original POST.
 
 
 ## How to fix

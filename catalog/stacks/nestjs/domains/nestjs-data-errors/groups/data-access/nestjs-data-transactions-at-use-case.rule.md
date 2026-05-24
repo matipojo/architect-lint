@@ -23,10 +23,8 @@ A transaction inside a repository = the repository knows too much. It doesn't kn
 - A transaction inside a repository = the repository knows too much. It doesn't know if it's part of a larger flow.
 - A transaction in a controller = the controller knows about the DB. Layer violation.
 - The service is the use case. The use case is the natural transaction boundary.
+- If the second fails, an orphaned site is left in the DB
 
-## Issues
-
-- [data-integrity] If the second fails, an orphaned site is left in the DB
 
 
 ## How to fix

@@ -22,10 +22,8 @@ Without versioning, every change becomes a cross-team coordination project.
 
 - Without versioning, every change becomes a cross-team coordination project.
 - Versioning is what lets domains evolve independently.
+- next week — breaking change, no warning
 
-## Issues
-
-- [contract] next week — breaking change, no warning
 
 
 ## How to fix
@@ -46,7 +44,7 @@ export function getSite(id: string, options: GetSiteOptions): Promise<SiteWithMe
 
 ```json
 {
-  "name": "@angie/sites-management-data-access",
+  "name": "@acme/sites-management-data-access",
   "exports": {
     ".":    "./src/index.ts",
     "./v1": "./src/v1/index.ts",

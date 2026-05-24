@@ -23,11 +23,6 @@ In a platform, a new person doesn't learn "the system" — they learn one domain
 - In a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
 - If you can't write a short clear README, the domain isn't well-defined.
 
-## Issues
-
-- [governance] In a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
-- [governance] If you can't write a short clear README, the domain isn't well-defined.
-
 
 ## How to fix
 

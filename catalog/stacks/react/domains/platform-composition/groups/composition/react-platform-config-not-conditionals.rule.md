@@ -16,18 +16,13 @@ related: []
 
 # Configuration, not conditionals
 
-A UI lib containing `if (context === 'wordpress')` is no longer a lib — it's part of WordPress.
+A UI lib containing `if (context === 'embedded')` is no longer a lib — it's part of that host app.
 
 ## Why it matters
 
-- A UI lib containing `if (context === 'wordpress')` is no longer a lib — it's part of WordPress.
+- A UI lib containing `if (context === 'embedded')` is no longer a lib — it's part of that host app.
 - New context = compose different props. Don't touch the lib.
 - Without this, in a year you have 40 `if`s in one component and nobody knows what's safe to delete.
-
-## Issues
-
-- [maintainability] A UI lib containing `if (context === 'wordpress')` is no longer a lib — it's part of WordPress.
-- [maintainability] New context = compose different props. Don't touch the lib.
 
 
 ## How to fix
@@ -38,12 +33,12 @@ Same library, different behaviors per host — through props and configuration, 
 
 ```tsx
 // libs/shared/ui-chat/src/lib/chat-sidebar.tsx
-function ChatSidebar({ context }: { context: 'wordpress' | 'account' }) {
+function ChatSidebar({ context }: { context: 'embedded' | 'account' }) {
   return (
     <Sidebar>
       <NewChatButton />
-      {context === 'wordpress' && <TestModeToggle />}
-      {context === 'wordpress' && <SuperAdminToggle />}
+      {context === 'embedded' && <DevModeToggle />}
+      {context === 'embedded' && <AdminModeToggle />}
       {context === 'account' && <BillingShortcut />}
     </Sidebar>
   );
@@ -65,10 +60,10 @@ export function ChatSidebar({ actions }: { actions: SidebarAction[] }) {
   );
 }
 
-// apps/wordpress-integration/src/main.tsx
+// apps/embedded-host/src/main.tsx
 <ChatSidebar actions={[
-  { id: 'test-mode', render: () => <TestModeToggle /> },
-  { id: 'super-admin', render: () => <SuperAdminToggle /> },
+  { id: 'dev-mode', render: () => <DevModeToggle /> },
+  { id: 'admin-mode', render: () => <AdminModeToggle /> },
 ]} />
 
 // apps/account/src/main.tsx

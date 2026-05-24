@@ -23,10 +23,8 @@ Schemas and types — one source of truth
 
 - Two seemingly-identical types will diverge within 3 months. One gets a new field, the other doesn't, and you have a silent bug.
 - With Zod or similar, the same schema gives you runtime validation and a compile-time type.
+- someone added ownerId on one side only
 
-## Issues
-
-- [data-integrity] someone added ownerId on one side only
 
 
 ## How to fix
@@ -58,5 +56,5 @@ export const SiteSchema = z.object({
 export type Site = z.infer<typeof SiteSchema>;
 
 // both sides
-import { SiteSchema, type Site } from '@angie/sites-management-data-access';
+import { SiteSchema, type Site } from '@acme/sites-management-data-access';
 ```

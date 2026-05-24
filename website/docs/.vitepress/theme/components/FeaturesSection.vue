@@ -35,13 +35,18 @@ const activeRules = () => showcase[activeTab.value]?.rules ?? [];
 </script>
 
 <template>
-  <section class="arch-features-section">
-    <h2 style="text-align: center">Browse by stack</h2>
-    <p style="text-align: center; color: var(--vp-c-text-2); margin-bottom: 1.5rem">
-      {{ stats.total }} principles across {{ Object.keys(stats.byStack).length }} stacks
-    </p>
+  <section class="arch-showcase">
+    <header class="arch-showcase-header">
+      <h2 class="arch-showcase-heading">Browse by stack</h2>
+      <p class="arch-showcase-lead">
+        {{ stats.total }} principles across {{ Object.keys(stats.byStack).length }} stacks
+      </p>
+    </header>
+
     <div
-      class="arch-features-tabs"
+      class="arch-showcase-tabs"
+      role="tablist"
+      aria-label="Filter by stack"
       @mouseenter="paused = true"
       @mouseleave="paused = false"
     >
@@ -49,23 +54,26 @@ const activeRules = () => showcase[activeTab.value]?.rules ?? [];
         v-for="(tab, index) in showcase"
         :key="tab.stack"
         type="button"
-        class="arch-features-tab"
+        role="tab"
+        class="arch-showcase-tab"
         :class="{ active: index === activeTab }"
+        :aria-selected="index === activeTab"
         @click="activeTab = index"
       >
         {{ tab.title }}
       </button>
     </div>
-    <div class="arch-showcase-grid">
+
+    <div class="arch-showcase-grid" :key="activeTab">
       <a
         v-for="rule in activeRules()"
         :key="rule.id"
         :href="withBase(rule.href)"
         class="arch-showcase-card"
       >
-        <div class="arch-showcase-card-id">{{ rule.id }}</div>
-        <div class="arch-showcase-card-title">{{ rule.title }}</div>
-        <div class="arch-showcase-card-summary">{{ rule.summary }}</div>
+        <h3 class="arch-showcase-card-title">{{ rule.title }}</h3>
+        <p class="arch-showcase-card-summary">{{ rule.summary }}</p>
+        <span class="arch-showcase-card-cta">Read principle</span>
       </a>
     </div>
   </section>

@@ -3,8 +3,8 @@ export const DOCS_BASE_PATH = '/architect-lint';
 export const GITHUB_REPO = 'matipojo/architect-lint';
 export const GITHUB_BRANCH = 'main';
 
-export function rulePermalink(stack: string, domain: string, id: string): string {
-  return `${DOCS_BASE_URL}/rules/${stack}/${domain}/${id}`;
+export function rulePermalink(id: string): string {
+  return `${DOCS_BASE_URL}/rules/${id}`;
 }
 
 export function ruleCatalogPath(stack: string, domain: string, group: string, id: string): string {

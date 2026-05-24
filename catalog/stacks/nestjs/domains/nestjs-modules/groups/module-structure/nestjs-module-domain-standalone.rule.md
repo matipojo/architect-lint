@@ -23,11 +23,6 @@ A standalone module can be loaded into a different app, or run isolated in tests
 - A standalone module can be loaded into a different app, or run isolated in tests.
 - Without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
 
-## Issues
-
-- [blast-radius] A standalone module can be loaded into a different app, or run isolated in tests.
-- [maintainability] Without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
-
 
 ## How to fix
 

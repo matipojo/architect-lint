@@ -5,24 +5,26 @@ import { applyRulePageData } from './rule-data';
 type SidebarGroup = {
   text: string;
   collapsed: boolean;
-  items: Array<{ text: string; href: string; title?: string }>;
+  items: Array<{ text: string; href: string; id?: string }>;
 };
+
+type SidebarItem = SidebarGroup['items'][number];
 
 function mapSidebar(groups: SidebarGroup[]) {
   return groups.map((group) => ({
-    text: `${group.text} (${group.items.length})`,
+    text: group.text,
     collapsed: group.collapsed,
-    items: group.items.map((item) => ({
+    items: group.items.map((item: SidebarItem) => ({
       text: item.text,
       link: item.href,
-      ...(item.title ? { title: item.title } : {}),
+      ...(item.id ? { title: item.id } : {}),
     })),
   }));
 }
 
 export default defineConfig({
-  title: 'architect-lint',
-  description: 'Open architecture rules catalog',
+  title: 'Architect Lint',
+  description: 'Open architecture rules catalog for Nx, React, and NestJS',
   base: '/architect-lint/',
   cleanUrls: true,
   markdown: {
@@ -46,10 +48,7 @@ export default defineConfig({
   },
   themeConfig: {
     logo: '/logo.svg',
-    nav: [
-      { text: 'Principles', link: '/rules/' },
-      { text: 'GitHub', link: 'https://github.com/matipojo/architect-lint' },
-    ],
+    nav: [{ text: 'Principles', link: '/rules/' }],
     sidebar: mapSidebar(sidebarData as SidebarGroup[]),
     search: { provider: 'local' },
     editLink: {
@@ -61,8 +60,8 @@ export default defineConfig({
       next: 'Next rule',
     },
     footer: {
-      message: 'Released under the MIT License',
-      copyright: 'matipojo/architect-lint',
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © matipojo/architect-lint',
     },
     socialLinks: [{ icon: 'github', link: 'https://github.com/matipojo/architect-lint' }],
   },

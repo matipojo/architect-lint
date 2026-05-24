@@ -23,10 +23,8 @@ Tomorrow you swap TypeORM for Prisma or vice versa — change the repository onl
 - Tomorrow you swap TypeORM for Prisma or vice versa — change the repository only, services don't move.
 - In tests, you can mock `SitesRepository` without mocking the entire ORM.
 - ORMs leak abstractions (lazy loading, transactions, eager fetching). The repository layer seals the leak.
+- service knows about TypeORM QueryBuilder
 
-## Issues
-
-- [coupling] service knows about TypeORM QueryBuilder
 
 
 ## How to fix

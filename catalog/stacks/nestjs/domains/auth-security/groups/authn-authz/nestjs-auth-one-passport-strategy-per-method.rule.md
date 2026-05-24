@@ -22,11 +22,9 @@ One huge Strategy with `if`s = you can't add a new auth method without risking t
 
 - One huge Strategy with `if`s = you can't add a new auth method without risking the existing ones.
 - Each strategy answers exactly one question: "who is the user on this request?"
+- adding OAuth or API keys means editing one Strategy full of conditionals.
+- a bug in one auth branch breaks every endpoint using that Strategy.
 
-## Issues
-
-- [security] adding OAuth or API keys means editing one Strategy full of conditionals.
-- [security] a bug in one auth branch breaks every endpoint using that Strategy.
 
 
 ## How to fix

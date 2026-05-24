@@ -9,6 +9,7 @@ export const IssueSchema = z.object({
 export type Issue = z.infer<typeof IssueSchema>;
 
 const ISSUE_LINE = /^-\s*\[([a-z][a-z0-9-]*)\]\s+(.+)$/;
+const TAGGED_TEXT = /^\[([a-z][a-z0-9-]*)\]\s+(.+)$/;
 
 export function formatIssuesSection(issues: Issue[]): string {
   return issues.map((issue) => `- [${issue.type}] ${issue.text}`).join('\n');
@@ -49,6 +50,38 @@ export function parseIssuesSection(content: string, fileLabel: string): Issue[] 
   }
 
   return issues.map((issue) => IssueSchema.parse(issue));
+}
+
+export function parseClassifiedBulletSection(content: string, fileLabel: string): Issue[] {
+  const bullets = content
+    .trim()
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith('-'))
+    .map((line) => line.replace(/^-\s*/, '').trim())
+    .filter((line) => line.length > 0);
+
+  return bullets.map((bullet) => {
+    const tagged = bullet.match(TAGGED_TEXT);
+    if (!tagged) {
+      return IssueSchema.parse({
+        type: classifyIssueText(bullet),
+        text: bullet,
+      });
+    }
+
+    const typeSlug = tagged[1];
+    if (!isIssueType(typeSlug)) {
+      throw new Error(
+        `${fileLabel}: unknown issue type "${typeSlug}" — allowed: ${ISSUE_TYPES.join(', ')}`,
+      );
+    }
+
+    return IssueSchema.parse({
+      type: typeSlug,
+      text: tagged[2].trim(),
+    });
+  });
 }
 
 export function classifyIssueText(text: string): IssueType {

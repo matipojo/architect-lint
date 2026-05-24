@@ -24,11 +24,6 @@ A service that reads `process.env` directly is not testable — you can't fake c
 - A service that reads `process.env` directly is not testable — you can't fake configuration.
 - Validation at boot means the app won't start if a var is missing.
 
-## Issues
-
-- [testability] A service that reads `process.env` directly is not testable — you can't fake configuration.
-- [reliability] Validation at boot means the app won't start if a var is missing.
-
 
 ## How to fix
 
@@ -38,9 +33,9 @@ NestJS provides `@nestjs/config` with schema validation. Use it. Services receiv
 
 ```typescript
 @Injectable()
-export class OpenAIService {
-  private client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY!,   // ← if missing, runtime crash
+export class LlmService {
+  private client = new LlmClient({
+    apiKey: process.env.LLM_API_KEY!,   // ← if missing, runtime crash
   });
 }
 ```
@@ -52,9 +47,9 @@ export class OpenAIService {
 import { z } from 'zod';
 
 export const ConfigSchema = z.object({
-  OPENAI_API_KEY: z.string().min(1),
-  DATABASE_URL:   z.string().url(),
-  PORT:           z.coerce.number().default(3000),
+  LLM_API_KEY:   z.string().min(1),
+  DATABASE_URL:  z.string().url(),
+  PORT:          z.coerce.number().default(3000),
 });
 
 // apps/api/src/main.ts
@@ -63,12 +58,12 @@ ConfigModule.forRoot({
   isGlobal: true,
 });
 
-// libs/studio/backend-feature/src/lib/openai.service.ts
+// libs/workspace/backend-feature/src/lib/llm.service.ts
 @Injectable()
-export class OpenAIService {
-  private client: OpenAI;
+export class LlmService {
+  private client: LlmClient;
   constructor(config: ConfigService) {
-    this.client = new OpenAI({ apiKey: config.get('OPENAI_API_KEY') });
+    this.client = new LlmClient({ apiKey: config.get('LLM_API_KEY') });
   }
 }
 ```

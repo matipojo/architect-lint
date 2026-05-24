@@ -24,11 +24,6 @@ Enables deploy without release.
 - Prevents long-lived branches that drift from the system.
 - Replaces the scattered `if (isNewFeatureEnabled)` with a single, defined source.
 
-## Issues
-
-- [operational] Enables deploy without release.
-- [maintainability] Prevents long-lived branches that drift from the system.
-
 
 ## How to fix
 
@@ -53,7 +48,7 @@ export const flags = {
 };
 
 // usage
-import { flags } from '@angie/shared/feature-flags';
+import { flags } from '@acme/shared/feature-flags';
 function generateResponse(prompt: string) {
   return flags.newPromptFormat ? newFormat(prompt) : legacyFormat(prompt);
 }

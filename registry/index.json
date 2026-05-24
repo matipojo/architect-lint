@@ -1,0 +1,985 @@
+{
+  "generatedAt": "2026-05-24T21:22:09.952Z",
+  "rules": [
+    {
+      "id": "nestjs-auth-one-passport-strategy-per-method",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "authn-authz",
+      "title": "Passport Strategies — one per auth method, no more",
+      "summary": "One huge Strategy with `if`s = you can't add a new auth method without risking the existing ones.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/authn-authz/nestjs-auth-one-passport-strategy-per-method.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-auth-one-passport-strategy-per-method",
+      "rationale": "NestJS + Passport invites `JwtStrategy`, `LocalStrategy`, `ApiKeyStrategy`. Each lives in its own file, and makes no business decisions.",
+      "related": []
+    },
+    {
+      "id": "nestjs-auth-policies-not-decorators",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "authn-authz",
+      "title": "Authorization = Policies, not decorators sprinkled across the code",
+      "summary": "Decorators scatter permissions across dozens of places. A policy change = grep across the project.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/authn-authz/nestjs-auth-policies-not-decorators.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-auth-policies-not-decorators",
+      "rationale": "Not `@RequireRole('admin')`, not `@CanAccess('sites:write')` on the controller. A permission is a question about a user and a resource, and the answer lives in a policy function you can test and reuse.",
+      "related": []
+    },
+    {
+      "id": "nestjs-auth-separate-authn-authz",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "authn-authz",
+      "title": "Authentication and Authorization are two different layers",
+      "summary": "Authentication and Authorization are two different layers",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/authn-authz/nestjs-auth-separate-authn-authz.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-auth-separate-authn-authz",
+      "rationale": "Authentication = who you are. Authorization = what you can do. They don't live in the same guard, and they don't live in the same service. Mixing them is the source of the most painful security bugs.",
+      "related": []
+    },
+    {
+      "id": "nestjs-config-for-root-async",
+      "stack": "nestjs",
+      "domain": "nestjs-modules",
+      "group": "configuration",
+      "title": "`forRootAsync` for modules with dependent configuration",
+      "summary": "Lets the same module run with different configs in different environments without code changes.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "modules",
+        "openapi"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/configuration/nestjs-config-for-root-async.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-modules/nestjs-config-for-root-async",
+      "rationale": "A module that needs configuration (DB connection, API key) provides a static `forRoot` / `forRootAsync`. Without it, you slide back to singletons and global state.",
+      "related": []
+    },
+    {
+      "id": "nestjs-config-module-not-process-env",
+      "stack": "nestjs",
+      "domain": "nestjs-modules",
+      "group": "configuration",
+      "title": "Configuration via ConfigModule, not `process.env`",
+      "summary": "A service that reads `process.env` directly is not testable — you can't fake configuration.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "modules",
+        "openapi"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/configuration/nestjs-config-module-not-process-env.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-modules/nestjs-config-module-not-process-env",
+      "rationale": "NestJS provides `@nestjs/config` with schema validation. Use it. Services receive an injected `ConfigService` — they don't read `process.env` directly. (This is the NestJS expression of rule 16.)",
+      "related": [
+        "nx-monorepo-schema-config-at-entry"
+      ]
+    },
+    {
+      "id": "nestjs-config-openapi-from-code",
+      "stack": "nestjs",
+      "domain": "nestjs-modules",
+      "group": "configuration",
+      "title": "OpenAPI / Swagger is generated from code, not maintained by hand",
+      "summary": "A hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "modules",
+        "openapi"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/configuration/nestjs-config-openapi-from-code.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-modules/nestjs-config-openapi-from-code",
+      "rationale": "`@nestjs/swagger` generates an OpenAPI spec from DTOs and decorators. That spec is the source for the frontend client codegen (see `professional-architecture-testing-contracts` rule 15).",
+      "related": [
+        "nestjs-testing-generated-client-not-fetch"
+      ]
+    },
+    {
+      "id": "nestjs-data-jobs-in-owning-domain",
+      "stack": "nestjs",
+      "domain": "nestjs-data-errors",
+      "group": "data-access",
+      "title": "Background jobs and events — inside the owning domain",
+      "summary": "If Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "repository",
+        "errors"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-data-errors/groups/data-access/nestjs-data-jobs-in-owning-domain.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-data-errors/nestjs-data-jobs-in-owning-domain",
+      "rationale": "If a domain needs async work (send an email, fire a webhook, recompute statistics), it defines the job inside its own module. Another domain does not push a job onto domain X's queue.\n\nCross-domain communication via events — a typed event bus, not a direct call into another module's job.",
+      "related": []
+    },
+    {
+      "id": "nestjs-data-nestjs-exceptions",
+      "stack": "nestjs",
+      "domain": "nestjs-data-errors",
+      "group": "data-access",
+      "title": "Errors — NestJS exceptions, not `throw new Error`",
+      "summary": "Generic 500 in two different cases = inability to distinguish a bug from bad input.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "repository",
+        "errors"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-data-errors/groups/data-access/nestjs-data-nestjs-exceptions.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-data-errors/nestjs-data-nestjs-exceptions",
+      "rationale": "Throwing `BadRequestException`, `NotFoundException`, `ForbiddenException` lets NestJS map to the right HTTP status. `throw new Error()` collapses to a generic 500 and hides real failures.",
+      "related": []
+    },
+    {
+      "id": "nestjs-data-repository-pattern",
+      "stack": "nestjs",
+      "domain": "nestjs-data-errors",
+      "group": "data-access",
+      "title": "Repository pattern — don't expose the ORM to services",
+      "summary": "Tomorrow you swap TypeORM for Prisma or vice versa — change the repository only, services don't move.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "repository",
+        "errors"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-data-errors/groups/data-access/nestjs-data-repository-pattern.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-data-errors/nestjs-data-repository-pattern",
+      "rationale": "A service does not receive `Repository<Site>` from TypeORM or `PrismaClient`. It receives a `SitesRepository` you wrote — a clear interface.",
+      "related": []
+    },
+    {
+      "id": "nestjs-data-transactions-at-use-case",
+      "stack": "nestjs",
+      "domain": "nestjs-data-errors",
+      "group": "data-access",
+      "title": "Transactions sit at the use-case boundary, not inside a repository call",
+      "summary": "A transaction inside a repository = the repository knows too much. It doesn't know if it's part of a larger flow.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "repository",
+        "errors"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-data-errors/groups/data-access/nestjs-data-transactions-at-use-case.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-data-errors/nestjs-data-transactions-at-use-case",
+      "rationale": "`@Transactional` or unit-of-work wraps a service-level call, not a single repository call. If an operation needs two repositories — the transaction lives in the service.",
+      "related": []
+    },
+    {
+      "id": "nestjs-infra-guards-not-business-logic",
+      "stack": "nestjs",
+      "domain": "nestjs-data-errors",
+      "group": "infrastructure",
+      "title": "Guards and Interceptors — cross-cutting infrastructure, not business logic",
+      "summary": "A guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "repository",
+        "errors"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-data-errors/groups/infrastructure/nestjs-infra-guards-not-business-logic.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-data-errors/nestjs-infra-guards-not-business-logic",
+      "rationale": "A `Guard` answers \"is this request allowed?\" — it does not run business operations, doesn't query several tables, doesn't change state.\nAn `Interceptor` wraps the response (logging, error mapping, transformation) — it does not make business decisions.",
+      "related": []
+    },
+    {
+      "id": "nestjs-module-cross-module-via-services",
+      "stack": "nestjs",
+      "domain": "nestjs-modules",
+      "group": "module-structure",
+      "title": "Cross-module communication via exported services, not repositories or DB",
+      "summary": "The repository is internal to the domain. The service is the public API.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "modules",
+        "openapi"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/module-structure/nestjs-module-cross-module-via-services.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-modules/nestjs-module-cross-module-via-services",
+      "rationale": "If `StudioModule` needs site information, it does not inject `SitesRepository` or hit the DB directly. It injects the `SitesService` exported by `SitesModule`.",
+      "related": []
+    },
+    {
+      "id": "nestjs-module-domain-standalone",
+      "stack": "nestjs",
+      "domain": "nestjs-modules",
+      "group": "module-structure",
+      "title": "Every domain is a standalone NestJS Module",
+      "summary": "A standalone module can be loaded into a different app, or run isolated in tests.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "modules",
+        "openapi"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/module-structure/nestjs-module-domain-standalone.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-modules/nestjs-module-domain-standalone",
+      "rationale": "In Nx + NestJS, a domain becomes a `Module` that lives in `libs/<domain>/backend-feature-*` (or similar). The backend `app` only assembles those modules in `AppModule`.",
+      "related": []
+    },
+    {
+      "id": "nestjs-module-dtos-not-entities-in-controllers",
+      "stack": "nestjs",
+      "domain": "nestjs-modules",
+      "group": "module-structure",
+      "title": "DTOs in controllers, entities in repositories — never mixed",
+      "summary": "Returning an ORM entity directly = you've exposed the DB schema. A column change becomes a public-API change.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "modules",
+        "openapi"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/module-structure/nestjs-module-dtos-not-entities-in-controllers.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/nestjs-modules/nestjs-module-dtos-not-entities-in-controllers",
+      "rationale": "The controller takes a DTO from the client and returns a DTO. The service works with domain models. The repository maps to the ORM entity. Every conversion is intentional.",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-stream-agent-runs-as-resource",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "streaming",
+      "title": "Agent runs are a resource, not an ephemeral stream",
+      "summary": "The user closes the tab mid-response and re-opens — you need to show where it stopped.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-agent-runs-as-resource.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-stream-agent-runs-as-resource",
+      "rationale": "An agent run (the text streaming to the user) is a resource with an ID — not just a passing stream. It is persisted in the DB with state (`pending`, `running`, `completed`, `failed`, `canceled`), accumulated output, and tool calls.",
+      "related": [
+        "nestjs-realtime-stream-llm-cancellation-backpressure",
+        "nestjs-realtime-transport-redis-adapter-scaling"
+      ]
+    },
+    {
+      "id": "nestjs-realtime-stream-heartbeats-reconnect",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "streaming",
+      "title": "Heartbeats and reconnect — part of the protocol, not an add-on",
+      "summary": "Heartbeats and reconnect belong in the transport protocol from day one — not as a later patch.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-heartbeats-reconnect.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-stream-heartbeats-reconnect",
+      "rationale": "- **SSE**: emit an empty comment (`:heartbeat\\n\\n`) every 15–30 seconds; on reconnect the client sends `Last-Event-Id` to resume.\n- **WebSocket**: rely on ping/pong (socket.io does this automatically) and exponential backoff on reconnect.\n- For durable runs, pair heartbeats with explicit cancel/resume policy (see related streaming rules).",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-stream-idempotency-keys",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "streaming",
+      "title": "Idempotency keys on every agent action",
+      "summary": "Unreliable networks + client retries = duplicate runs of the same prompt = double charges.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-idempotency-keys.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-stream-idempotency-keys",
+      "rationale": "The client sends an `Idempotency-Key` header on every run-creation request. If the request arrives twice (network, retry, double-click) — the server returns the same run, doesn't create a new one.",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-stream-llm-cancellation-backpressure",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "streaming",
+      "title": "LLM streaming — cancellation and backpressure are mandatory",
+      "summary": "Without cancellation, you pay for a response no one reads. At scale this is real money.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-llm-cancellation-backpressure.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-stream-llm-cancellation-backpressure",
+      "rationale": "The user closes the tab mid-response? The OpenAI call must abort. The server stops paying.\nThe LLM emits faster than the client can consume? Push backpressure.",
+      "related": [
+        "nestjs-realtime-transport-redis-adapter-scaling",
+        "nestjs-realtime-stream-agent-runs-as-resource"
+      ]
+    },
+    {
+      "id": "nestjs-realtime-stream-structured-agent-events",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "streaming",
+      "title": "Tool calls and agent output — structured events, not free text",
+      "summary": "Free-text streams can't drive UI state for tool calls, errors, or completion.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-structured-agent-events.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-stream-structured-agent-events",
+      "rationale": "An agent's response streams as a sequence of typed events: `text-delta`, `tool-call-started`, `tool-call-completed`, `tool-call-failed`, `run-completed`. Not free text the client has to parse.",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-transport-namespaced-rooms",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "transport",
+      "title": "Rooms and channels — always namespaced by domain and tenant",
+      "summary": "Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-namespaced-rooms.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-namespaced-rooms",
+      "rationale": "A room in `socket.io` or a topic in a message broker must include the tenant. `room: doc-123` is wrong. `room: org-456:doc-123` is right.",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-transport-redis-adapter-scaling",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "transport",
+      "title": "Scaling real-time — via Redis adapter, not in-memory",
+      "summary": "Without it, user A is on instance 1, user B on instance 2 — they don't see each other.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-redis-adapter-scaling.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-redis-adapter-scaling",
+      "rationale": "The moment you have more than one server instance, you can't keep connections in process memory. Redis (or similar) is the broker that fans events between instances.",
+      "related": [
+        "nestjs-realtime-stream-llm-cancellation-backpressure",
+        "nestjs-realtime-stream-agent-runs-as-resource"
+      ]
+    },
+    {
+      "id": "nestjs-realtime-transport-sse-vs-websocket",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "transport",
+      "title": "Pick one mechanism per flow — don't confuse SSE with WebSocket",
+      "summary": "WebSocket is operationally more expensive (sticky sessions, scaling, connections that don't close).",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-sse-vs-websocket.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-sse-vs-websocket",
+      "rationale": "- **SSE (Server-Sent Events)** — one-way stream from server to client. Ideal for LLM token streaming, job progress, notifications.\n- **WebSocket** — bidirectional. Required only when the client sends frequent unsolicited messages (collaborative editing, user-to-user chat).\n- **Long polling** — fallback, not default.",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-transport-thin-gateway",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "transport",
+      "title": "WebSocket Gateways — thin transport, not business logic",
+      "summary": "The gateway is transport, not business logic. It receives a message, authorizes, hands off to a service.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-thin-gateway.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-thin-gateway",
+      "rationale": "In NestJS, a WebSocket gateway has one responsibility. It does not share state with controllers, and business logic does not live inside it.",
+      "related": []
+    },
+    {
+      "id": "nestjs-realtime-transport-ws-auth-at-handshake",
+      "stack": "nestjs",
+      "domain": "realtime-streaming",
+      "group": "transport",
+      "title": "WebSocket auth — at handshake, not per message",
+      "summary": "Authenticating per message = JWT verify on every keystroke. Expensive.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "sse",
+        "websocket",
+        "streaming"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-ws-auth-at-handshake.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/realtime-streaming/nestjs-realtime-transport-ws-auth-at-handshake",
+      "rationale": "On `connect`, the client sends a token (in `socket.io` `auth`, in a query, or in `Sec-WebSocket-Protocol`). If invalid → immediate disconnect. Each subsequent message reads the user from the socket context.",
+      "related": []
+    },
+    {
+      "id": "nestjs-resilience-error-boundaries-per-domain",
+      "stack": "nestjs",
+      "domain": "runtime-resilience",
+      "group": "resilience",
+      "title": "Error boundaries per domain",
+      "summary": "Without it, a bug in a small Studio widget wipes the entire screen, including the sidebar.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "react",
+        "observability",
+        "migrations"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/runtime-resilience/groups/resilience/nestjs-resilience-error-boundaries-per-domain.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/runtime-resilience/nestjs-resilience-error-boundaries-per-domain",
+      "rationale": "A crash in one domain does not take down the app. Each domain wraps itself in an Error Boundary that knows how to display failure sensibly for that domain.",
+      "related": []
+    },
+    {
+      "id": "nestjs-resilience-migrations-in-domain",
+      "stack": "nestjs",
+      "domain": "runtime-resilience",
+      "group": "resilience",
+      "title": "Migrations are part of the domain",
+      "summary": "A migration that needs two-team coordination = a feature that slips by a month.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "react",
+        "observability",
+        "migrations"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/runtime-resilience/groups/resilience/nestjs-resilience-migrations-in-domain.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/runtime-resilience/nestjs-resilience-migrations-in-domain",
+      "rationale": "A DB migration lives in the domain's `data-access` lib. One domain doesn't touch another's tables. A schema change = a PR inside that domain, not in infrastructure.",
+      "related": []
+    },
+    {
+      "id": "nestjs-resilience-observability-infrastructure",
+      "stack": "nestjs",
+      "domain": "runtime-resilience",
+      "group": "resilience",
+      "title": "Observability is infrastructure, not an add-on",
+      "summary": "When something breaks, the first question is \"which domain?\" If the logs don't know — you're blind.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "react",
+        "observability",
+        "migrations"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/runtime-resilience/groups/resilience/nestjs-resilience-observability-infrastructure.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/runtime-resilience/nestjs-resilience-observability-infrastructure",
+      "rationale": "Logs, metrics, and traces come out of one shared platform library. Every domain uses it — does not roll its own. Every log carries `domain` and `requestId` by default.",
+      "related": []
+    },
+    {
+      "id": "nestjs-security-authorize-from-db-object",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "security-hardening",
+      "title": "Always authorize on an object loaded from the DB, not on user input",
+      "summary": "Authorizing on input = trusting the user. They can send another tenant's ID.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/security-hardening/nestjs-security-authorize-from-db-object.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-security-authorize-from-db-object",
+      "rationale": "The user sends `siteId`. You don't authorize on the ID — you load the site and authorize on the loaded object. If it doesn't exist — `NotFoundException`. Only then check whether the user may act on it.",
+      "related": []
+    },
+    {
+      "id": "nestjs-security-no-secrets-in-code",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "security-hardening",
+      "title": "Secrets don't sit in code or logs",
+      "summary": "A leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotation is the only fix.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/security-hardening/nestjs-security-no-secrets-in-code.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-security-no-secrets-in-code",
+      "rationale": "API keys, JWT secrets, DB passwords — only via `ConfigService`. And never in logs. A logging interceptor strips dangerous values automatically.",
+      "related": []
+    },
+    {
+      "id": "nestjs-security-rate-limit-csrf-infrastructure",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "security-hardening",
+      "title": "Rate limiting and CSRF are infrastructure, not optional",
+      "summary": "Without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/security-hardening/nestjs-security-rate-limit-csrf-infrastructure.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-security-rate-limit-csrf-infrastructure",
+      "rationale": "`@nestjs/throttler` on every endpoint. CSRF token on every state-changing operation from a cookie-based client. Baseline headers via `helmet` by default.",
+      "related": []
+    },
+    {
+      "id": "nestjs-security-tenant-required-scope",
+      "stack": "nestjs",
+      "domain": "auth-security",
+      "group": "security-hardening",
+      "title": "Multi-tenancy — tenant is a required scope, not a reminder",
+      "summary": "One forgotten filter = a user sees another org's data. The most severe leak there is.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nestjs",
+        "security",
+        "auth"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/security-hardening/nestjs-security-tenant-required-scope.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/auth-security/nestjs-security-tenant-required-scope",
+      "rationale": "If you have organizations/accounts, every query is filtered by tenant automatically. Not \"remember to add `where: { orgId }`\" — that will fail. Use `RequestContext`, `AsyncLocalStorage`, or row-level security in the DB.",
+      "related": []
+    },
+    {
+      "id": "nestjs-testing-generated-client-not-fetch",
+      "stack": "nestjs",
+      "domain": "testing-contracts",
+      "group": "contracts",
+      "title": "Backend ↔ frontend communication via a generated client, not `fetch`",
+      "summary": "An endpoint change breaks the compile, not the runtime.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "testing",
+        "openapi",
+        "contracts"
+      ],
+      "catalogPath": "catalog/stacks/nestjs/domains/testing-contracts/groups/contracts/nestjs-testing-generated-client-not-fetch.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs/testing-contracts/nestjs-testing-generated-client-not-fetch",
+      "rationale": "Every domain with a backend produces a client (OpenAPI / tRPC / GraphQL codegen) as part of its `data-access` lib. The frontend does not write `fetch('/api/...')` by hand.",
+      "related": [
+        "nx-monorepo-schema-single-source",
+        "nestjs-config-openapi-from-code"
+      ]
+    },
+    {
+      "id": "nx-isolation-deps-library-purpose",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "dependencies",
+      "title": "Every library has one purpose — feature, data-access, ui, or util",
+      "summary": "Pure UI lib runs in Storybook with zero mocks.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/dependencies/nx-isolation-deps-library-purpose.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-deps-library-purpose",
+      "rationale": "In Nx this is the `type` tag, not just convention. A library that mixes UI with API calls with business logic is a library you can't understand, test, or delete.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-deps-no-global-state",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "dependencies",
+      "title": "No shared global state",
+      "summary": "Global state is the fastest way to destroy a platform — untraceable dependencies.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/dependencies/nx-isolation-deps-no-global-state.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-deps-no-global-state",
+      "rationale": "No singletons holding cross-domain state. No global store every app writes to. If two domains need the same data, one owns it and the other receives it via the public contract.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-deps-one-direction",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "dependencies",
+      "title": "Dependencies flow one direction",
+      "summary": "Once `shared` knows a domain, it's not shared anymore.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/dependencies/nx-isolation-deps-one-direction.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-deps-one-direction",
+      "rationale": "Layering: `apps → features → data-access/ui → util/shared`. `shared` may not know about a specific domain. `ui` may not import `feature`. Nx enforces with `type:` tags.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-deps-server-client-boundary",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "dependencies",
+      "title": "Clear server vs client boundary",
+      "summary": "Server code leaking to client = bloated bundle, or worse, secret leak.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/dependencies/nx-isolation-deps-server-client-boundary.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-deps-server-client-boundary",
+      "rationale": "In a monorepo with backend and frontend apps, every library must declare which side it runs on. A \"both\" library is one the bundler will catch importing `fs` in production. Tag libs `scope:server`, `scope:client`, or `scope:isomorphic` and enforce via `enforce-module-boundaries`.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-full-separation",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "boundaries",
+      "title": "Full separation between domains",
+      "summary": "Dev speed — don't load the whole system to fix one bug.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/boundaries/nx-isolation-full-separation.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-full-separation",
+      "rationale": "Every domain is a standalone app: own backend, own frontend, runnable alone. The test: I want to work on sites-management — I bring up that app alone, open the browser, and work. No Studio, no agent builder, nothing else.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-gov-friction-new-domain",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "governance",
+      "title": "Raise the friction for adding a new domain",
+      "summary": "Every new feature shouldn't become its own domain — a domain is a business capability, not a widget.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/governance/nx-isolation-gov-friction-new-domain.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-gov-friction-new-domain",
+      "rationale": "Creating a new domain is not a casual decision. It requires tech review, a defined owner, a README, and a CODEOWNERS entry. A domain is a commitment.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-nx-tag-contracts",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "boundaries",
+      "title": "Explicit cross-domain contracts via Nx tags",
+      "summary": "The moment one domain reaches into another's internals, rule 1 silently breaks.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/boundaries/nx-isolation-nx-tag-contracts.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-nx-tag-contracts",
+      "rationale": "A domain may not import from `src/` of another domain. Only via the library barrel (`index.ts`). Nx enforces this with tags.",
+      "related": []
+    },
+    {
+      "id": "nx-isolation-test-isolation",
+      "stack": "nx",
+      "domain": "domain-isolation",
+      "group": "boundaries",
+      "title": "Full test isolation",
+      "summary": "Without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "domain-driven-design"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/boundaries/nx-isolation-test-isolation.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/domain-isolation/nx-isolation-test-isolation",
+      "rationale": "`nx affected:test` is the default. CI runs only the tests for what changed.",
+      "related": []
+    },
+    {
+      "id": "nx-monorepo-docs-readme-required",
+      "stack": "nx",
+      "domain": "monorepo-hygiene",
+      "group": "documentation",
+      "title": "Documentation in a place you can't miss",
+      "summary": "In a platform, a new person doesn't learn \"the system\" — they learn one domain at a time. The README is the entry point.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "documentation"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/documentation/nx-monorepo-docs-readme-required.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/monorepo-hygiene/nx-monorepo-docs-readme-required",
+      "rationale": "Every app has a README. Every feature lib has a README. It explains: responsibility, public API, how to run alone, external dependencies.",
+      "related": []
+    },
+    {
+      "id": "nx-monorepo-owner-build-per-domain",
+      "stack": "nx",
+      "domain": "monorepo-hygiene",
+      "group": "ownership-build",
+      "title": "Build artifacts are per-domain",
+      "summary": "If deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "documentation"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/ownership-build/nx-monorepo-owner-build-per-domain.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/monorepo-hygiene/nx-monorepo-owner-build-per-domain",
+      "rationale": "`nx build sites-management` produces a standalone artifact. You can deploy it alone, roll it back alone, monitor it alone.",
+      "related": []
+    },
+    {
+      "id": "nx-monorepo-owner-codeowners-boundaries",
+      "stack": "nx",
+      "domain": "monorepo-hygiene",
+      "group": "ownership-build",
+      "title": "CODEOWNERS reflects the boundaries",
+      "summary": "Without it, someone \"just\" tweaks the core at 2 AM and three domains break by morning.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "documentation"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/ownership-build/nx-monorepo-owner-codeowners-boundaries.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/monorepo-hygiene/nx-monorepo-owner-codeowners-boundaries",
+      "rationale": "Map `.github/CODEOWNERS` per domain. A PR touching `libs/studio/*` requires Studio-team approval. A PR touching `libs/shared/*` requires platform-leads approval.",
+      "related": []
+    },
+    {
+      "id": "nx-monorepo-schema-config-at-entry",
+      "stack": "nx",
+      "domain": "monorepo-hygiene",
+      "group": "schemas-config",
+      "title": "Configuration is read at the entry point, not in the middle of the code",
+      "summary": "No surprises. All settings in one reviewable place.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "documentation"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/schemas-config/nx-monorepo-schema-config-at-entry.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/monorepo-hygiene/nx-monorepo-schema-config-at-entry",
+      "rationale": "`process.env.X` or `import.meta.env.X` appears in one place — the app's config file. The rest of the code receives typed values, doesn't read env vars directly.",
+      "related": [
+        "nestjs-config-module-not-process-env"
+      ]
+    },
+    {
+      "id": "nx-monorepo-schema-single-source",
+      "stack": "nx",
+      "domain": "monorepo-hygiene",
+      "group": "schemas-config",
+      "title": "Schemas and types — one source of truth",
+      "summary": "Schemas and types — one source of truth",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "documentation"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/schemas-config/nx-monorepo-schema-single-source.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/monorepo-hygiene/nx-monorepo-schema-single-source",
+      "rationale": "The `Site` type isn't written twice. It lives in one library (usually `data-access` or a dedicated schemas lib), and both server and client import from it.",
+      "related": [
+        "nestjs-testing-generated-client-not-fetch"
+      ]
+    },
+    {
+      "id": "nx-testing-three-tiers",
+      "stack": "nx",
+      "domain": "testing-contracts",
+      "group": "contracts",
+      "title": "Testing — three tiers, not one",
+      "summary": "If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't help.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "testing",
+        "openapi",
+        "contracts"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/testing-contracts/groups/contracts/nx-testing-three-tiers.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx/testing-contracts/nx-testing-three-tiers",
+      "rationale": "NestJS invites writing everything as e2e with `Test.createTestingModule`. That's a mistake. Three tiers:\n\n- **Unit** — service or utility, no NestJS DI, mocks by hand. Fast, focused.\n- **Integration** — module wired up with `Test.createTestingModule`, real DB (testcontainers), no HTTP. Verifies wiring.\n- **E2E** — full app with `supertest`. Verifies public contracts.",
+      "related": []
+    },
+    {
+      "id": "react-platform-composition-not-inheritance",
+      "stack": "react",
+      "domain": "platform-composition",
+      "group": "composition",
+      "title": "Composition, not inheritance",
+      "summary": "A component that inherits from context cannot be rendered alone in Storybook without faking the context.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "react",
+        "platform",
+        "composition"
+      ],
+      "catalogPath": "catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-composition-not-inheritance.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-composition-not-inheritance",
+      "rationale": "UI libs do not inherit behavior from context. They receive it — as props, as children, as render-props, as slots. The parent decides how to assemble; the child only knows how to render.",
+      "related": []
+    },
+    {
+      "id": "react-platform-config-not-conditionals",
+      "stack": "react",
+      "domain": "platform-composition",
+      "group": "composition",
+      "title": "Configuration, not conditionals",
+      "summary": "A UI lib containing `if (context === 'wordpress')` is no longer a lib — it's part of WordPress.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "react",
+        "platform",
+        "composition"
+      ],
+      "catalogPath": "catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-config-not-conditionals.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-config-not-conditionals",
+      "rationale": "Same library, different behaviors per host — through props and configuration, not `if`s that sniff where the code is running.",
+      "related": []
+    },
+    {
+      "id": "react-platform-feature-flags-not-branches",
+      "stack": "react",
+      "domain": "platform-composition",
+      "group": "composition",
+      "title": "Feature flags instead of code branches",
+      "summary": "Enables deploy without release.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "react",
+        "platform",
+        "composition"
+      ],
+      "catalogPath": "catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-feature-flags-not-branches.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-feature-flags-not-branches",
+      "rationale": "A new capability ships behind a flag. The flag is controlled from outside (configuration, not code). When the capability is mature — delete the flag, do not leave it \"just in case\".",
+      "related": []
+    },
+    {
+      "id": "react-platform-version-public-contracts",
+      "stack": "react",
+      "domain": "platform-composition",
+      "group": "composition",
+      "title": "Version your public contracts",
+      "summary": "Without versioning, every change becomes a cross-team coordination project.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "react",
+        "platform",
+        "composition"
+      ],
+      "catalogPath": "catalog/stacks/react/domains/platform-composition/groups/composition/react-platform-version-public-contracts.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/react/platform-composition/react-platform-version-public-contracts",
+      "rationale": "The `data-access` lib of a domain is a contract. A breaking change to its public API = a new entry, not a delete of the old one. Consumers migrate at their own pace.",
+      "related": []
+    }
+  ]
+}

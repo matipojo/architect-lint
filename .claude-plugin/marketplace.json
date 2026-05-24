@@ -1,0 +1,22 @@
+{
+  "name": "matipojo-architect-lint",
+  "description": "Architecture rules catalog plugins for Claude Code.",
+  "version": "0.1.0",
+  "owner": {
+    "name": "matipojo"
+  },
+  "plugins": [
+    {
+      "name": "architect-lint",
+      "source": "./",
+      "description": "Full architecture rules catalog — 50 principles, thin skills reading catalog YAML at review time.",
+      "version": "0.1.0",
+      "author": { "name": "matipojo" },
+      "homepage": "https://matipojo.github.io/architect-lint/",
+      "repository": "https://github.com/matipojo/architect-lint",
+      "license": "MIT",
+      "keywords": ["architecture", "code-review", "nestjs", "monorepo"],
+      "category": "developer-tools"
+    }
+  ]
+}

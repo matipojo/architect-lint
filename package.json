@@ -1,0 +1,22 @@
+{
+  "name": "architect-lint",
+  "version": "0.1.0",
+  "description": "Open architecture rules catalog with YAML source of truth and VitePress docs site",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.11.0",
+  "scripts": {
+    "docs:generate": "tsx scripts/generate/principle-docs.ts",
+    "docs:dev": "pnpm docs:generate && pnpm --filter @architect-lint/website dev",
+    "docs:build": "pnpm docs:generate && pnpm --filter @architect-lint/website build",
+    "docs:preview": "pnpm docs:build && pnpm --filter @architect-lint/website preview",
+    "validate": "tsx scripts/check/all.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.28"
+  }
+}

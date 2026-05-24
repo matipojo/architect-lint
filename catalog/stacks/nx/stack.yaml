@@ -1,0 +1,4 @@
+id: nx
+title: Nx
+description: Monorepo boundaries, hygiene, and testing for Nx + pnpm workspaces
+order: 1

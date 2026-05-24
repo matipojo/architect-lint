@@ -1,0 +1,9 @@
+id: domain-isolation
+title: Domain Isolation
+description: Hard boundaries between domains in Nx + pnpm monorepos
+tags:
+  - nx
+  - monorepo
+  - domain-driven-design
+order: 1
+stack: nx

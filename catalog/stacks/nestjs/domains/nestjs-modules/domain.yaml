@@ -1,0 +1,9 @@
+id: nestjs-modules
+title: NestJS Modules
+description: Module structure, DTOs, ConfigModule, OpenAPI
+tags:
+  - nestjs
+  - modules
+  - openapi
+order: 4
+stack: nestjs

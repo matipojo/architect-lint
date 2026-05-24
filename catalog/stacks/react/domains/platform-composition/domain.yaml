@@ -1,0 +1,9 @@
+id: platform-composition
+title: Platform Composition
+description: Configuration and composition over context branching
+tags:
+  - react
+  - platform
+  - composition
+order: 3
+stack: react

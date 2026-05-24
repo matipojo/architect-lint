@@ -22,8 +22,6 @@ The repository is internal to the domain. The service is the public API.
 
 - [api-drift] Import another domain's repository — you skip their service and its validation entirely.
 - [hidden-coupling] If the workspace domain touches the catalog's repository, a change to the catalog's internal schema breaks the workspace.
-- [hidden-coupling] Reach past the service into a foreign repository — auth and validation never run.
-- [hidden-coupling] bypasses every CatalogService validation
 
 ## How to fix
 

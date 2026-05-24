@@ -21,10 +21,8 @@ Authenticate WebSocket connections at handshake — not with JWT verification on
 
 ## Why it matters
 
-- [wastes-money] Authenticating per message = JWT verify on every keystroke. Expensive.
-- [drops-connection] An unauthenticated open connection is a resource leak.
-- [wastes-money] jWT verification runs on every message — expensive at chat scale.
-- [drops-connection] unauthenticated sockets stay open until the first message — resource leak.
+- [wastes-money] Authenticating per message = JWT verify on every keystroke. Expensive at chat scale.
+- [drops-connection] Unauthenticated sockets stay open until the first message — resource leak.
 
 
 

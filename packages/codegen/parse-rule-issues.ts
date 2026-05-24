@@ -103,6 +103,74 @@ export function classifyIssueText(text: string): IssueType {
   return 'agent-gets-lost';
 }
 
+export function normalizeBulletText(text: string): string {
+  return normalizeIssueText(text)
+    .replace(/^\[[a-z][a-z0-9-]*\]\s+/, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function bulletWords(text: string): Set<string> {
+  return new Set(
+    normalizeBulletText(text)
+      .replace(/[^a-z0-9]+/g, ' ')
+      .split(/\s+/)
+      .filter(Boolean),
+  );
+}
+
+export function jaccardSimilarity(a: string, b: string): number {
+  const A = bulletWords(a);
+  const B = bulletWords(b);
+  if (A.size === 0 || B.size === 0) return 0;
+  let inter = 0;
+  for (const w of A) {
+    if (B.has(w)) inter++;
+  }
+  return inter / (A.size + B.size - inter);
+}
+
+function sharedPrefixRatio(a: string, b: string): number {
+  const na = normalizeBulletText(a);
+  const nb = normalizeBulletText(b);
+  let i = 0;
+  while (i < na.length && i < nb.length && na[i] === nb[i]) i++;
+  return i / Math.min(na.length, nb.length);
+}
+
+export function isSummaryDuplicate(summary: string, bulletText: string): boolean {
+  const s = normalizeBulletText(summary);
+  const b = normalizeBulletText(bulletText);
+  if (!s || !b) return false;
+  return s === b || b.startsWith(s) || s.startsWith(b);
+}
+
+const THEMATIC_OVERLAP_PATTERNS: RegExp[] = [
+  /40\+?\s*-?\s*minute/i,
+  /full \d+-minute suite/i,
+  /everything is e2e/i,
+  /browser e2e.*dto/i,
+  /dto tweak.*suite/i,
+];
+
+function sharesThematicOverlap(a: string, b: string): boolean {
+  return THEMATIC_OVERLAP_PATTERNS.some(
+    (pattern) => pattern.test(a) && pattern.test(b),
+  );
+}
+
+export function isNearDuplicate(a: string, b: string, sameTag = false): boolean {
+  const na = normalizeBulletText(a);
+  const nb = normalizeBulletText(b);
+  if (!na || !nb) return false;
+  if (na === nb) return true;
+  if (sharesThematicOverlap(a, b)) return true;
+  if (jaccardSimilarity(a, b) >= (sameTag ? 0.55 : 0.65)) return true;
+  if (sharedPrefixRatio(a, b) >= 0.65) return true;
+  return false;
+}
+
 export function isGarbageIssueBullet(text: string): boolean {
   const trimmed = text.trim();
   if (!trimmed || trimmed === '--') return true;
@@ -112,6 +180,11 @@ export function isGarbageIssueBullet(text: string): boolean {
     return true;
   }
   if (/^If ignored:/i.test(trimmed)) return true;
+  if (/^someone added \w+ on one side only$/i.test(trimmed)) return true;
+  if (/^bypasses every \w+/i.test(trimmed)) return true;
+  if (/^what fields\? who knows\./i.test(trimmed)) return true;
+  if (/^next week — breaking change/i.test(trimmed)) return true;
+  if (/^service knows about TypeORM/i.test(trimmed)) return true;
   return false;
 }
 

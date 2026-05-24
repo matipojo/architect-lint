@@ -21,7 +21,6 @@ Controllers accept and return DTOs — never ORM entities that expose your DB sc
 ## Why it matters
 
 - [layer-mixing] Returning an ORM entity directly = you've exposed the DB schema. A column change becomes a public-API change.
-- [layer-mixing] Return ORM entities from controllers — over-posting and internal columns reach the client.
 - [secret-exposure] An entity may carry internal fields (`passwordHash`, `internalNotes`) that must never reach the client.
 
 

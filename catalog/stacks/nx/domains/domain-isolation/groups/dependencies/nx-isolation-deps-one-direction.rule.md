@@ -21,7 +21,6 @@ Dependencies flow one way: apps → feature → data-access → shared — share
 ## Why it matters
 
 - [hidden-coupling] Once `shared` knows a domain, it's not shared anymore.
-- [hidden-coupling] shared imports a domain — every new app drags another edit through platform review.
 
 ## How to fix
 

@@ -22,7 +22,6 @@ Namespace room names with tenant or org scope so realtime events never cross ten
 ## Why it matters
 
 - [data-leak] Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
-- [data-leak] Flat room names like `doc-123` — same ID collision leaks events across tenants.
 
 ## How to fix
 

@@ -20,8 +20,7 @@ Each domain produces its own build artifact — deploy, rollback, and monitor in
 
 ## Why it matters
 
-- [cant-rollback] If deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.
-- [cant-rollback] Per-domain rollback is critical when something breaks in production.
+- [cant-rollback] If deploy is monolithic, domain separation is theory — in practice you have one app.
 
 ## How to fix
 

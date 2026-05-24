@@ -24,10 +24,8 @@ Use a Redis adapter so WebSocket and SSE events reach clients on any app instanc
 ## Why it matters
 
 - [cant-scale] Without it, user A is on instance 1, user B on instance 2 — they don't see each other.
-- [cant-scale] Ship single-instance sockets to prod — scaling out becomes a fire drill under load.
+- [cant-scale] Room broadcasts only reach clients on the same process — multi-instance fan-out silently fails.
 - [cant-scale] In-memory SSE buffers — resume lands on another node and the stream starts over or 404s.
-- [cant-scale] room broadcasts only reach clients on the same process.
-- [cant-scale] sSE stream resume fails when the resume lands on a different instance than the original POST.
 
 
 

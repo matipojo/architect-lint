@@ -21,7 +21,6 @@ UI libs receive behavior via props and slots — they do not pull from app conte
 ## Why it matters
 
 - [hard-to-test] A component that inherits from context cannot be rendered alone in Storybook without faking the context.
-- [hard-to-test] Context inheritance — component can't render in Storybook without faking half the app shell.
 
 ## How to fix
 

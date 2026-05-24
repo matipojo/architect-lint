@@ -22,10 +22,8 @@ Heartbeats and reconnect belong in the transport protocol from day one — not a
 ## Why it matters
 
 - [drops-connection] Proxies and load balancers close idle connections after ~60 seconds. Without heartbeats, the client thinks it's connected but isn't.
-- [drops-connection] Long tool-call gaps with no keep-alive — proxy closes the stream while UI still says "streaming".
 - [bad-ux] Silent disconnects — UI shows "streaming" while the connection is already dead.
-- [drops-connection] long tool-call pauses trigger proxy timeouts without keep-alive traffic.
-- [drops-connection] resume after refresh fails when the server never emitted event IDs for `Last-Event-Id`.
+- [drops-connection] Resume after refresh fails when the server never emitted event IDs for `Last-Event-Id`.
 
 
 

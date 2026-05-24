@@ -23,8 +23,6 @@ Free-text streams can't drive UI state for tool calls, errors, or completion.
 
 - [bad-ux] The UI needs to know when to show a "searching the site" spinner, when to show the result, when to show an error. From free text — impossible.
 - [blind-in-prod] Unstructured token stream — logs and analytics can't tell tool calls from text deltas.
-- [bad-ux] uI can't show tool-call spinners or error states from a plain text stream.
-- [blind-in-prod] logging and analytics can't parse unstructured token output.
 
 ## How to fix
 

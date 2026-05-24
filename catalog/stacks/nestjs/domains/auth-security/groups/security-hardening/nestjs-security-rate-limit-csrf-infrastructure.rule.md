@@ -20,10 +20,8 @@ Rate limiting and CSRF ship as shared infrastructure — wired once, not bolted 
 
 ## Why it matters
 
-- [abuse-vulnerable] Without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.
-- [abuse-vulnerable] "We'll handle it later" = never.
-- [abuse-vulnerable] login endpoints are open to brute force without per-route throttling.
-- [abuse-vulnerable] expensive endpoints have no protection against intentional or accidental DoS.
+- [abuse-vulnerable] Login endpoints are open to brute force without per-route throttling.
+- [abuse-vulnerable] Expensive endpoints have no protection against intentional or accidental DoS.
 
 ## How to fix
 

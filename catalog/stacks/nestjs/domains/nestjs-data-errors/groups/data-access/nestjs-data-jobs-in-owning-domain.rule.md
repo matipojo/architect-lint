@@ -21,7 +21,6 @@ Background jobs enqueue from the domain that owns the work — callers must not 
 ## Why it matters
 
 - [hidden-coupling] If the workspace domain pushes a job to the catalog domain's queue, it knows the catalog's internal job structure. Hidden coupling.
-- [hidden-coupling] Push a job onto another domain's queue — you now depend on their internal job shape and renames.
 
 ## How to fix
 

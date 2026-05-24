@@ -21,11 +21,10 @@ Every new feature shouldn't become its own domain — a domain is a business cap
 ## Why it matters
 
 - [spreads-failure] Anti-pattern: every new feature becomes a domain → 40 micro-domains → the platform turns into the inverse mess of a monolith.
-- [no-ownership] A domain should be a business capability, not a feature.
+- [no-ownership] A domain is a business capability, not a feature — without that bar, the catalog dilutes.
 - [no-ownership] Simple test: if domain X disappears tomorrow, what business capability vanishes? If the answer is "kind of a widget" — that's not a domain, it's a feature lib inside an existing domain.
-- [no-ownership] new domains appear without owners, READMEs, or boundary tags.
 - [agent-gets-lost] `enforce-module-boundaries` can't protect libs that were never tagged.
-- [agent-gets-lost] platform graph grows unreadable — every feature is a top-level domain.
+- [agent-gets-lost] Platform graph grows unreadable when every feature is a top-level domain.
 
 
 

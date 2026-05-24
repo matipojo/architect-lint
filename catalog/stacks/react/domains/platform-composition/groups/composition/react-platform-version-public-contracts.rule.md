@@ -22,7 +22,6 @@ Version public data-access exports — breaking changes ship as v2, not silent r
 
 - [hard-to-change] Without versioning, every change becomes a cross-team coordination project.
 - [breaking-change] Breaking change to data-access without a version — consumers break with no migration path.
-- [breaking-change] next week — breaking change, no warning
 
 ## How to fix
 

@@ -21,9 +21,7 @@ Without it, someone "just" tweaks the core at 2 AM and three domains break by mo
 ## Why it matters
 
 - [no-ownership] Without CODEOWNERS, boundary rules are comments — cross-domain PRs merge unnoticed.
-- [spreads-failure] Midnight tweak to shared/ — no platform review, multiple apps red before standup.
-- [no-ownership] Without domain-scoped owners, cross-domain edits merge without the team that will be paged.
-- [spreads-failure] a late-night tweak to `libs/shared/*` can break multiple apps before anyone notices.
+- [spreads-failure] A late-night tweak to `libs/shared/*` can break multiple apps before anyone notices.
 
 ## How to fix
 

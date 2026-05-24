@@ -22,8 +22,8 @@ Transactions start and end at the use-case service — not in repositories or co
 
 - [layer-mixing] A transaction inside a repository = the repository knows too much. It doesn't know if it's part of a larger flow.
 - [hidden-coupling] A transaction in a controller = the controller knows about the DB. Layer violation.
-- [layer-mixing] The service is the use case. The use case is the natural transaction boundary.
-- [data-corruption] If the second fails, an orphaned site is left in the DB
+- [layer-mixing] The service is the use case, and the use case is the natural transaction boundary.
+- [data-corruption] If the second step fails, an orphaned site is left in the DB.
 
 ## How to fix
 

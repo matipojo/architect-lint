@@ -25,7 +25,6 @@ Hand-written fetch — API changes fail in the browser, not at compile time.
 - [api-drift] Hand-written fetch strings — backend renames compile fine and fail in the user's browser.
 - [agent-gets-lost] Response shape lives in someone's head — backend adds a field, frontend finds out in prod.
 - [api-drift] Types maintained twice — OpenAPI, hand types, and runtime behavior disagree within a sprint.
-- [api-drift] what fields? who knows. backend change? runtime errors.
 
 ## How to fix
 

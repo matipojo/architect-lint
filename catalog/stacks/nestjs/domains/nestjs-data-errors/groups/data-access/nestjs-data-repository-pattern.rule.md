@@ -23,7 +23,6 @@ Tomorrow you swap TypeORM for Prisma or vice versa — change the repository onl
 - [hard-to-change] ORM swap forces edits across every service — persistence leaks past the repository boundary.
 - [hard-to-test] In tests, you can mock `SitesRepository` without mocking the entire ORM.
 - [layer-mixing] ORMs leak abstractions (lazy loading, transactions, eager fetching). The repository layer seals the leak.
-- [hidden-coupling] service knows about TypeORM QueryBuilder
 
 ## How to fix
 

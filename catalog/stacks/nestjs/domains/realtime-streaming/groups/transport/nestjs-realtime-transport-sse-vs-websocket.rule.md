@@ -22,11 +22,7 @@ Use SSE for one-way LLM token streaming — reserve WebSocket for bidirectional 
 ## Why it matters
 
 - [cant-scale] WebSocket is operationally more expensive (sticky sessions, scaling, connections that don't close).
-- [cant-scale] Default to WebSocket for one-way LLM tokens — sticky sessions and socket ops you don't need.
-- [cant-scale] webSocket for one-way LLM streaming adds sticky sessions, socket auth, and reconnect complexity.
-- [cant-scale] proxies and load balancers treat long-lived sockets differently from plain HTTP/SSE.
-
-
+- [cant-scale] Proxies and load balancers treat long-lived sockets differently from plain HTTP/SSE.
 
 ## How to fix
 

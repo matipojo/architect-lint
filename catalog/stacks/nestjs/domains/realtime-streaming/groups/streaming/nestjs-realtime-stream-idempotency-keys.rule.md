@@ -22,9 +22,7 @@ Require an Idempotency-Key on run creation — retries and double-clicks return 
 ## Why it matters
 
 - [double-charge] Unreliable networks + client retries = duplicate runs of the same prompt = double charges.
-- [double-charge] Skip idempotency on costly jobs — retries and double-clicks run the same work twice.
-- [double-charge] client retries create duplicate job runs — double charges on expensive LLM calls.
-- [double-charge] double-clicks spawn two runs for the same user intent.
+- [double-charge] Double-clicks spawn two runs for the same user intent.
 
 
 

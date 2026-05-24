@@ -21,7 +21,7 @@ Wrap each domain's UI in an error boundary — one widget crash must not blank t
 ## Why it matters
 
 - [spreads-failure] Without it, a bug in a small workspace widget wipes the entire screen, including the sidebar.
-- [spreads-failure] This is the runtime expression of "domain separation". If they're separated in code but explode together at runtime — the separation isn't real.
+- [spreads-failure] Runtime expression of domain separation — separated in code but exploding together at runtime means the separation isn't real.
 
 ## How to fix
 

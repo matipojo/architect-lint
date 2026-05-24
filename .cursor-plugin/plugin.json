@@ -1,0 +1,30 @@
+{
+  "name": "angie-architect",
+  "displayName": "Angie Architect",
+  "version": "1.0.0",
+  "description": "Professional architecture skills for the Angie Nx + pnpm monorepo — domain isolation, NestJS modules, auth/security, monorepo hygiene, platform composition, realtime streaming, runtime resilience, and testing contracts.",
+  "author": {
+    "name": "matipojo"
+  },
+  "homepage": "https://github.com/matipojo/angie-architect",
+  "repository": "https://github.com/matipojo/angie-architect",
+  "license": "MIT",
+  "keywords": [
+    "angie",
+    "architecture",
+    "nestjs",
+    "monorepo",
+    "domain-driven-design",
+    "security",
+    "testing"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "architecture",
+    "code-review",
+    "nestjs",
+    "nx",
+    "monorepo"
+  ],
+  "skills": "./skills/"
+}

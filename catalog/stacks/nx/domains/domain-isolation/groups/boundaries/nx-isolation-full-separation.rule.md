@@ -20,11 +20,10 @@ Dev speed — don't load the whole system to fix one bug.
 
 ## Why it matters
 
-- Dev speed — don't load the whole system to fix one bug.
-- Blast radius — a bug in the workspace domain doesn't take down catalog.
-- Clear ownership — every domain has a boundary you can point at.
-- Teams work in parallel without trampling each other.
-
+- [spreads-failure] Fix one domain bug — boot every app and lib because nothing is isolated.
+- [spreads-failure] Workspace widget throws — catalog screen goes blank because everything shares one shell.
+- [blind-in-prod] Failure spans domains — no boundary to assign, two teams ping-pong the incident.
+- [hard-to-change] Shared libs become merge bottlenecks — every feature waits on the same conflict queue.
 
 ## How to fix
 

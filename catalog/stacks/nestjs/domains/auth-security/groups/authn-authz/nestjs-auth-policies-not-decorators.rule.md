@@ -20,10 +20,9 @@ Decorators scatter permissions across dozens of places. A policy change = grep a
 
 ## Why it matters
 
-- Decorators scatter permissions across dozens of places. A policy change = grep across the project.
-- The same permission needs to apply both in the UI (hide a button) and in the backend. One policy = two consumers.
-- A decorator gets the user but not the resource. Most real permissions are about a specific resource.
-
+- [agent-gets-lost] Decorators scatter permissions across dozens of places. A policy change = grep across the project.
+- [data-leak] Permission duplicated in a decorator and a UI if — update one, forget the other, ship a hole.
+- [hidden-coupling] A decorator gets the user but not the resource. Most real permissions are about a specific resource.
 
 ## How to fix
 

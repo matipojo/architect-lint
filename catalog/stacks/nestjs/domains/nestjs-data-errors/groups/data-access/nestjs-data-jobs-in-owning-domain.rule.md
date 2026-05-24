@@ -20,9 +20,8 @@ If the workspace domain pushes a job to the catalog domain's queue, it knows the
 
 ## Why it matters
 
-- If the workspace domain pushes a job to the catalog domain's queue, it knows the catalog's internal job structure. Hidden coupling.
-- Events are how domains coordinate without one knowing the other's internals.
-
+- [hidden-coupling] If the workspace domain pushes a job to the catalog domain's queue, it knows the catalog's internal job structure. Hidden coupling.
+- [hidden-coupling] Push a job onto another domain's queue — you now depend on their internal job shape and renames.
 
 ## How to fix
 

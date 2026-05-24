@@ -23,11 +23,9 @@ Without cancellation, you pay for a response no one reads. At scale this is real
 
 ## Why it matters
 
-- Without cancellation, you pay for a response no one reads. At scale this is real money.
-- Without backpressure, the server accumulates unsent responses and explodes on memory.
-- When the client disconnected — downstream work keeps running
-
-
+- [wastes-money] Without cancellation, you pay for a response no one reads. At scale this is real money.
+- [wastes-money] Without backpressure, the server accumulates unsent responses and explodes on memory.
+- [wastes-money] When the client disconnected — downstream work keeps running
 
 ## How to fix
 

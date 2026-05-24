@@ -16,12 +16,12 @@ related: []
 
 # Every domain is a standalone NestJS Module
 
-A standalone module can be loaded into a different app, or run isolated in tests.
+Domain logic trapped in AppModule — libs stay empty shells.
 
 ## Why it matters
 
-- A standalone module can be loaded into a different app, or run isolated in tests.
-- Without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
+- [cant-run-alone] Domain code lives only in AppModule — libs are empty and the domain can't load elsewhere.
+- [agent-gets-lost] Without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
 
 
 ## How to fix

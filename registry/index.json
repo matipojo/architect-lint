@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T22:05:16.319Z",
+  "generatedAt": "2026-05-24T22:20:35.038Z",
   "rules": [
     {
       "id": "nestjs-auth-one-passport-strategy-per-method",
@@ -64,7 +64,7 @@
       "domain": "nestjs-modules",
       "group": "configuration",
       "title": "`forRootAsync` for modules with dependent configuration",
-      "summary": "Lets the same module run with different configs in different environments without code changes.",
+      "summary": "Hard-coded module config — environments differ only by editing code.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -239,7 +239,7 @@
       "domain": "nestjs-modules",
       "group": "module-structure",
       "title": "Every domain is a standalone NestJS Module",
-      "summary": "A standalone module can be loaded into a different app, or run isolated in tests.",
+      "summary": "Domain logic trapped in AppModule — libs stay empty shells.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -619,7 +619,7 @@
       "domain": "testing-contracts",
       "group": "contracts",
       "title": "Backend ↔ frontend communication via a generated client, not `fetch`",
-      "summary": "An endpoint change breaks the compile, not the runtime.",
+      "summary": "Hand-written fetch — API changes fail in the browser, not at compile time.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -641,7 +641,7 @@
       "domain": "domain-isolation",
       "group": "dependencies",
       "title": "Every library has one purpose — feature, data-access, ui, or util",
-      "summary": "Pure UI lib runs in Storybook with zero mocks.",
+      "summary": "Mix UI with API in one lib — Storybook needs the whole stack mocked.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -949,7 +949,7 @@
       "domain": "platform-composition",
       "group": "composition",
       "title": "Feature flags instead of code branches",
-      "summary": "Enables deploy without release.",
+      "summary": "Without flags, every deploy waits on a coordinated release.",
       "priority": "high",
       "status": "active",
       "tags": [

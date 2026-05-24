@@ -20,9 +20,8 @@ Once `shared` knows a domain, it's not shared anymore.
 
 ## Why it matters
 
-- Once `shared` knows a domain, it's not shared anymore.
-- This is what lets you add a new domain without touching `shared`.
-
+- [hidden-coupling] Once `shared` knows a domain, it's not shared anymore.
+- [hidden-coupling] shared imports a domain — every new app drags another edit through platform review.
 
 ## How to fix
 

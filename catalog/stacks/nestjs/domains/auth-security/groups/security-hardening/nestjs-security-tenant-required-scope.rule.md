@@ -20,8 +20,8 @@ One forgotten filter = a user sees another org's data. The most severe leak ther
 
 ## Why it matters
 
-- One forgotten filter = a user sees another org's data. The most severe leak there is.
-- After 6 months no one remembers which repository filters and which doesn't.
+- [data-leak] One forgotten filter = a user sees another org's data. The most severe leak there is.
+- [agent-gets-lost] After 6 months no one remembers which repository filters and which doesn't.
 
 
 ## How to fix

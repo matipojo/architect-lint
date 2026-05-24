@@ -21,10 +21,10 @@ Unreliable networks + client retries = duplicate runs of the same prompt = doubl
 
 ## Why it matters
 
-- Unreliable networks + client retries = duplicate runs of the same prompt = double charges.
-- This is the industry standard idempotency pattern. For expensive long-running jobs — mandatory.
-- client retries create duplicate job runs — double charges on expensive LLM calls.
-- double-clicks spawn two runs for the same user intent.
+- [double-charge] Unreliable networks + client retries = duplicate runs of the same prompt = double charges.
+- [double-charge] Skip idempotency on costly jobs — retries and double-clicks run the same work twice.
+- [double-charge] client retries create duplicate job runs — double charges on expensive LLM calls.
+- [double-charge] double-clicks spawn two runs for the same user intent.
 
 
 

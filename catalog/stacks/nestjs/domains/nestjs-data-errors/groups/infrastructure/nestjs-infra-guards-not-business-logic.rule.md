@@ -20,8 +20,8 @@ A guard that contains business logic = logic hidden from the service. Bugs that 
 
 ## Why it matters
 
-- A guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.
-- An interceptor that changes behavior = action at a distance. Who added the `if`?
+- [layer-mixing] A guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.
+- [layer-mixing] An interceptor that changes behavior = action at a distance. Who added the `if`?
 
 
 ## How to fix

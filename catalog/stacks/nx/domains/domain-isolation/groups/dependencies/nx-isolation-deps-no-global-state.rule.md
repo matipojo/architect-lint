@@ -20,8 +20,8 @@ Global state is the fastest way to destroy a platform — untraceable dependenci
 
 ## Why it matters
 
-- Global state is the fastest way to destroy a platform — untraceable dependencies.
-- Without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
+- [hidden-coupling] Global state is the fastest way to destroy a platform — untraceable dependencies.
+- [cant-run-alone] Without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
 
 
 ## How to fix

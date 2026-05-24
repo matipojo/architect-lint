@@ -19,4 +19,5 @@ const rule = computed(() => page.value.frontmatter.rule as (RulePageMeta | undef
 
 <!--@content-->
 
+<RuleRelated v-if="rule?.related?.length" :related="rule.related" />
 <RuleMeta v-if="rule?.resources" :resources="rule.resources" :since="rule.since" />

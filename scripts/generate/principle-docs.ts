@@ -10,6 +10,7 @@ import { parseRuleMarkdown } from '../../packages/codegen/parse-rule-md.js';
 import { STACKS, catalogRoot } from '../../packages/codegen/catalog-meta.js';
 import { buildIndexEntry, buildRuleDocument, domainDisplayName, stackDisplayName } from './principle-page.js';
 import { ruleCatalogPath, rulePermalink } from '../config/site.js';
+import './issue-type-catalog-md.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');

@@ -77,7 +77,7 @@ function normalizeIssues(rawIssues: Issue[], why: string, summary: string): Issu
     seen.add(key);
 
     result.push({
-      type: issue.type === 'maintainability' ? classifyIssueText(text) : issue.type,
+      type: issue.type === 'agent-gets-lost' ? classifyIssueText(text) : issue.type,
       text,
     });
   }

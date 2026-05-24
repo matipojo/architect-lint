@@ -16,12 +16,12 @@ related: []
 
 # `forRootAsync` for modules with dependent configuration
 
-Lets the same module run with different configs in different environments without code changes.
+Hard-coded module config — environments differ only by editing code.
 
 ## Why it matters
 
-- Lets the same module run with different configs in different environments without code changes.
-- Lets tests assemble the module with synthetic config.
+- [hard-to-change] Hard-coded module config — staging and prod need code edits or duplicate modules to differ.
+- [hard-to-test] Config baked into the module — tests reach for process.env instead of injecting values.
 
 
 ## How to fix

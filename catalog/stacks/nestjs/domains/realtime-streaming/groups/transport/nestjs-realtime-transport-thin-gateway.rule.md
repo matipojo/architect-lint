@@ -21,9 +21,8 @@ The gateway is transport, not business logic. It receives a message, authorizes,
 
 ## Why it matters
 
-- The gateway is transport, not business logic. It receives a message, authorizes, hands off to a service.
-- The same service must be reachable over HTTP for debugging and tests, without a socket.
-
+- [hard-to-test] Business logic in the gateway — can't hit it with HTTP tests or reuse it outside WebSockets.
+- [hard-to-test] The same service must be reachable over HTTP for debugging and tests, without a socket.
 
 ## How to fix
 

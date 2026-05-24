@@ -16,15 +16,14 @@ related: []
 
 # Every library has one purpose — feature, data-access, ui, or util
 
-Pure UI lib runs in Storybook with zero mocks.
+Mix UI with API in one lib — Storybook needs the whole stack mocked.
 
 ## Why it matters
 
-- Pure UI lib runs in Storybook with zero mocks.
-- data-access lib can be replaced with a mock in one shot.
-- feature is the only lib that knows both — and is the only one that composes.
-- Without this split, every lib drags the whole system behind it.
-
+- [hard-to-test] UI mixed with fetch in one lib — Storybook needs the whole backend faked to render a card.
+- [hard-to-test] API calls inside UI components — swapping the backend means rewriting components, not one mock.
+- [agent-gets-lost] One lib owns UI, API, and rules — agents can't tell which layer a change belongs in.
+- [spreads-failure] Without this split, every lib drags the whole system behind it.
 
 ## How to fix
 

@@ -1,36 +1,39 @@
+import { ISSUE_TYPE_CATALOG } from './issue-type-catalog.js';
+
+export { ISSUE_TYPE_CATALOG, ISSUE_FAMILIES, ISSUE_FAMILY_LABELS, ISSUE_TYPES_BY_FAMILY, type IssueFamily, issueTypeFamily } from './issue-type-catalog.js';
+
 export const ISSUE_TYPES = [
-  'security',
-  'data-integrity',
-  'coupling',
-  'blast-radius',
-  'contract',
-  'layer-violation',
-  'testability',
-  'performance',
-  'reliability',
-  'ux',
-  'maintainability',
-  'governance',
-  'operational',
+  'double-charge',
+  'secret-exposure',
+  'data-leak',
+  'abuse-vulnerable',
+  'data-corruption',
+  'wastes-money',
+  'slow-ci',
+  'hard-to-test',
+  'unclear-failure',
+  'agent-gets-lost',
+  'hard-to-change',
+  'safe-to-delete',
+  'hidden-coupling',
+  'spreads-failure',
+  'cant-run-alone',
+  'layer-mixing',
+  'api-drift',
+  'breaking-change',
+  'drops-connection',
+  'bad-ux',
+  'cant-scale',
+  'no-ownership',
+  'blind-in-prod',
+  'cant-rollback',
 ] as const;
 
 export type IssueType = (typeof ISSUE_TYPES)[number];
 
-export const ISSUE_TYPE_LABELS: Record<IssueType, string> = {
-  security: 'Security',
-  'data-integrity': 'Data integrity',
-  coupling: 'Coupling',
-  'blast-radius': 'Blast radius',
-  contract: 'Contract',
-  'layer-violation': 'Layer violation',
-  testability: 'Testability',
-  performance: 'Performance',
-  reliability: 'Reliability',
-  ux: 'UX',
-  maintainability: 'Maintainability',
-  governance: 'Governance',
-  operational: 'Operational',
-};
+export const ISSUE_TYPE_LABELS: Record<IssueType, string> = Object.fromEntries(
+  ISSUE_TYPES.map((type) => [type, ISSUE_TYPE_CATALOG[type].label]),
+) as Record<IssueType, string>;
 
 export function isIssueType(value: string): value is IssueType {
   return (ISSUE_TYPES as readonly string[]).includes(value);
@@ -38,4 +41,19 @@ export function isIssueType(value: string): value is IssueType {
 
 export function issueTypeLabel(type: IssueType): string {
   return ISSUE_TYPE_LABELS[type];
+}
+
+export function assertCatalogComplete(): string[] {
+  const errors: string[] = [];
+  for (const type of ISSUE_TYPES) {
+    if (!ISSUE_TYPE_CATALOG[type]) {
+      errors.push(`Missing catalog entry for issue type "${type}"`);
+    }
+  }
+  for (const type of Object.keys(ISSUE_TYPE_CATALOG)) {
+    if (!isIssueType(type)) {
+      errors.push(`Catalog entry "${type}" is not in ISSUE_TYPES`);
+    }
+  }
+  return errors;
 }

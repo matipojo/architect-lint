@@ -20,10 +20,9 @@ A UI lib containing `if (context === 'embedded')` is no longer a lib — it's pa
 
 ## Why it matters
 
-- A UI lib containing `if (context === 'embedded')` is no longer a lib — it's part of that host app.
-- New context = compose different props. Don't touch the lib.
-- Without this, in a year you have 40 `if`s in one component and nobody knows what's safe to delete.
-
+- [agent-gets-lost] A UI lib containing `if (context === 'embedded')` is no longer a lib — it's part of that host app.
+- [hard-to-change] New host needs a lib edit — the "shared" component is now owned by whoever embedded it last.
+- [safe-to-delete] Without this, in a year you have 40 `if`s in one component and nobody knows what's safe to delete.
 
 ## How to fix
 

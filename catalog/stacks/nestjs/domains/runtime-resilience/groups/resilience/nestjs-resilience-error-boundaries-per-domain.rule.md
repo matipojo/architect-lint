@@ -20,9 +20,8 @@ Without it, a bug in a small workspace widget wipes the entire screen, including
 
 ## Why it matters
 
-- Without it, a bug in a small workspace widget wipes the entire screen, including the sidebar.
-- This is the runtime expression of "domain separation". If they're separated in code but explode together at runtime — the separation isn't real.
-
+- [spreads-failure] Without it, a bug in a small workspace widget wipes the entire screen, including the sidebar.
+- [spreads-failure] This is the runtime expression of "domain separation". If they're separated in code but explode together at runtime — the separation isn't real.
 
 ## How to fix
 

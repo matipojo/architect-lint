@@ -14,6 +14,8 @@ export interface RuleCodeExample {
 export interface RuleRelated {
   id: string;
   href: string;
+  stack?: string;
+  domain?: string;
 }
 
 export interface RuleIssue {
@@ -119,23 +121,33 @@ export function buildRuleContentMarkdown(rule: RuleDocument): string {
   ];
 
   if (rule.bad) {
-    parts.push('## Incorrect', '', `\`\`\`${langAlias(rule.bad.language)}`, rule.bad.code, '```', '');
+    parts.push(
+      '## Incorrect',
+      '',
+      '<p class="code-compare-label bad">Incorrect</p>',
+      '',
+      `\`\`\`${langAlias(rule.bad.language)}`,
+      rule.bad.code,
+      '```',
+      '',
+    );
   }
 
   if (rule.good) {
-    parts.push('## Correct', '', `\`\`\`${langAlias(rule.good.language)}`, rule.good.code, '```', '');
+    parts.push(
+      '## Correct',
+      '',
+      '<p class="code-compare-label good">Correct</p>',
+      '',
+      `\`\`\`${langAlias(rule.good.language)}`,
+      rule.good.code,
+      '```',
+      '',
+    );
   }
 
   if (rule.when_not_to_apply) {
     parts.push('## When not to apply', '', sanitizeMarkdown(rule.when_not_to_apply.trim()), '');
-  }
-
-  if (rule.related.length > 0) {
-    parts.push('## Related principles', '');
-    for (const related of rule.related) {
-      parts.push(`- [\`${related.id}\`](${related.href})`);
-    }
-    parts.push('');
   }
 
   return `${parts.join('\n')}\n`;
@@ -161,6 +173,6 @@ export function applyRulePageData(pageData: {
   pageData.frontmatter = {
     ...pageData.frontmatter,
     rule: ruleMeta,
-    editLink: rule.resources.suggestChange,
+    editLink: false,
   };
 }

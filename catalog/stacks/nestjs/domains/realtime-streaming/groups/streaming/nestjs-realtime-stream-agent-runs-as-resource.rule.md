@@ -23,10 +23,10 @@ The user closes the tab mid-response and re-opens — you need to show where it 
 
 ## Why it matters
 
-- The user closes the tab mid-response and re-opens — you need to show where it stopped.
-- You need history, debugging, and a record of what you paid for.
-- Two devices of the same user need to see the same run.
-- streaming straight to the client, nothing persisted except the final message
+- [bad-ux] Stream-only output — close the tab and the partial response is gone forever.
+- [bad-ux] Nothing persisted per run — can't audit LLM spend or debug what the user actually saw.
+- [bad-ux] Run state only in browser memory — phone and laptop show different partial streams.
+- [data-corruption] streaming straight to the client, nothing persisted except the final message
 
 
 

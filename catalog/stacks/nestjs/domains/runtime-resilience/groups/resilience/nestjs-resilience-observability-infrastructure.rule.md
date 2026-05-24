@@ -20,9 +20,8 @@ When something breaks, the first question is "which domain?" If the logs don't k
 
 ## Why it matters
 
-- When something breaks, the first question is "which domain?" If the logs don't know — you're blind.
-- Without a standard, you end up with five log formats and can't search anything.
-
+- [blind-in-prod] When something breaks, the first question is "which domain?" If the logs don't know — you're blind.
+- [blind-in-prod] Without a standard, you end up with five log formats and can't search anything.
 
 ## How to fix
 

@@ -20,9 +20,9 @@ The moment one domain reaches into another's internals, rule 1 silently breaks.
 
 ## Why it matters
 
-- The moment one domain reaches into another's internals, rule 1 silently breaks.
-- Internal changes must not break consumers — if they do, you have hidden coupling.
-- The public API is the only surface that needs strict review.
+- [agent-gets-lost] The moment one domain reaches into another's internals, rule 1 silently breaks.
+- [hidden-coupling] Import from another domain's internals — their refactor becomes your production outage.
+- [api-drift] Every export is public — rename an internal helper, break three consumers silently.
 
 
 ## How to fix

@@ -20,9 +20,9 @@ Returning an ORM entity directly = you've exposed the DB schema. A column change
 
 ## Why it matters
 
-- Returning an ORM entity directly = you've exposed the DB schema. A column change becomes a public-API change.
-- DTOs give you `class-validator` validation and protection from over-posting.
-- An entity may carry internal fields (`passwordHash`, `internalNotes`) that must never reach the client.
+- [layer-mixing] Returning an ORM entity directly = you've exposed the DB schema. A column change becomes a public-API change.
+- [layer-mixing] Return ORM entities from controllers — over-posting and internal columns reach the client.
+- [secret-exposure] An entity may carry internal fields (`passwordHash`, `internalNotes`) that must never reach the client.
 
 
 ## How to fix

@@ -20,12 +20,10 @@ One huge Strategy with `if`s = you can't add a new auth method without risking t
 
 ## Why it matters
 
-- One huge Strategy with `if`s = you can't add a new auth method without risking the existing ones.
-- Each strategy answers exactly one question: "who is the user on this request?"
-- adding OAuth or API keys means editing one Strategy full of conditionals.
-- a bug in one auth branch breaks every endpoint using that Strategy.
-
-
+- [hard-to-change] One huge Strategy with `if`s = you can't add a new auth method without risking the existing ones.
+- [hard-to-change] One mega-Strategy with if/else per auth method — adding OAuth risks breaking JWT login.
+- [hard-to-change] adding OAuth or API keys means editing one Strategy full of conditionals.
+- [spreads-failure] a bug in one auth branch breaks every endpoint using that Strategy.
 
 ## How to fix
 

@@ -129,6 +129,210 @@
   background: var(--vp-c-warning-soft);
 }
 
+.arch-panel {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg-alt);
+}
+
+.arch-panel-solid {
+  background: var(--vp-c-bg-soft);
+}
+
+.rule-hero {
+  margin: 0 0 2.5rem;
+  padding: 0.25rem 0 0;
+}
+
+.rule-title {
+  margin: 0 0 1rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--vp-c-text-1);
+}
+
+.rule-lede {
+  margin: 0 0 1.25rem;
+  max-width: 42rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--vp-c-text-1);
+}
+
+.rule-byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--vp-c-text-3);
+}
+
+.rule-byline-sep {
+  color: var(--vp-c-text-3);
+  user-select: none;
+}
+
+.rule-byline-priority.severity-critical {
+  color: var(--vp-c-danger-1);
+}
+
+.rule-byline-priority.severity-high {
+  color: var(--vp-c-warning-1);
+}
+
+.rule-byline-priority.severity-medium {
+  color: var(--vp-c-brand-1);
+}
+
+.rule-id {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--vp-c-text-3);
+}
+
+.rule-id code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8125rem;
+  color: var(--vp-c-text-3);
+  background: none;
+  padding: 0;
+}
+
+.rule-section-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--vp-c-text-1);
+}
+
+.rule-status-banner {
+  color: var(--vp-c-warning-1);
+  border-color: var(--vp-c-warning-2);
+  background: var(--vp-c-warning-soft);
+}
+
+.rule-meta-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.rule-meta-header .rule-section-title {
+  margin: 0;
+}
+
+.rule-meta-since {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--vp-c-text-3);
+}
+
+.rule-meta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.resource-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.resource-icon-btn:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+}
+
+.resource-icon-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  background: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 1;
+}
+
+.resource-icon-btn:hover .resource-icon-tooltip,
+.resource-icon-btn:focus-visible .resource-icon-tooltip {
+  opacity: 1;
+}
+
+.rule-related-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rule-related-item {
+  margin: 0;
+}
+
+.rule-related-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+.rule-related-link:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.rule-related-title {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--vp-c-text-1);
+  line-height: 1.4;
+}
+
+.rule-related-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rule-related-meta code {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+}
+
 .code-compare-label {
   display: inline-flex;
   margin: 0 0 0.5rem;
@@ -147,63 +351,6 @@
 .code-compare-label.good {
   color: var(--vp-c-brand-1);
   background: color-mix(in srgb, var(--vp-c-brand-1) 15%, transparent);
-}
-
-.rule-resources {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-
-.resource-icon-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  color: var(--vp-c-text-2);
-  text-decoration: none;
-}
-
-.resource-icon-btn:hover {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-}
-
-.resource-icon-tooltip {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.2rem 0.45rem;
-  border-radius: 4px;
-  background: var(--vp-c-bg-elv);
-  border: 1px solid var(--vp-c-divider);
-  color: var(--vp-c-text-2);
-  font-size: 0.6875rem;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s;
-}
-
-.resource-icon-btn:hover .resource-icon-tooltip {
-  opacity: 1;
-}
-
-.rule-page-footer {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--vp-c-divider);
-}
-
-.rule-edit-link {
-  color: var(--vp-c-brand-1);
-  font-size: 0.875rem;
 }
 
 .arch-search-dialog::backdrop {
@@ -357,13 +504,39 @@
   50% { opacity: 0; }
 }
 
-.arch-features-section {
+.arch-home-below {
+  margin-top: 2rem;
+}
+
+.arch-home-demo {
+  margin-bottom: 2rem;
+}
+
+.arch-showcase {
   margin: 0 auto;
   max-width: 960px;
   padding: 0 1.5rem 3rem;
 }
 
-.arch-features-tabs {
+.arch-showcase-header {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.arch-showcase-heading {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.arch-showcase-lead {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.9375rem;
+}
+
+.arch-showcase-tabs {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -371,7 +544,7 @@
   margin-bottom: 1.25rem;
 }
 
-.arch-features-tab {
+.arch-showcase-tab {
   padding: 0.45rem 0.85rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 999px;
@@ -380,7 +553,7 @@
   cursor: pointer;
 }
 
-.arch-features-tab.active {
+.arch-showcase-tab.active {
   color: var(--vp-c-brand-1);
   border-color: var(--vp-c-brand-1);
 }
@@ -422,6 +595,176 @@
   font-size: 0.875rem;
 }
 
+.arch-showcase-card-cta {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+}
+
+.arch-overview {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.arch-overview-lead {
+  margin: 0 0 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+
+.arch-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.arch-stack-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+.vp-doc a.rule-related-link {
+  text-decoration: none;
+}
+
+.vp-doc a.rule-related-link:hover {
+  text-decoration: none;
+}
+
+.vp-doc a.resource-icon-btn {
+  text-decoration: none;
+}
+
+.vp-doc a.resource-icon-btn:hover {
+  text-decoration: none;
+}
+
+.vp-doc a.arch-stack-card,
+.vp-doc a.arch-domain-card,
+.vp-doc a.arch-showcase-card {
+  text-decoration: none;
+}
+
+.vp-doc a.arch-stack-card:hover,
+.vp-doc a.arch-domain-card:hover,
+.vp-doc a.arch-showcase-card:hover {
+  text-decoration: none;
+}
+
+.arch-stack-card:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.arch-stack-card-icon {
+  font-size: 1.25rem;
+}
+
+.arch-stack-card-title {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.arch-stack-card-count {
+  font-size: 0.8125rem;
+  color: var(--vp-c-brand-1);
+}
+
+.arch-stack-card-desc {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.5;
+}
+
+.arch-domain-section {
+  margin-bottom: 2.5rem;
+}
+
+.arch-domain-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.arch-domain-section-count {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-3);
+}
+
+.arch-domain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+.arch-domain-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg-alt);
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+
+.arch-domain-card:hover {
+  border-color: var(--vp-c-brand-1);
+}
+
+.arch-domain-card-static {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.arch-domain-card-title {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.arch-domain-card-count {
+  font-size: 0.8125rem;
+  color: var(--vp-c-brand-1);
+}
+
+.arch-domain-card-desc {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.5;
+}
+
+.arch-getting-started {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.arch-code-panel {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  overflow-x: auto;
+}
+
+.arch-code-panel pre {
+  margin: 0;
+}
+
 .mermaid-block {
   margin: 1rem 0;
   overflow-x: auto;
@@ -429,12 +772,14 @@
 
 .why-section,
 .issue-section {
-  margin-bottom: 1.5rem;
+  margin: 0 0 2.5rem;
 }
 
 .why-section h2,
 .issue-section h2 {
   margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.375rem;
 }
 
 .issue-list {
@@ -443,8 +788,8 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  --issue-tag-width: 9.25rem;
+  gap: 0;
+  --issue-tag-width: 10.75rem;
 }
 
 .issue-item {
@@ -452,10 +797,20 @@
   grid-template-columns: var(--issue-tag-width) minmax(0, 1fr);
   align-items: start;
   gap: 0.75rem;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--vp-c-border);
-  border-radius: 8px;
-  background: var(--vp-c-bg-alt);
+  padding: 1rem 0;
+  border: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+  border-radius: 0;
+  background: transparent;
+}
+
+.issue-item:first-child {
+  padding-top: 0;
+}
+
+.issue-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .issue-tag {
@@ -477,196 +832,142 @@
 
 .issue-text {
   color: var(--vp-c-text-1);
-  line-height: 1.55;
-  font-size: 0.9375rem;
-  padding-top: 0.1rem;
+  line-height: 1.65;
+  font-size: 1rem;
+  padding-top: 0.05rem;
 }
 
-/* Issue tag colors — WCAG AA contrast in light and dark */
+/* Issue tag colors — grouped by stake family, WCAG AA contrast in light and dark */
 :root {
+  --issue-testing-fg: #1d4ed8;
+  --issue-testing-bg: #dbeafe;
+  --issue-testing-border: #60a5fa;
+
+  --issue-agent-fg: #334155;
+  --issue-agent-bg: #e2e8f0;
+  --issue-agent-border: #94a3b8;
+
   --issue-security-fg: #991b1b;
   --issue-security-bg: #fee2e2;
   --issue-security-border: #f87171;
 
-  --issue-data-integrity-fg: #9a3412;
-  --issue-data-integrity-bg: #ffedd5;
-  --issue-data-integrity-border: #fdba74;
+  --issue-data-money-fg: #9a3412;
+  --issue-data-money-bg: #ffedd5;
+  --issue-data-money-border: #fdba74;
 
-  --issue-coupling-fg: #c2410c;
-  --issue-coupling-bg: #ffedd5;
-  --issue-coupling-border: #fb923c;
+  --issue-structure-fg: #b45309;
+  --issue-structure-bg: #fef3c7;
+  --issue-structure-border: #fbbf24;
 
-  --issue-blast-radius-fg: #b45309;
-  --issue-blast-radius-bg: #fef3c7;
-  --issue-blast-radius-border: #fbbf24;
+  --issue-api-fg: #a16207;
+  --issue-api-bg: #fef9c3;
+  --issue-api-border: #facc15;
 
-  --issue-contract-fg: #a16207;
-  --issue-contract-bg: #fef9c3;
-  --issue-contract-border: #facc15;
+  --issue-runtime-fg: #6d28d9;
+  --issue-runtime-bg: #ede9fe;
+  --issue-runtime-border: #a78bfa;
 
-  --issue-layer-violation-fg: #854d0e;
-  --issue-layer-violation-bg: #fef9c3;
-  --issue-layer-violation-border: #eab308;
-
-  --issue-testability-fg: #1d4ed8;
-  --issue-testability-bg: #dbeafe;
-  --issue-testability-border: #60a5fa;
-
-  --issue-performance-fg: #a16207;
-  --issue-performance-bg: #fef9c3;
-  --issue-performance-border: #eab308;
-
-  --issue-reliability-fg: #6d28d9;
-  --issue-reliability-bg: #ede9fe;
-  --issue-reliability-border: #a78bfa;
-
-  --issue-ux-fg: #be185d;
-  --issue-ux-bg: #fce7f3;
-  --issue-ux-border: #f472b6;
-
-  --issue-maintainability-fg: #334155;
-  --issue-maintainability-bg: #e2e8f0;
-  --issue-maintainability-border: #94a3b8;
-
-  --issue-governance-fg: #0f766e;
-  --issue-governance-bg: #ccfbf1;
-  --issue-governance-border: #2dd4bf;
-
-  --issue-operational-fg: #0e7490;
-  --issue-operational-bg: #cffafe;
-  --issue-operational-border: #22d3ee;
+  --issue-ops-fg: #0f766e;
+  --issue-ops-bg: #ccfbf1;
+  --issue-ops-border: #2dd4bf;
 }
 
 .dark {
+  --issue-testing-fg: #bfdbfe;
+  --issue-testing-bg: #1e3a8a;
+  --issue-testing-border: #2563eb;
+
+  --issue-agent-fg: #e2e8f0;
+  --issue-agent-bg: #1e293b;
+  --issue-agent-border: #64748b;
+
   --issue-security-fg: #fecaca;
   --issue-security-bg: #450a0a;
   --issue-security-border: #b91c1c;
 
-  --issue-data-integrity-fg: #fed7aa;
-  --issue-data-integrity-bg: #431407;
-  --issue-data-integrity-border: #c2410c;
+  --issue-data-money-fg: #fed7aa;
+  --issue-data-money-bg: #431407;
+  --issue-data-money-border: #c2410c;
 
-  --issue-coupling-fg: #fdba74;
-  --issue-coupling-bg: #431407;
-  --issue-coupling-border: #ea580c;
+  --issue-structure-fg: #fde68a;
+  --issue-structure-bg: #451a03;
+  --issue-structure-border: #d97706;
 
-  --issue-blast-radius-fg: #fde68a;
-  --issue-blast-radius-bg: #451a03;
-  --issue-blast-radius-border: #d97706;
+  --issue-api-fg: #fef08a;
+  --issue-api-bg: #422006;
+  --issue-api-border: #ca8a04;
 
-  --issue-contract-fg: #fef08a;
-  --issue-contract-bg: #422006;
-  --issue-contract-border: #ca8a04;
+  --issue-runtime-fg: #ddd6fe;
+  --issue-runtime-bg: #4c1d95;
+  --issue-runtime-border: #7c3aed;
 
-  --issue-layer-violation-fg: #fef08a;
-  --issue-layer-violation-bg: #422006;
-  --issue-layer-violation-border: #a16207;
-
-  --issue-testability-fg: #bfdbfe;
-  --issue-testability-bg: #1e3a8a;
-  --issue-testability-border: #2563eb;
-
-  --issue-performance-fg: #fef08a;
-  --issue-performance-bg: #422006;
-  --issue-performance-border: #ca8a04;
-
-  --issue-reliability-fg: #ddd6fe;
-  --issue-reliability-bg: #4c1d95;
-  --issue-reliability-border: #7c3aed;
-
-  --issue-ux-fg: #fbcfe8;
-  --issue-ux-bg: #500724;
-  --issue-ux-border: #db2777;
-
-  --issue-maintainability-fg: #e2e8f0;
-  --issue-maintainability-bg: #1e293b;
-  --issue-maintainability-border: #64748b;
-
-  --issue-governance-fg: #99f6e4;
-  --issue-governance-bg: #134e4a;
-  --issue-governance-border: #0d9488;
-
-  --issue-operational-fg: #a5f3fc;
-  --issue-operational-bg: #164e63;
-  --issue-operational-border: #0891b2;
+  --issue-ops-fg: #99f6e4;
+  --issue-ops-bg: #134e4a;
+  --issue-ops-border: #0d9488;
 }
 
-.issue-tag-security {
+.issue-tag-slow-ci,
+.issue-tag-hard-to-test,
+.issue-tag-unclear-failure {
+  color: var(--issue-testing-fg);
+  background: var(--issue-testing-bg);
+  border-color: var(--issue-testing-border);
+}
+
+.issue-tag-agent-gets-lost,
+.issue-tag-hard-to-change,
+.issue-tag-safe-to-delete {
+  color: var(--issue-agent-fg);
+  background: var(--issue-agent-bg);
+  border-color: var(--issue-agent-border);
+}
+
+.issue-tag-data-leak,
+.issue-tag-secret-exposure,
+.issue-tag-abuse-vulnerable {
   color: var(--issue-security-fg);
   background: var(--issue-security-bg);
   border-color: var(--issue-security-border);
 }
 
-.issue-tag-data-integrity {
-  color: var(--issue-data-integrity-fg);
-  background: var(--issue-data-integrity-bg);
-  border-color: var(--issue-data-integrity-border);
+.issue-tag-data-corruption,
+.issue-tag-double-charge,
+.issue-tag-wastes-money {
+  color: var(--issue-data-money-fg);
+  background: var(--issue-data-money-bg);
+  border-color: var(--issue-data-money-border);
 }
 
-.issue-tag-coupling {
-  color: var(--issue-coupling-fg);
-  background: var(--issue-coupling-bg);
-  border-color: var(--issue-coupling-border);
+.issue-tag-hidden-coupling,
+.issue-tag-spreads-failure,
+.issue-tag-cant-run-alone,
+.issue-tag-layer-mixing {
+  color: var(--issue-structure-fg);
+  background: var(--issue-structure-bg);
+  border-color: var(--issue-structure-border);
 }
 
-.issue-tag-blast-radius {
-  color: var(--issue-blast-radius-fg);
-  background: var(--issue-blast-radius-bg);
-  border-color: var(--issue-blast-radius-border);
+.issue-tag-api-drift,
+.issue-tag-breaking-change {
+  color: var(--issue-api-fg);
+  background: var(--issue-api-bg);
+  border-color: var(--issue-api-border);
 }
 
-.issue-tag-contract {
-  color: var(--issue-contract-fg);
-  background: var(--issue-contract-bg);
-  border-color: var(--issue-contract-border);
+.issue-tag-drops-connection,
+.issue-tag-bad-ux,
+.issue-tag-cant-scale {
+  color: var(--issue-runtime-fg);
+  background: var(--issue-runtime-bg);
+  border-color: var(--issue-runtime-border);
 }
 
-.issue-tag-layer-violation {
-  color: var(--issue-layer-violation-fg);
-  background: var(--issue-layer-violation-bg);
-  border-color: var(--issue-layer-violation-border);
-}
-
-.issue-tag-testability {
-  color: var(--issue-testability-fg);
-  background: var(--issue-testability-bg);
-  border-color: var(--issue-testability-border);
-}
-
-.issue-tag-performance {
-  color: var(--issue-performance-fg);
-  background: var(--issue-performance-bg);
-  border-color: var(--issue-performance-border);
-}
-
-.issue-tag-reliability {
-  color: var(--issue-reliability-fg);
-  background: var(--issue-reliability-bg);
-  border-color: var(--issue-reliability-border);
-}
-
-.issue-tag-ux {
-  color: var(--issue-ux-fg);
-  background: var(--issue-ux-bg);
-  border-color: var(--issue-ux-border);
-}
-
-.issue-tag-maintainability {
-  color: var(--issue-maintainability-fg);
-  background: var(--issue-maintainability-bg);
-  border-color: var(--issue-maintainability-border);
-}
-
-.issue-tag-governance {
-  color: var(--issue-governance-fg);
-  background: var(--issue-governance-bg);
-  border-color: var(--issue-governance-border);
-}
-
-.issue-tag-operational {
-  color: var(--issue-operational-fg);
-  background: var(--issue-operational-bg);
-  border-color: var(--issue-operational-border);
+.issue-tag-no-ownership,
+.issue-tag-blind-in-prod,
+.issue-tag-cant-rollback {
+  color: var(--issue-ops-fg);
+  background: var(--issue-ops-bg);
+  border-color: var(--issue-ops-border);
 }
 
 @media (max-width: 640px) {

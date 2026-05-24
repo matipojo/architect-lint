@@ -20,8 +20,8 @@ In a platform, a new person doesn't learn "the system" — they learn one domain
 
 ## Why it matters
 
-- In a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
-- If you can't write a short clear README, the domain isn't well-defined.
+- [no-ownership] In a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
+- [no-ownership] If you can't write a short clear README, the domain isn't well-defined.
 
 
 ## How to fix

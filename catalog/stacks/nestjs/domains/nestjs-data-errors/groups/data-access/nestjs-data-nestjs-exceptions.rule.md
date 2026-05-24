@@ -20,9 +20,8 @@ Generic 500 in two different cases = inability to distinguish a bug from bad inp
 
 ## Why it matters
 
-- Generic 500 in two different cases = inability to distinguish a bug from bad input.
-- A NestJS exception filter can map exceptions to a unified error format.
-
+- [unclear-failure] Generic 500 in two different cases = inability to distinguish a bug from bad input.
+- [unclear-failure] Ad-hoc error shapes per controller — clients and logs cannot classify failures consistently.
 
 ## How to fix
 

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { validateCatalog } from './catalog-schema.js';
 import { ConsumerConfigSchema } from '../../packages/codegen/consumer-config.js';
+import { assertCatalogComplete } from '../../packages/codegen/issue-types.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
@@ -37,6 +38,7 @@ function checkGenerated(): string[] {
   const errors: string[] = [];
   const required = [
     'registry/index.json',
+    'catalog/issue-type-catalog.md',
     'website/src/data/sidebar.json',
     'website/src/data/rule-stats.json',
     'website/src/data/showcase-rules.json',
@@ -80,7 +82,8 @@ function main() {
   const catalogErrors = validateCatalog();
   const configErrors = validateConsumerConfig();
   const genErrors = checkGenerated();
-  const all = [...catalogErrors, ...configErrors, ...genErrors];
+  const issueCatalogErrors = assertCatalogComplete();
+  const all = [...catalogErrors, ...configErrors, ...genErrors, ...issueCatalogErrors];
 
   if (all.length === 0) {
     console.log('✓ All checks passed');

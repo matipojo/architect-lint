@@ -30,18 +30,22 @@ function domainLabel(stack: string, domain: string): string {
 </script>
 
 <template>
-  <header class="arch-panel rule-hero">
-    <p class="rule-eyebrow">Architecture principle</p>
+  <header class="rule-hero">
     <h1 class="rule-title">{{ rule.title }}</h1>
-    <p class="rule-id"><code>{{ rule.id }}</code></p>
-    <div class="principle-badges">
-      <span class="principle-badge stack">{{ stackLabel(rule.stack) }}</span>
-      <span class="principle-badge domain">{{ domainLabel(rule.stack, rule.domain) }}</span>
-      <span class="principle-badge" :class="`severity-${rule.priority}`">
+    <p v-if="rule.summary" class="rule-lede">{{ rule.summary }}</p>
+    <p class="rule-byline">
+      <span>{{ stackLabel(rule.stack) }}</span>
+      <span class="rule-byline-sep" aria-hidden="true">·</span>
+      <span>{{ domainLabel(rule.stack, rule.domain) }}</span>
+      <span class="rule-byline-sep" aria-hidden="true">·</span>
+      <span class="rule-byline-priority" :class="`severity-${rule.priority}`">
         {{ priorityLabel(rule.priority) }}
       </span>
-      <span v-if="rule.status !== 'active'" class="principle-badge status">{{ rule.status }}</span>
-    </div>
-    <p v-if="rule.summary" class="rule-summary">{{ rule.summary }}</p>
+      <template v-if="rule.status !== 'active'">
+        <span class="rule-byline-sep" aria-hidden="true">·</span>
+        <span>{{ rule.status }}</span>
+      </template>
+    </p>
+    <p class="rule-id"><code>{{ rule.id }}</code></p>
   </header>
 </template>

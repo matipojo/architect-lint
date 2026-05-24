@@ -20,8 +20,8 @@ Authorizing on input = trusting the user. They can send another tenant's ID.
 
 ## Why it matters
 
-- Authorizing on input = trusting the user. They can send another tenant's ID.
-- IDOR (Insecure Direct Object Reference) is the most common vulnerability. The order — fetch then authorize — neutralizes it.
+- [data-leak] Authorizing on input = trusting the user. They can send another tenant's ID.
+- [data-leak] IDOR (Insecure Direct Object Reference) is the most common vulnerability. The order — fetch then authorize — neutralizes it.
 
 
 ## How to fix

@@ -21,10 +21,9 @@ No surprises. All settings in one reviewable place.
 
 ## Why it matters
 
-- No surprises. All settings in one reviewable place.
-- Validation at startup — if a var is missing, the app doesn't boot. Better than crashing an hour later.
-- Tests receive config as a prop, not by stubbing `process.env`.
-
+- [drops-connection] Env vars scattered in services — missing key crashes prod an hour after deploy, not at boot.
+- [drops-connection] Validation at startup — if a var is missing, the app doesn't boot. Better than crashing an hour later.
+- [hard-to-test] Tests receive config as a prop, not by stubbing `process.env`.
 
 ## How to fix
 

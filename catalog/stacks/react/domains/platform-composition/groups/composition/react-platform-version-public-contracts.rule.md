@@ -20,11 +20,9 @@ Without versioning, every change becomes a cross-team coordination project.
 
 ## Why it matters
 
-- Without versioning, every change becomes a cross-team coordination project.
-- Versioning is what lets domains evolve independently.
-- next week — breaking change, no warning
-
-
+- [hard-to-change] Without versioning, every change becomes a cross-team coordination project.
+- [breaking-change] Breaking change to data-access without a version — consumers break with no migration path.
+- [breaking-change] next week — breaking change, no warning
 
 ## How to fix
 

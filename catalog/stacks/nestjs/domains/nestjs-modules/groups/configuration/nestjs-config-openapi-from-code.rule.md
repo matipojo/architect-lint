@@ -21,12 +21,10 @@ A hand-maintained spec rots the moment code changes. Wrong docs are worse than n
 
 ## Why it matters
 
-- A hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.
-- One source of truth: the controller + DTO. Frontend, docs, and tests consume the same spec.
-- hand-maintained OpenAPI drifts from controllers — wrong docs are worse than no docs.
-- frontend client codegen builds against a spec that doesn't match runtime behavior.
-
-
+- [api-drift] A hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.
+- [api-drift] Three truths — controller, handwritten spec, frontend types — diverge on the first field rename.
+- [api-drift] hand-maintained OpenAPI drifts from controllers — wrong docs are worse than no docs.
+- [api-drift] frontend client codegen builds against a spec that doesn't match runtime behavior.
 
 ## How to fix
 

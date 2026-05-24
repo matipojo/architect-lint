@@ -20,8 +20,8 @@ A leaked secret = a secret leaked to anyone with access to your log platform. Ro
 
 ## Why it matters
 
-- A leaked secret = a secret leaked to anyone with access to your log platform. Rotation is the only fix.
-- Without an automatic redactor, the moment a log prints a request body, passwords leak.
+- [secret-exposure] A leaked secret = a secret leaked to anyone with access to your log platform. Rotation is the only fix.
+- [secret-exposure] Without an automatic redactor, the moment a log prints a request body, passwords leak.
 
 
 ## How to fix

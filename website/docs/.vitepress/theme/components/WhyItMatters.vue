@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { ISSUE_TYPE_LABELS, issueTypeLabel, type IssueType } from '../../../../../packages/codegen/issue-types.ts';
 
 interface WhyItem {
   type: string;
@@ -11,24 +12,11 @@ const props = defineProps<{
   items?: WhyItem[];
 }>();
 
-const labels: Record<string, string> = {
-  security: 'Security',
-  'data-integrity': 'Data integrity',
-  coupling: 'Coupling',
-  'blast-radius': 'Blast radius',
-  contract: 'Contract',
-  'layer-violation': 'Layer violation',
-  testability: 'Testability',
-  performance: 'Performance',
-  reliability: 'Reliability',
-  ux: 'UX',
-  maintainability: 'Maintainability',
-  governance: 'Governance',
-  operational: 'Operational',
-};
-
 function issueLabel(type: string): string {
-  return labels[type] ?? type;
+  if (type in ISSUE_TYPE_LABELS) {
+    return issueTypeLabel(type as IssueType);
+  }
+  return type;
 }
 
 const fallbackItems = computed(() =>
@@ -36,14 +24,14 @@ const fallbackItems = computed(() =>
     .split('\n')
     .map((line) => line.trim())
     .filter((line) => line.startsWith('- '))
-    .map((line) => ({ type: 'maintainability', text: line.slice(2) })),
+    .map((line) => ({ type: 'agent-gets-lost', text: line.slice(2) })),
 );
 
 const items = computed(() => (props.items?.length ? props.items : fallbackItems.value));
 </script>
 
 <template>
-  <section v-if="items.length > 0" class="arch-panel arch-panel-solid why-section">
+  <section v-if="items.length > 0" class="why-section">
     <h2 id="why-it-matters" class="rule-section-title">Why it matters</h2>
     <ul class="issue-list">
       <li v-for="(item, index) in items" :key="`${item.type}-${index}`" class="issue-item">

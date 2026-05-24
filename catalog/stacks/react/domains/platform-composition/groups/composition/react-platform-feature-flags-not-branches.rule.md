@@ -16,14 +16,13 @@ related: []
 
 # Feature flags instead of code branches
 
-Enables deploy without release.
+Without flags, every deploy waits on a coordinated release.
 
 ## Why it matters
 
-- Enables deploy without release.
-- Prevents long-lived branches that drift from the system.
-- Replaces the scattered `if (isNewFeatureEnabled)` with a single, defined source.
-
+- [hard-to-change] No feature flags — every partial feature waits for a coordinated release train.
+- [hard-to-change] Long-lived feature branches — merge conflicts and drift until nobody trusts main.
+- [safe-to-delete] Scattered feature ifs — nobody knows which flags are dead code safe to delete.
 
 ## How to fix
 

@@ -21,9 +21,8 @@ Without namespacing, a name collision between orgs = a user receives another org
 
 ## Why it matters
 
-- Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
-- Same problem as multi-tenancy in the DB, but on the real-time channel.
-
+- [data-leak] Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
+- [data-leak] Flat room names like `doc-123` — same ID collision leaks events across tenants.
 
 ## How to fix
 

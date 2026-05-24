@@ -20,9 +20,8 @@ A component that inherits from context cannot be rendered alone in Storybook wit
 
 ## Why it matters
 
-- A component that inherits from context cannot be rendered alone in Storybook without faking the context.
-- Composition is what enables reuse without "variants". One component, assembled differently.
-
+- [hard-to-test] A component that inherits from context cannot be rendered alone in Storybook without faking the context.
+- [hard-to-test] Context inheritance — component can't render in Storybook without faking half the app shell.
 
 ## How to fix
 

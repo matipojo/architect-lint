@@ -25,9 +25,9 @@ In a platform, a new person doesn't learn "the system" — they learn one domain
 
 ## Issues
 
-- [governance] Without this: in a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
-- [governance] Without this: failure mode: if you can't write a short clear README, the domain isn't well-defined.
-- [governance] Failure mode: if you can't write a short clear README, the domain isn't well-defined.
+- [governance] In a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
+- [governance] If you can't write a short clear README, the domain isn't well-defined.
+
 
 ## How to fix
 

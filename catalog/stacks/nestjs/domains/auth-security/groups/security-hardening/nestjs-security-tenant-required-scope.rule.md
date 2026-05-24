@@ -25,9 +25,9 @@ One forgotten filter = a user sees another org's data. The most severe leak ther
 
 ## Issues
 
-- [maintainability] Without this: after 6 months no one remembers which repository filters and which doesn't.
-- [security] Without this: failure mode: one forgotten filter = a user sees another org's data. The most severe leak there is.
-- [security] Failure mode: one forgotten filter = a user sees another org's data. The most severe leak there is.
+- [security] One forgotten filter = a user sees another org's data. The most severe leak there is.
+- [maintainability] After 6 months no one remembers which repository filters and which doesn't.
+
 
 ## How to fix
 

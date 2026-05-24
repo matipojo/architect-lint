@@ -27,10 +27,9 @@ Heartbeats and reconnect belong in the transport protocol from day one — not a
 ## Issues
 
 - [reliability] Silent disconnects — UI shows "streaming" while the connection is already dead.
-- [performance] Without this: long tool-call pauses trigger proxy timeouts without keep-alive traffic.
-- [ux] Without this: resume after refresh fails when the server never emitted event IDs for `Last-Event-Id`.
-- [ux] Without this: proxies and load balancers close idle connections after ~60 seconds. Without heartbeats, the client thinks it's connected but isn't.
-- [maintainability] Without this: lLM streaming has long pauses between tokens (tool calls). Heartbeats keep the connection alive.
+- [performance] long tool-call pauses trigger proxy timeouts without keep-alive traffic.
+- [ux] resume after refresh fails when the server never emitted event IDs for `Last-Event-Id`.
+
 
 ## How to fix
 

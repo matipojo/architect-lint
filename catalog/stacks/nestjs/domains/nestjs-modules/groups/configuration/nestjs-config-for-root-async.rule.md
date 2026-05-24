@@ -25,8 +25,9 @@ Lets the same module run with different configs in different environments withou
 
 ## Issues
 
-- [maintainability] Without this: lets the same module run with different configs in different environments without code changes.
-- [testability] Without this: lets tests assemble the module with synthetic config.
+- [maintainability] Lets the same module run with different configs in different environments without code changes.
+- [testability] Lets tests assemble the module with synthetic config.
+
 
 ## How to fix
 

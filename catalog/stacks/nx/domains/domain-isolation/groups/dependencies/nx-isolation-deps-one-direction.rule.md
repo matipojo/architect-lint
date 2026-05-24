@@ -25,8 +25,9 @@ Once `shared` knows a domain, it's not shared anymore.
 
 ## Issues
 
-- [maintainability] Without this: once `shared` knows a domain, it's not shared anymore.
-- [maintainability] Without this: this is what lets you add a new domain without touching `shared`.
+- [coupling] Once `shared` knows a domain, it's not shared anymore.
+- [maintainability] This is what lets you add a new domain without touching `shared`.
+
 
 ## How to fix
 

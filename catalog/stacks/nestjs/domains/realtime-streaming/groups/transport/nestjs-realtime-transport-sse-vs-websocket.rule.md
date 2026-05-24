@@ -26,10 +26,9 @@ WebSocket is operationally more expensive (sticky sessions, scaling, connections
 
 ## Issues
 
-- [security] Without this: webSocket for one-way LLM streaming adds sticky sessions, socket auth, and reconnect complexity.
-- [maintainability] Without this: proxies and load balancers treat long-lived sockets differently from plain HTTP/SSE.
-- [performance] Without this: webSocket is operationally more expensive (sticky sessions, scaling, connections that don't close).
-- [maintainability] Without this: for LLM response streaming — SSE wins big: works through HTTP/2, through proxies, with regular infrastructure.
+- [security] webSocket for one-way LLM streaming adds sticky sessions, socket auth, and reconnect complexity.
+- [maintainability] proxies and load balancers treat long-lived sockets differently from plain HTTP/SSE.
+
 
 ## How to fix
 

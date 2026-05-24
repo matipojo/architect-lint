@@ -4,6 +4,7 @@ import {
   RULE_MD_H2_NARRATIVE,
   RULE_MD_H2_REQUIRED,
 } from './rule-md-structure.js';
+import { parseIssuesSection } from './parse-rule-issues.js';
 import { RuleFrontmatterSchema, RuleSchema, type Rule } from './schema.js';
 
 type Section = { heading: string; level: 2 | 3; content: string; line: number };
@@ -145,29 +146,31 @@ export function parseRuleMarkdown(source: string, filePath?: string): Rule {
   }
 
   const why = byHeading.get('Why it matters');
-  const breaks = byHeading.get('What breaks');
+  const issuesSection = byHeading.get('Issues');
   const instead = byHeading.get('How to fix');
   const incorrect = byHeading.get('Incorrect');
   const correct = byHeading.get('Correct');
   const whenNot = byHeading.get('When not to apply');
 
-  if (!why || !breaks || !instead || !incorrect || !correct) {
+  if (!why || !issuesSection || !instead || !incorrect || !correct) {
     throw new Error('Internal parse error: missing required sections');
   }
 
   const bad = parseCodeFence(incorrect.content, `${label} ## Incorrect`);
   const good = parseCodeFence(correct.content, `${label} ## Correct`);
+  const issues = parseIssuesSection(issuesSection.content, `${label} ## Issues`);
 
-  const details = RULE_MD_H2_NARRATIVE.map(
-    (heading) => `## ${heading}\n\n${byHeading.get(heading)!.content}`,
-  ).join('\n\n');
+  const details = [
+    `## Why it matters\n\n${why.content}`,
+    `## How to fix\n\n${instead.content}`,
+  ].join('\n\n');
 
   const rule = {
     ...frontmatter,
     title,
     summary,
     why_it_matters: why.content,
-    what_breaks: breaks.content,
+    issues,
     do_this_instead: instead.content,
     details,
     rationale: instead.content,

@@ -26,10 +26,9 @@ A UI lib containing `if (context === 'wordpress')` is no longer a lib — it's p
 
 ## Issues
 
-- [ux] Without this: a UI lib containing `if (context === 'wordpress')` is no longer a lib — it's part of WordPress.
-- [maintainability] Without this: new context = compose different props. Don't touch the lib.
-- [maintainability] Without this: failure mode: without this, in a year you have 40 `if`s in one component and nobody knows what's safe to delete.
-- [maintainability] Failure mode: without this, in a year you have 40 `if`s in one component and nobody knows what's safe to delete.
+- [maintainability] A UI lib containing `if (context === 'wordpress')` is no longer a lib — it's part of WordPress.
+- [maintainability] New context = compose different props. Don't touch the lib.
+
 
 ## How to fix
 

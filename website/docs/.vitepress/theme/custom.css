@@ -426,3 +426,259 @@
   margin: 1rem 0;
   overflow-x: auto;
 }
+
+.issue-section {
+  margin-bottom: 1.5rem;
+}
+
+.issue-section h2 {
+  margin-top: 0;
+}
+
+.issue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  --issue-tag-width: 9.25rem;
+}
+
+.issue-item {
+  display: grid;
+  grid-template-columns: var(--issue-tag-width) minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 8px;
+  background: var(--vp-c-bg-alt);
+}
+
+.issue-tag {
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.issue-text {
+  color: var(--vp-c-text-1);
+  line-height: 1.55;
+  font-size: 0.9375rem;
+  padding-top: 0.1rem;
+}
+
+/* Issue tag colors — WCAG AA contrast in light and dark */
+:root {
+  --issue-security-fg: #991b1b;
+  --issue-security-bg: #fee2e2;
+  --issue-security-border: #f87171;
+
+  --issue-data-integrity-fg: #9a3412;
+  --issue-data-integrity-bg: #ffedd5;
+  --issue-data-integrity-border: #fdba74;
+
+  --issue-coupling-fg: #c2410c;
+  --issue-coupling-bg: #ffedd5;
+  --issue-coupling-border: #fb923c;
+
+  --issue-blast-radius-fg: #b45309;
+  --issue-blast-radius-bg: #fef3c7;
+  --issue-blast-radius-border: #fbbf24;
+
+  --issue-contract-fg: #a16207;
+  --issue-contract-bg: #fef9c3;
+  --issue-contract-border: #facc15;
+
+  --issue-layer-violation-fg: #854d0e;
+  --issue-layer-violation-bg: #fef9c3;
+  --issue-layer-violation-border: #eab308;
+
+  --issue-testability-fg: #1d4ed8;
+  --issue-testability-bg: #dbeafe;
+  --issue-testability-border: #60a5fa;
+
+  --issue-performance-fg: #a16207;
+  --issue-performance-bg: #fef9c3;
+  --issue-performance-border: #eab308;
+
+  --issue-reliability-fg: #6d28d9;
+  --issue-reliability-bg: #ede9fe;
+  --issue-reliability-border: #a78bfa;
+
+  --issue-ux-fg: #be185d;
+  --issue-ux-bg: #fce7f3;
+  --issue-ux-border: #f472b6;
+
+  --issue-maintainability-fg: #334155;
+  --issue-maintainability-bg: #e2e8f0;
+  --issue-maintainability-border: #94a3b8;
+
+  --issue-governance-fg: #0f766e;
+  --issue-governance-bg: #ccfbf1;
+  --issue-governance-border: #2dd4bf;
+
+  --issue-operational-fg: #0e7490;
+  --issue-operational-bg: #cffafe;
+  --issue-operational-border: #22d3ee;
+}
+
+.dark {
+  --issue-security-fg: #fecaca;
+  --issue-security-bg: #450a0a;
+  --issue-security-border: #b91c1c;
+
+  --issue-data-integrity-fg: #fed7aa;
+  --issue-data-integrity-bg: #431407;
+  --issue-data-integrity-border: #c2410c;
+
+  --issue-coupling-fg: #fdba74;
+  --issue-coupling-bg: #431407;
+  --issue-coupling-border: #ea580c;
+
+  --issue-blast-radius-fg: #fde68a;
+  --issue-blast-radius-bg: #451a03;
+  --issue-blast-radius-border: #d97706;
+
+  --issue-contract-fg: #fef08a;
+  --issue-contract-bg: #422006;
+  --issue-contract-border: #ca8a04;
+
+  --issue-layer-violation-fg: #fef08a;
+  --issue-layer-violation-bg: #422006;
+  --issue-layer-violation-border: #a16207;
+
+  --issue-testability-fg: #bfdbfe;
+  --issue-testability-bg: #1e3a8a;
+  --issue-testability-border: #2563eb;
+
+  --issue-performance-fg: #fef08a;
+  --issue-performance-bg: #422006;
+  --issue-performance-border: #ca8a04;
+
+  --issue-reliability-fg: #ddd6fe;
+  --issue-reliability-bg: #4c1d95;
+  --issue-reliability-border: #7c3aed;
+
+  --issue-ux-fg: #fbcfe8;
+  --issue-ux-bg: #500724;
+  --issue-ux-border: #db2777;
+
+  --issue-maintainability-fg: #e2e8f0;
+  --issue-maintainability-bg: #1e293b;
+  --issue-maintainability-border: #64748b;
+
+  --issue-governance-fg: #99f6e4;
+  --issue-governance-bg: #134e4a;
+  --issue-governance-border: #0d9488;
+
+  --issue-operational-fg: #a5f3fc;
+  --issue-operational-bg: #164e63;
+  --issue-operational-border: #0891b2;
+}
+
+.issue-tag-security {
+  color: var(--issue-security-fg);
+  background: var(--issue-security-bg);
+  border-color: var(--issue-security-border);
+}
+
+.issue-tag-data-integrity {
+  color: var(--issue-data-integrity-fg);
+  background: var(--issue-data-integrity-bg);
+  border-color: var(--issue-data-integrity-border);
+}
+
+.issue-tag-coupling {
+  color: var(--issue-coupling-fg);
+  background: var(--issue-coupling-bg);
+  border-color: var(--issue-coupling-border);
+}
+
+.issue-tag-blast-radius {
+  color: var(--issue-blast-radius-fg);
+  background: var(--issue-blast-radius-bg);
+  border-color: var(--issue-blast-radius-border);
+}
+
+.issue-tag-contract {
+  color: var(--issue-contract-fg);
+  background: var(--issue-contract-bg);
+  border-color: var(--issue-contract-border);
+}
+
+.issue-tag-layer-violation {
+  color: var(--issue-layer-violation-fg);
+  background: var(--issue-layer-violation-bg);
+  border-color: var(--issue-layer-violation-border);
+}
+
+.issue-tag-testability {
+  color: var(--issue-testability-fg);
+  background: var(--issue-testability-bg);
+  border-color: var(--issue-testability-border);
+}
+
+.issue-tag-performance {
+  color: var(--issue-performance-fg);
+  background: var(--issue-performance-bg);
+  border-color: var(--issue-performance-border);
+}
+
+.issue-tag-reliability {
+  color: var(--issue-reliability-fg);
+  background: var(--issue-reliability-bg);
+  border-color: var(--issue-reliability-border);
+}
+
+.issue-tag-ux {
+  color: var(--issue-ux-fg);
+  background: var(--issue-ux-bg);
+  border-color: var(--issue-ux-border);
+}
+
+.issue-tag-maintainability {
+  color: var(--issue-maintainability-fg);
+  background: var(--issue-maintainability-bg);
+  border-color: var(--issue-maintainability-border);
+}
+
+.issue-tag-governance {
+  color: var(--issue-governance-fg);
+  background: var(--issue-governance-bg);
+  border-color: var(--issue-governance-border);
+}
+
+.issue-tag-operational {
+  color: var(--issue-operational-fg);
+  background: var(--issue-operational-bg);
+  border-color: var(--issue-operational-border);
+}
+
+@media (max-width: 640px) {
+  .issue-list {
+    --issue-tag-width: 100%;
+  }
+
+  .issue-item {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  .issue-tag {
+    width: fit-content;
+    max-width: 100%;
+  }
+}

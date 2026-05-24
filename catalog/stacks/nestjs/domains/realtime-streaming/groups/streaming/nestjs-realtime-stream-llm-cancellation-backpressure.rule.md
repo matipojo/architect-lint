@@ -29,10 +29,7 @@ Without cancellation, you pay for a response no one reads. At scale this is real
 ## Issues
 
 - [reliability] When the client disconnected — downstream work keeps running
-- [performance] Without this: failure mode: without cancellation, you pay for a response no one reads. At scale this is real money.
-- [performance] Without this: failure mode: without backpressure, the server accumulates unsent responses and explodes on memory.
-- [performance] Failure mode: without cancellation, you pay for a response no one reads. At scale this is real money.
-- [performance] Failure mode: without backpressure, the server accumulates unsent responses and explodes on memory.
+
 
 ## How to fix
 

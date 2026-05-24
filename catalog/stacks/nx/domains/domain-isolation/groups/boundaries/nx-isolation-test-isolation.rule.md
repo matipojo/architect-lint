@@ -26,11 +26,9 @@ Without this, rule 1 is empty words — if tests need the whole system, dependen
 
 ## Issues
 
-- [testability] Without this: cI times stay sane as the system grows.
-- [blast-radius] Without this: failure mode: without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.
-- [testability] Without this: failure mode: when a test fails, it's clear who broke what.
-- [blast-radius] Failure mode: without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.
-- [testability] Failure mode: when a test fails, it's clear who broke what.
+- [blast-radius] Without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.
+- [testability] CI times stay sane as the system grows.
+
 
 ## How to fix
 

@@ -25,10 +25,9 @@ When something breaks, the first question is "which domain?" If the logs don't k
 
 ## Issues
 
-- [maintainability] Without this: failure mode: when something breaks, the first question is "which domain?" If the logs don't know — you're blind.
-- [maintainability] Without this: failure mode: without a standard, you end up with five log formats and can't search anything.
-- [maintainability] Failure mode: when something breaks, the first question is "which domain?" If the logs don't know — you're blind.
-- [maintainability] Failure mode: without a standard, you end up with five log formats and can't search anything.
+- [maintainability] When something breaks, the first question is "which domain?" If the logs don't know — you're blind.
+- [maintainability] Without a standard, you end up with five log formats and can't search anything.
+
 
 ## How to fix
 

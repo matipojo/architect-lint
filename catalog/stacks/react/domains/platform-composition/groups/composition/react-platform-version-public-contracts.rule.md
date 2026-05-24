@@ -25,10 +25,8 @@ Without versioning, every change becomes a cross-team coordination project.
 
 ## Issues
 
-- [contract] Without this: next week — breaking change, no warning
-- [contract] Without this: versioning is what lets domains evolve independently.
-- [contract] Without this: failure mode: without versioning, every change becomes a cross-team coordination project.
-- [contract] Failure mode: without versioning, every change becomes a cross-team coordination project.
+- [contract] next week — breaking change, no warning
+
 
 ## How to fix
 

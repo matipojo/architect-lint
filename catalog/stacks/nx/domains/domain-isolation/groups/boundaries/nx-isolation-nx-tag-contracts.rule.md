@@ -26,9 +26,9 @@ The moment one domain reaches into another's internals, rule 1 silently breaks.
 
 ## Issues
 
-- [reliability] Without this: the moment one domain reaches into another's internals, rule 1 silently breaks.
-- [coupling] Without this: internal changes must not break consumers — if they do, you have hidden coupling.
-- [contract] Without this: the public API is the only surface that needs strict review.
+- [reliability] The moment one domain reaches into another's internals, rule 1 silently breaks.
+- [coupling] Internal changes must not break consumers — if they do, you have hidden coupling.
+
 
 ## How to fix
 

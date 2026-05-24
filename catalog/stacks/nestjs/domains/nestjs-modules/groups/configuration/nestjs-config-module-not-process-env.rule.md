@@ -26,8 +26,9 @@ A service that reads `process.env` directly is not testable — you can't fake c
 
 ## Issues
 
-- [testability] Without this: a service that reads `process.env` directly is not testable — you can't fake configuration.
-- [reliability] Without this: validation at boot means the app won't start if a var is missing.
+- [testability] A service that reads `process.env` directly is not testable — you can't fake configuration.
+- [reliability] Validation at boot means the app won't start if a var is missing.
+
 
 ## How to fix
 

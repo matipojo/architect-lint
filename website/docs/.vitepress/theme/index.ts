@@ -6,6 +6,7 @@ import RuleStatusBanner from './components/RuleStatusBanner.vue';
 import RuleResources from './components/RuleResources.vue';
 import RuleVersion from './components/RuleVersion.vue';
 import RulePageFooter from './components/RulePageFooter.vue';
+import IssueList from './components/IssueList.vue';
 import TerminalDemo from './components/TerminalDemo.vue';
 import FeaturesSection from './components/FeaturesSection.vue';
 import RulesOverview from './components/RulesOverview.vue';
@@ -20,6 +21,7 @@ export default {
     app.component('RuleResources', RuleResources);
     app.component('RuleVersion', RuleVersion);
     app.component('RulePageFooter', RulePageFooter);
+    app.component('IssueList', IssueList);
     app.component('TerminalDemo', TerminalDemo);
     app.component('FeaturesSection', FeaturesSection);
     app.component('RulesOverview', RulesOverview);

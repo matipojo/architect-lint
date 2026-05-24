@@ -27,10 +27,9 @@ Dev speed — don't load the whole system to fix one bug.
 
 ## Issues
 
-- [blast-radius] Without this: dev speed — don't load the whole system to fix one bug.
-- [blast-radius] Without this: blast radius — a bug in Studio doesn't take down sites-management.
-- [governance] Without this: clear ownership — every domain has a boundary you can point at.
-- [maintainability] Without this: teams work in parallel without trampling each other.
+- [blast-radius] Dev speed — don't load the whole system to fix one bug.
+- [blast-radius] Blast radius — a bug in Studio doesn't take down sites-management.
+
 
 ## How to fix
 

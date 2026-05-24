@@ -27,11 +27,9 @@ Pure UI lib runs in Storybook with zero mocks.
 
 ## Issues
 
-- [testability] Without this: pure UI lib runs in Storybook with zero mocks.
-- [testability] Without this: data-access lib can be replaced with a mock in one shot.
-- [maintainability] Without this: feature is the only lib that knows both — and is the only one that composes.
-- [blast-radius] Without this: failure mode: without this split, every lib drags the whole system behind it.
-- [blast-radius] Failure mode: without this split, every lib drags the whole system behind it.
+- [testability] Pure UI lib runs in Storybook with zero mocks.
+- [testability] data-access lib can be replaced with a mock in one shot.
+
 
 ## How to fix
 

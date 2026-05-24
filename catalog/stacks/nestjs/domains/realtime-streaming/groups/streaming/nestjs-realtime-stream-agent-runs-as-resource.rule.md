@@ -29,10 +29,8 @@ The user closes the tab mid-response and re-opens — you need to show where it 
 
 ## Issues
 
-- [data-integrity] Without this: streaming straight to the client, nothing persisted except the final message
-- [ux] Without this: the user closes the tab mid-response and re-opens — you need to show where it stopped.
-- [ux] Without this: you need history, debugging, and a record of what you paid for.
-- [ux] Without this: two devices of the same user need to see the same run.
+- [data-integrity] streaming straight to the client, nothing persisted except the final message
+
 
 ## How to fix
 

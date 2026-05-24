@@ -25,8 +25,9 @@ A component that inherits from context cannot be rendered alone in Storybook wit
 
 ## Issues
 
-- [testability] Without this: a component that inherits from context cannot be rendered alone in Storybook without faking the context.
-- [maintainability] Without this: composition is what enables reuse without "variants". One component, assembled differently.
+- [testability] A component that inherits from context cannot be rendered alone in Storybook without faking the context.
+- [maintainability] Composition is what enables reuse without "variants". One component, assembled differently.
+
 
 ## How to fix
 

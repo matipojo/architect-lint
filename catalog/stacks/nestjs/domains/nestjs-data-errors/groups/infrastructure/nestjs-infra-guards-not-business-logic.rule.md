@@ -25,8 +25,9 @@ A guard that contains business logic = logic hidden from the service. Bugs that 
 
 ## Issues
 
-- [coupling] Without this: a guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.
-- [layer-violation] Without this: an interceptor that changes behavior = action at a distance. Who added the `if`?
+- [coupling] A guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.
+- [layer-violation] An interceptor that changes behavior = action at a distance. Who added the `if`?
+
 
 ## How to fix
 

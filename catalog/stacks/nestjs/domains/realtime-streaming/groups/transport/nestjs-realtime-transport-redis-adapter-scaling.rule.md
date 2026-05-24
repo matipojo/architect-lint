@@ -29,12 +29,9 @@ Without it, user A is on instance 1, user B on instance 2 — they don't see eac
 
 ## Issues
 
-- [maintainability] Without this: room broadcasts only reach clients on the same process.
-- [maintainability] Without this: sSE stream resume fails when the resume lands on a different instance than the original POST.
-- [operational] Without this: every real-time system going to production needs this on day one, or it will hurt later.
-- [performance] Without this: sSE resume across instances also needs a shared broker — in-memory streams can't hand off to another node.
-- [ux] Without this: failure mode: without it, user A is on instance 1, user B on instance 2 — they don't see each other.
-- [ux] Failure mode: without it, user A is on instance 1, user B on instance 2 — they don't see each other.
+- [maintainability] room broadcasts only reach clients on the same process.
+- [maintainability] sSE stream resume fails when the resume lands on a different instance than the original POST.
+
 
 ## How to fix
 

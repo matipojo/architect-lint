@@ -25,11 +25,9 @@ Without rate limiting, the login endpoint is open to brute force; an expensive e
 
 ## Issues
 
-- [security] Without this: login endpoints are open to brute force without per-route throttling.
-- [security] Without this: expensive endpoints have no protection against intentional or accidental DoS.
-- [maintainability] Without this: "We'll handle it later" = never.
-- [security] Without this: failure mode: without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.
-- [security] Failure mode: without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.
+- [security] login endpoints are open to brute force without per-route throttling.
+- [security] expensive endpoints have no protection against intentional or accidental DoS.
+
 
 ## How to fix
 

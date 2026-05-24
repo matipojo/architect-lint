@@ -27,10 +27,9 @@ No surprises. All settings in one reviewable place.
 
 ## Issues
 
-- [reliability] Without this: validation at startup — if a var is missing, the app doesn't boot. Better than crashing an hour later.
-- [testability] Without this: tests receive config as a prop, not by stubbing `process.env`.
-- [governance] Without this: failure mode: no surprises. All settings in one reviewable place.
-- [governance] Failure mode: no surprises. All settings in one reviewable place.
+- [governance] No surprises. All settings in one reviewable place.
+- [reliability] Validation at startup — if a var is missing, the app doesn't boot. Better than crashing an hour later.
+
 
 ## How to fix
 

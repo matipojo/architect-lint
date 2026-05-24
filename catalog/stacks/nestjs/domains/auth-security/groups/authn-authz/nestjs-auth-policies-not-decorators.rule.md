@@ -26,9 +26,9 @@ Decorators scatter permissions across dozens of places. A policy change = grep a
 
 ## Issues
 
-- [maintainability] Without this: decorators scatter permissions across dozens of places. A policy change = grep across the project.
-- [ux] Without this: the same permission needs to apply both in the UI (hide a button) and in the backend. One policy = two consumers.
-- [ux] Without this: a decorator gets the user but not the resource. Most real permissions are about a specific resource.
+- [maintainability] Decorators scatter permissions across dozens of places. A policy change = grep across the project.
+- [maintainability] The same permission needs to apply both in the UI (hide a button) and in the backend. One policy = two consumers.
+
 
 ## How to fix
 

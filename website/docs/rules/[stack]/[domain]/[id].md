@@ -11,6 +11,7 @@ const rule = frontmatter.rule
 
 <RuleStatusBanner v-if="rule" :rule="rule" />
 <RuleHeader v-if="rule" :rule="rule" />
+<IssueList v-if="rule?.issues?.length" :issues="rule.issues" />
 
 <!--@content-->
 

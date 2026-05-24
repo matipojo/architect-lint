@@ -125,6 +125,7 @@ export function validateCatalog(): string[] {
   }
 
   for (const file of ruleFiles) {
+    const rel = relativeCatalogPath(file);
     try {
       const rule = parseRuleMarkdown(readFileSync(file, 'utf8'), rel);
       for (const relatedId of rule.related) {

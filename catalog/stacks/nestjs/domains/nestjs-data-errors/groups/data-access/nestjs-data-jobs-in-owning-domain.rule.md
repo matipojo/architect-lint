@@ -25,9 +25,9 @@ If Studio pushes a job to Sites' queue, Studio knows Sites' internal job structu
 
 ## Issues
 
-- [maintainability] Without this: events are how domains coordinate without one knowing the other's internals.
-- [coupling] Without this: failure mode: if Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.
-- [coupling] Failure mode: if Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.
+- [coupling] If Studio pushes a job to Sites' queue, Studio knows Sites' internal job structure. Hidden coupling.
+- [maintainability] Events are how domains coordinate without one knowing the other's internals.
+
 
 ## How to fix
 

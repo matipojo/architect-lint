@@ -26,11 +26,9 @@ A hand-maintained spec rots the moment code changes. Wrong docs are worse than n
 
 ## Issues
 
-- [contract] Without this: hand-maintained OpenAPI drifts from controllers — wrong docs are worse than no docs.
-- [ux] Without this: frontend client codegen builds against a spec that doesn't match runtime behavior.
-- [contract] Without this: a hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.
-- [testability] Without this: failure mode: one source of truth: the controller + DTO. Frontend, docs, and tests consume the same spec.
-- [testability] Failure mode: one source of truth: the controller + DTO. Frontend, docs, and tests consume the same spec.
+- [contract] hand-maintained OpenAPI drifts from controllers — wrong docs are worse than no docs.
+- [ux] frontend client codegen builds against a spec that doesn't match runtime behavior.
+
 
 ## How to fix
 

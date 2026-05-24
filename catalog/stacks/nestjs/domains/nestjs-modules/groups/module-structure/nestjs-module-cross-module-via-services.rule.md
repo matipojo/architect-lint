@@ -26,11 +26,8 @@ The repository is internal to the domain. The service is the public API.
 
 ## Issues
 
-- [coupling] Without this: bypasses every SitesService validation
-- [contract] Without this: the repository is internal to the domain. The service is the public API.
-- [security] Without this: the service is where validation, authorization, and logging are enforced.
-- [data-integrity] Without this: failure mode: if Studio touches Sites' repository, a change to Sites' internal schema breaks Studio.
-- [data-integrity] Failure mode: if Studio touches Sites' repository, a change to Sites' internal schema breaks Studio.
+- [coupling] bypasses every SitesService validation
+
 
 ## How to fix
 

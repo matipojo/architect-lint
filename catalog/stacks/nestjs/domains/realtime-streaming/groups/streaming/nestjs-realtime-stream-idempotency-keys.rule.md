@@ -26,10 +26,9 @@ Unreliable networks + client retries = duplicate runs of the same prompt = doubl
 
 ## Issues
 
-- [data-integrity] Without this: client retries create duplicate agent runs — double charges on expensive LLM calls.
-- [ux] Without this: double-clicks spawn two runs for the same user intent.
-- [data-integrity] Without this: unreliable networks + client retries = duplicate runs of the same prompt = double charges.
-- [performance] Without this: this is the industry standard (Stripe). For expensive agent runs — mandatory.
+- [data-integrity] client retries create duplicate agent runs — double charges on expensive LLM calls.
+- [ux] double-clicks spawn two runs for the same user intent.
+
 
 ## How to fix
 

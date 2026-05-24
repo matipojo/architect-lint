@@ -26,9 +26,9 @@ Without namespacing, a name collision between orgs = a user receives another org
 
 ## Issues
 
-- [maintainability] Without this: same problem as multi-tenancy in the DB, but on the real-time channel.
-- [security] Without this: failure mode: without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
-- [security] Failure mode: without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
+- [security] Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
+- [maintainability] Same problem as multi-tenancy in the DB, but on the real-time channel.
+
 
 ## How to fix
 

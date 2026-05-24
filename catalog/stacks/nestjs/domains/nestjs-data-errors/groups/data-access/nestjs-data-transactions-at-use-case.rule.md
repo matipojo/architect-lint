@@ -27,9 +27,7 @@ A transaction inside a repository = the repository knows too much. It doesn't kn
 ## Issues
 
 - [data-integrity] If the second fails, an orphaned site is left in the DB
-- [layer-violation] Without this: a transaction inside a repository = the repository knows too much. It doesn't know if it's part of a larger flow.
-- [coupling] Without this: a transaction in a controller = the controller knows about the DB. Layer violation.
-- [maintainability] Without this: the service is the use case. The use case is the natural transaction boundary.
+
 
 ## How to fix
 

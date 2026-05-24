@@ -25,9 +25,9 @@ Global state is the fastest way to destroy a platform — untraceable dependenci
 
 ## Issues
 
-- [coupling] Without this: global state is the fastest way to destroy a platform — untraceable dependencies.
-- [blast-radius] Without this: failure mode: without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
-- [blast-radius] Failure mode: without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
+- [coupling] Global state is the fastest way to destroy a platform — untraceable dependencies.
+- [blast-radius] Without this, "run the app standalone" becomes an illusion — it waits for someone to populate state.
+
 
 ## How to fix
 

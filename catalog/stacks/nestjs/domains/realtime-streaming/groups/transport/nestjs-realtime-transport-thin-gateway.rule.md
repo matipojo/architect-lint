@@ -26,9 +26,9 @@ The gateway is transport, not business logic. It receives a message, authorizes,
 
 ## Issues
 
-- [testability] No way to test without opening a socket
-- [security] Without this: the gateway is transport, not business logic. It receives a message, authorizes, hands off to a service.
-- [testability] Without this: the same service must be reachable over HTTP for debugging and tests, without a socket.
+- [maintainability] The gateway is transport, not business logic. It receives a message, authorizes, hands off to a service.
+- [testability] The same service must be reachable over HTTP for debugging and tests, without a socket.
+
 
 ## How to fix
 

@@ -26,9 +26,9 @@ Enables deploy without release.
 
 ## Issues
 
-- [operational] Without this: enables deploy without release.
-- [maintainability] Without this: prevents long-lived branches that drift from the system.
-- [maintainability] Without this: replaces the scattered `if (isNewFeatureEnabled)` with a single, defined source.
+- [operational] Enables deploy without release.
+- [maintainability] Prevents long-lived branches that drift from the system.
+
 
 ## How to fix
 

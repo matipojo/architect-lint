@@ -28,11 +28,8 @@ An endpoint change breaks the compile, not the runtime.
 
 ## Issues
 
-- [contract] Without this: what fields? who knows. backend change? runtime errors.
-- [maintainability] Without this: an endpoint change breaks the compile, not the runtime.
-- [maintainability] Without this: removes the need to maintain types twice (see also `professional-architecture-monorepo-hygiene` rule 13).
-- [maintainability] Without this: failure mode: no more "what's the response shape?" — the type is guaranteed.
-- [maintainability] Failure mode: no more "what's the response shape?" — the type is guaranteed.
+- [contract] what fields? who knows. backend change? runtime errors.
+
 
 ## How to fix
 

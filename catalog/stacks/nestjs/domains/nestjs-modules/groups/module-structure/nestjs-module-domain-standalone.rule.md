@@ -25,9 +25,9 @@ A standalone module can be loaded into a different app, or run isolated in tests
 
 ## Issues
 
-- [blast-radius] Without this: a standalone module can be loaded into a different app, or run isolated in tests.
-- [maintainability] Without this: failure mode: without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
-- [maintainability] Failure mode: without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
+- [blast-radius] A standalone module can be loaded into a different app, or run isolated in tests.
+- [maintainability] Without this, all controllers and services live in the app and the libs are empty — and rule 1 (domain separation) becomes decoration.
+
 
 ## How to fix
 

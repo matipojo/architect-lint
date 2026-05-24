@@ -25,8 +25,9 @@ A migration that needs two-team coordination = a feature that slips by a month.
 
 ## Issues
 
-- [maintainability] Without this: a migration that needs two-team coordination = a feature that slips by a month.
-- [maintainability] Without this: the moment a domain edits another's tables, separation is in code only — not in the DB.
+- [maintainability] A migration that needs two-team coordination = a feature that slips by a month.
+- [maintainability] The moment a domain edits another's tables, separation is in code only — not in the DB.
+
 
 ## How to fix
 

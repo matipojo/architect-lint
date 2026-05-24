@@ -16,6 +16,11 @@ export interface RuleRelated {
   href: string;
 }
 
+export interface RuleIssue {
+  type: string;
+  text: string;
+}
+
 export interface RuleResources {
   permalink: string;
   viewSource: string;
@@ -30,6 +35,9 @@ export interface RuleDocument {
   group: string;
   title: string;
   summary: string;
+  why_it_matters: string;
+  issues: RuleIssue[];
+  do_this_instead: string;
   details: string;
   priority: string;
   status: string;

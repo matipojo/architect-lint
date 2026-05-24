@@ -26,9 +26,8 @@ Without it, someone "just" tweaks the core at 2 AM and three domains break by mo
 ## Issues
 
 - [governance] Without domain-scoped owners, cross-domain edits merge without the team that will be paged.
-- [blast-radius] Without this: a late-night tweak to `libs/shared/*` can break multiple apps before anyone notices.
-- [coupling] Without this: turns architectural boundaries from suggestion into process — cannot be bypassed in review.
-- [maintainability] Without this: shared code changes get platform-lead eyes before they land.
+- [blast-radius] a late-night tweak to `libs/shared/*` can break multiple apps before anyone notices.
+
 
 ## How to fix
 

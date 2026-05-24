@@ -25,10 +25,9 @@ A leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotatio
 
 ## Issues
 
-- [security] Without this: body contains password
-- [security] Without this: a leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotation is the only fix.
-- [security] Without this: failure mode: without an automatic redactor, the moment a log prints a request body, passwords leak.
-- [security] Failure mode: without an automatic redactor, the moment a log prints a request body, passwords leak.
+- [security] A leaked secret = a secret leaked to anyone with access to Datadog/Loki. Rotation is the only fix.
+- [security] Without an automatic redactor, the moment a log prints a request body, passwords leak.
+
 
 ## How to fix
 

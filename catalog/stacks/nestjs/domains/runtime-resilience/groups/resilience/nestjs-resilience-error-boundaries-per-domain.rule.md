@@ -25,9 +25,9 @@ Without it, a bug in a small Studio widget wipes the entire screen, including th
 
 ## Issues
 
-- [maintainability] Without this: this is the runtime expression of "domain separation". If they're separated in code but explode together at runtime — the separation isn't real.
-- [blast-radius] Without this: failure mode: without it, a bug in a small Studio widget wipes the entire screen, including the sidebar.
-- [blast-radius] Failure mode: without it, a bug in a small Studio widget wipes the entire screen, including the sidebar.
+- [blast-radius] Without it, a bug in a small Studio widget wipes the entire screen, including the sidebar.
+- [maintainability] This is the runtime expression of "domain separation". If they're separated in code but explode together at runtime — the separation isn't real.
+
 
 ## How to fix
 

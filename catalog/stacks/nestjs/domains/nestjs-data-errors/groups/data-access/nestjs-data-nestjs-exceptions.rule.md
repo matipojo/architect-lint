@@ -25,8 +25,9 @@ Generic 500 in two different cases = inability to distinguish a bug from bad inp
 
 ## Issues
 
-- [maintainability] Without this: generic 500 in two different cases = inability to distinguish a bug from bad input.
-- [maintainability] Without this: a NestJS exception filter can map exceptions to a unified error format.
+- [maintainability] Generic 500 in two different cases = inability to distinguish a bug from bad input.
+- [maintainability] A NestJS exception filter can map exceptions to a unified error format.
+
 
 ## How to fix
 

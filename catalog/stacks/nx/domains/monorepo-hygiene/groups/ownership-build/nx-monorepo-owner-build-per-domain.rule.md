@@ -25,9 +25,9 @@ If deploy is monolithic, rule 1 (domain separation) is theory. In practice you h
 
 ## Issues
 
-- [operational] Without this: per-domain rollback is critical when something breaks in production.
-- [blast-radius] Without this: failure mode: if deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.
-- [blast-radius] Failure mode: if deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.
+- [blast-radius] If deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.
+- [operational] Per-domain rollback is critical when something breaks in production.
+
 
 ## How to fix
 

@@ -19,7 +19,7 @@ export interface RuleDocument {
   title: string;
   summary: string;
   why_it_matters: string;
-  what_breaks: string;
+  issues: Array<{ type: string; text: string }>;
   do_this_instead: string;
   details: string;
   rationale: string;
@@ -55,7 +55,7 @@ export function buildRuleDocument(
     title: rule.title,
     summary: rule.summary,
     why_it_matters: rule.why_it_matters,
-    what_breaks: rule.what_breaks,
+    issues: rule.issues,
     do_this_instead: rule.do_this_instead,
     details: rule.details.trim(),
     rationale: rule.rationale,

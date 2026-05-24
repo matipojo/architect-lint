@@ -26,9 +26,8 @@ Schemas and types — one source of truth
 
 ## Issues
 
-- [data-integrity] Without this: someone added ownerId on one side only
-- [data-integrity] Without this: two seemingly-identical types will diverge within 3 months. One gets a new field, the other doesn't, and you have a silent bug.
-- [maintainability] Without this: with
+- [data-integrity] someone added ownerId on one side only
+
 
 ## How to fix
 

@@ -16,7 +16,7 @@ related: []
 
 # Rate limiting and CSRF are infrastructure, not optional
 
-Without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.
+Rate limiting and CSRF ship as shared infrastructure — wired once, not bolted on per route later.
 
 ## Why it matters
 

@@ -16,7 +16,7 @@ related: []
 
 # Error boundaries per domain
 
-Without it, a bug in a small workspace widget wipes the entire screen, including the sidebar.
+Wrap each domain's UI in an error boundary — one widget crash must not blank the whole shell.
 
 ## Why it matters
 

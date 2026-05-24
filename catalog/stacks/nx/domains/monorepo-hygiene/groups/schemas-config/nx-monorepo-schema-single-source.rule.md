@@ -17,7 +17,7 @@ related:
 
 # Schemas and types — one source of truth
 
-Schemas and types — one source of truth
+Shared types live in one library — server and client import the same schema.
 
 ## Why it matters
 

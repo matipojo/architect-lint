@@ -16,7 +16,7 @@ related: []
 
 # No shared global state
 
-Global state is the fastest way to destroy a platform — untraceable dependencies.
+No module-level mutable singletons — state injects at app entry so domains can run standalone.
 
 ## Why it matters
 

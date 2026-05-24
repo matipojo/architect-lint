@@ -16,7 +16,7 @@ related: []
 
 # Authentication and Authorization are two different layers
 
-Authentication and Authorization are two different layers
+Authentication (who you are) and authorization (what you may do) stay in separate guards and services.
 
 ## Why it matters
 

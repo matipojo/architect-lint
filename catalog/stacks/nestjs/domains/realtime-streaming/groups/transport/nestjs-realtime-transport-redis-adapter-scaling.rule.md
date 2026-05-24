@@ -19,7 +19,7 @@ related:
 
 # Scaling real-time — via Redis adapter, not in-memory
 
-Without it, user A is on instance 1, user B on instance 2 — they don't see each other.
+Use a Redis adapter so WebSocket and SSE events reach clients on any app instance.
 
 ## Why it matters
 

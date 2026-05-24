@@ -16,7 +16,7 @@ related: []
 
 # Dependencies flow one direction
 
-Once `shared` knows a domain, it's not shared anymore.
+Dependencies flow one way: apps → feature → data-access → shared — shared never imports a domain.
 
 ## Why it matters
 

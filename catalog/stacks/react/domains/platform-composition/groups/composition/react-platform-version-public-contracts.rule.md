@@ -16,7 +16,7 @@ related: []
 
 # Version your public contracts
 
-Without versioning, every change becomes a cross-team coordination project.
+Version public data-access exports — breaking changes ship as v2, not silent rewrites.
 
 ## Why it matters
 

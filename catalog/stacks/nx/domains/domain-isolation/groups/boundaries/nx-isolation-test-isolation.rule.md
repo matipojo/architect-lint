@@ -16,7 +16,7 @@ related: []
 
 # Full test isolation
 
-Without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.
+Domain tests boot only their domain — not the whole platform graph.
 
 ## Why it matters
 

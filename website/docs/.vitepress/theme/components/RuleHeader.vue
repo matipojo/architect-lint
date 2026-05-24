@@ -45,6 +45,8 @@ function domainLabel(stack: string, domain: string): string {
         <span class="rule-byline-sep" aria-hidden="true">·</span>
         <span>{{ rule.status }}</span>
       </template>
+      <span class="rule-byline-sep" aria-hidden="true">·</span>
+      <span>Since {{ rule.since }}</span>
     </p>
     <p class="rule-id"><code>{{ rule.id }}</code></p>
   </header>

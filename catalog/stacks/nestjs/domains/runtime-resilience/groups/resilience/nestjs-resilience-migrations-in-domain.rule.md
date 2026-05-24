@@ -16,7 +16,7 @@ related: []
 
 # Migrations are part of the domain
 
-A migration that needs two-team coordination = a feature that slips by a month.
+Each domain owns its database migrations — no cross-domain schema edits.
 
 ## Why it matters
 

@@ -16,7 +16,7 @@ related: []
 
 # Configuration, not conditionals
 
-A UI lib containing `if (context === 'embedded')` is no longer a lib — it's part of that host app.
+Host-specific behavior passes in as props — shared libs do not sniff where they run.
 
 ## Why it matters
 

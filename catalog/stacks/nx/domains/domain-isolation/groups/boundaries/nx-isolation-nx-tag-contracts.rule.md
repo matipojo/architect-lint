@@ -16,7 +16,7 @@ related: []
 
 # Explicit cross-domain contracts via Nx tags
 
-The moment one domain reaches into another's internals, rule 1 silently breaks.
+Cross-domain imports go through public barrel exports — Nx tags enforce who may depend on whom.
 
 ## Why it matters
 

@@ -17,7 +17,7 @@ related:
 
 # Configuration via ConfigModule, not `process.env`
 
-A service that reads `process.env` directly is not testable — you can't fake configuration.
+Inject ConfigService — services never read `process.env` directly.
 
 ## Why it matters
 

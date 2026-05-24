@@ -16,7 +16,7 @@ related: []
 
 # DTOs in controllers, entities in repositories — never mixed
 
-Returning an ORM entity directly = you've exposed the DB schema. A column change becomes a public-API change.
+Controllers accept and return DTOs — never ORM entities that expose your DB schema.
 
 ## Why it matters
 

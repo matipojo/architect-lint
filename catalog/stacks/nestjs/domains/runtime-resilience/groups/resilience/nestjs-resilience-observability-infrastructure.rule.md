@@ -16,7 +16,7 @@ related: []
 
 # Observability is infrastructure, not an add-on
 
-When something breaks, the first question is "which domain?" If the logs don't know — you're blind.
+Standardize logs, metrics, and traces per domain so production incidents point to the right team.
 
 ## Why it matters
 

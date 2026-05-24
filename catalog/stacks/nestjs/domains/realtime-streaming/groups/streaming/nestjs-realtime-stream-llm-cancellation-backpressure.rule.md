@@ -19,7 +19,7 @@ related:
 
 # LLM streaming — cancellation and backpressure are mandatory
 
-Without cancellation, you pay for a response no one reads. At scale this is real money.
+Cancel downstream LLM work when the client disconnects and apply backpressure when it cannot keep up.
 
 ## Why it matters
 

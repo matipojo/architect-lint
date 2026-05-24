@@ -17,7 +17,7 @@ related: []
 
 # Idempotency keys on every agent action
 
-Unreliable networks + client retries = duplicate runs of the same prompt = double charges.
+Require an Idempotency-Key on run creation — retries and double-clicks return the same run.
 
 ## Why it matters
 

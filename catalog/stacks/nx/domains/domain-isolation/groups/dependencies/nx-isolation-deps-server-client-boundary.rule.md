@@ -16,7 +16,7 @@ related: []
 
 # Clear server vs client boundary
 
-Server code leaking to client = bloated bundle, or worse, secret leak.
+Tag every lib `scope:server`, `scope:client`, or `scope:isomorphic` — enforce at the bundler boundary.
 
 ## Why it matters
 

@@ -16,7 +16,7 @@ related: []
 
 # Build artifacts are per-domain
 
-If deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.
+Each domain produces its own build artifact — deploy, rollback, and monitor independently.
 
 ## Why it matters
 

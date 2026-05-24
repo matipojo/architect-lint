@@ -16,7 +16,7 @@ related: []
 
 # Testing — three tiers, not one
 
-If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't help.
+Three test tiers — unit, integration, e2e — so CI stays fast and a red test names the broken layer.
 
 ## Why it matters
 

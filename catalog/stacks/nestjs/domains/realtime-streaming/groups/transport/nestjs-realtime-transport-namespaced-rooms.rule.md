@@ -17,7 +17,7 @@ related: []
 
 # Rooms and channels — always namespaced by domain and tenant
 
-Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.
+Namespace room names with tenant or org scope so realtime events never cross tenants.
 
 ## Why it matters
 

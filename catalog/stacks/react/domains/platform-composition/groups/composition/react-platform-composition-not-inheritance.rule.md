@@ -16,7 +16,7 @@ related: []
 
 # Composition, not inheritance
 
-A component that inherits from context cannot be rendered alone in Storybook without faking the context.
+UI libs receive behavior via props and slots — they do not pull from app context.
 
 ## Why it matters
 

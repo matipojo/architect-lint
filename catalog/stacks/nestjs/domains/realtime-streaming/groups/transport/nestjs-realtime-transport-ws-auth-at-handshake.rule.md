@@ -17,7 +17,7 @@ related: []
 
 # WebSocket auth — at handshake, not per message
 
-Authenticating per message = JWT verify on every keystroke. Expensive.
+Authenticate WebSocket connections at handshake — not with JWT verification on every message.
 
 ## Why it matters
 

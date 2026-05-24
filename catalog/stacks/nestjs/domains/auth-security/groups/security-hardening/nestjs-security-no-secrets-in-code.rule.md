@@ -16,7 +16,7 @@ related: []
 
 # Secrets don't sit in code or logs
 
-A leaked secret = a secret leaked to anyone with access to your log platform. Rotation is the only fix.
+Secrets live in env or secret stores — never in source, committed config, or client bundles.
 
 ## Why it matters
 

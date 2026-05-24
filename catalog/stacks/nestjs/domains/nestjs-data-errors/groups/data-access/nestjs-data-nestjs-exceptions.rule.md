@@ -16,7 +16,7 @@ related: []
 
 # Errors — NestJS exceptions, not `throw new Error`
 
-Generic 500 in two different cases = inability to distinguish a bug from bad input.
+Map domain failures to NestJS HTTP exceptions — clients and logs get consistent, classifiable errors.
 
 ## Why it matters
 

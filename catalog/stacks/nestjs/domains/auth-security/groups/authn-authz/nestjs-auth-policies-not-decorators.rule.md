@@ -16,7 +16,7 @@ related: []
 
 # Authorization = Policies, not decorators sprinkled across the code
 
-Decorators scatter permissions across dozens of places. A policy change = grep across the project.
+Authorization lives in testable policy functions — not scattered `@RequireRole` decorators on controllers.
 
 ## Why it matters
 

@@ -17,7 +17,7 @@ related:
 
 # OpenAPI / Swagger is generated from code, not maintained by hand
 
-A hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.
+Generate OpenAPI from controllers and DTOs — the spec follows the code, not a hand-edited file.
 
 ## Why it matters
 

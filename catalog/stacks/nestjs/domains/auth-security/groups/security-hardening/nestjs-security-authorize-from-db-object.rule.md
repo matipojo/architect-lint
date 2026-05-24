@@ -16,7 +16,7 @@ related: []
 
 # Always authorize on an object loaded from the DB, not on user input
 
-Authorizing on input = trusting the user. They can send another tenant's ID.
+Load the resource from the DB and authorize against it — never trust IDs from the request body alone.
 
 ## Why it matters
 

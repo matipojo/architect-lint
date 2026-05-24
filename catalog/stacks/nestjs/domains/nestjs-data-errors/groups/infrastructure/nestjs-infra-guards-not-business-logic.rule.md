@@ -16,7 +16,7 @@ related: []
 
 # Guards and Interceptors — cross-cutting infrastructure, not business logic
 
-A guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.
+Guards authenticate and gate access — business rules stay in services where they can be tested.
 
 ## Why it matters
 

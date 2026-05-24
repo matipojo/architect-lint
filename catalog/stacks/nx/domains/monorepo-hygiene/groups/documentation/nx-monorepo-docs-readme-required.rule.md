@@ -16,7 +16,7 @@ related: []
 
 # Documentation in a place you can't miss
 
-In a platform, a new person doesn't learn "the system" — they learn one domain at a time. The README is the entry point.
+Every domain lib ships a README — ownership, boundaries, and how to run it alone.
 
 ## Why it matters
 

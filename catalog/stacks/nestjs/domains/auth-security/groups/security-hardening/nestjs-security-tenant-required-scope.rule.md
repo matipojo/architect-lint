@@ -16,7 +16,7 @@ related: []
 
 # Multi-tenancy — tenant is a required scope, not a reminder
 
-One forgotten filter = a user sees another org's data. The most severe leak there is.
+Every query scopes to the current tenant — authorization filters belong in the data layer, not just the controller.
 
 ## Why it matters
 

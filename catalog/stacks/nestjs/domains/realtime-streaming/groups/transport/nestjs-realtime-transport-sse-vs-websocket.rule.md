@@ -17,7 +17,7 @@ related: []
 
 # Pick one mechanism per flow — don't confuse SSE with WebSocket
 
-WebSocket is operationally more expensive (sticky sessions, scaling, connections that don't close).
+Use SSE for one-way LLM token streaming — reserve WebSocket for bidirectional chat.
 
 ## Why it matters
 

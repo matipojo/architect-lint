@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T22:55:52.427Z",
+  "generatedAt": "2026-05-24T23:10:44.650Z",
   "rules": [
     {
       "id": "nestjs-auth-one-passport-strategy-per-method",
@@ -26,7 +26,7 @@
       "domain": "auth-security",
       "group": "authn-authz",
       "title": "Authorization = Policies, not decorators sprinkled across the code",
-      "summary": "Decorators scatter permissions across dozens of places. A policy change = grep across the project.",
+      "summary": "Authorization lives in testable policy functions — not scattered `@RequireRole` decorators on controllers.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -45,7 +45,7 @@
       "domain": "auth-security",
       "group": "authn-authz",
       "title": "Authentication and Authorization are two different layers",
-      "summary": "Authentication and Authorization are two different layers",
+      "summary": "Authentication (who you are) and authorization (what you may do) stay in separate guards and services.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -83,7 +83,7 @@
       "domain": "nestjs-modules",
       "group": "configuration",
       "title": "Configuration via ConfigModule, not `process.env`",
-      "summary": "A service that reads `process.env` directly is not testable — you can't fake configuration.",
+      "summary": "Inject ConfigService — services never read `process.env` directly.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -104,7 +104,7 @@
       "domain": "nestjs-modules",
       "group": "configuration",
       "title": "OpenAPI / Swagger is generated from code, not maintained by hand",
-      "summary": "A hand-maintained spec rots the moment code changes. Wrong docs are worse than no docs.",
+      "summary": "Generate OpenAPI from controllers and DTOs — the spec follows the code, not a hand-edited file.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -125,7 +125,7 @@
       "domain": "nestjs-data-errors",
       "group": "data-access",
       "title": "Background jobs and events — inside the owning domain",
-      "summary": "If the workspace domain pushes a job to the catalog domain's queue, it knows the catalog's internal job structure. Hidden coupling.",
+      "summary": "Background jobs enqueue from the domain that owns the work — callers must not know another domain's queue shape.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -144,7 +144,7 @@
       "domain": "nestjs-data-errors",
       "group": "data-access",
       "title": "Errors — NestJS exceptions, not `throw new Error`",
-      "summary": "Generic 500 in two different cases = inability to distinguish a bug from bad input.",
+      "summary": "Map domain failures to NestJS HTTP exceptions — clients and logs get consistent, classifiable errors.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -182,7 +182,7 @@
       "domain": "nestjs-data-errors",
       "group": "data-access",
       "title": "Transactions sit at the use-case boundary, not inside a repository call",
-      "summary": "A transaction inside a repository = the repository knows too much. It doesn't know if it's part of a larger flow.",
+      "summary": "Transactions start and end at the use-case service — not in repositories or controllers.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -201,7 +201,7 @@
       "domain": "nestjs-data-errors",
       "group": "infrastructure",
       "title": "Guards and Interceptors — cross-cutting infrastructure, not business logic",
-      "summary": "A guard that contains business logic = logic hidden from the service. Bugs that take an hour to find.",
+      "summary": "Guards authenticate and gate access — business rules stay in services where they can be tested.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -258,7 +258,7 @@
       "domain": "nestjs-modules",
       "group": "module-structure",
       "title": "DTOs in controllers, entities in repositories — never mixed",
-      "summary": "Returning an ORM entity directly = you've exposed the DB schema. A column change becomes a public-API change.",
+      "summary": "Controllers accept and return DTOs — never ORM entities that expose your DB schema.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -320,7 +320,7 @@
       "domain": "realtime-streaming",
       "group": "streaming",
       "title": "Idempotency keys on every agent action",
-      "summary": "Unreliable networks + client retries = duplicate runs of the same prompt = double charges.",
+      "summary": "Require an Idempotency-Key on run creation — retries and double-clicks return the same run.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -340,7 +340,7 @@
       "domain": "realtime-streaming",
       "group": "streaming",
       "title": "LLM streaming — cancellation and backpressure are mandatory",
-      "summary": "Without cancellation, you pay for a response no one reads. At scale this is real money.",
+      "summary": "Cancel downstream LLM work when the client disconnects and apply backpressure when it cannot keep up.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -383,7 +383,7 @@
       "domain": "realtime-streaming",
       "group": "transport",
       "title": "Rooms and channels — always namespaced by domain and tenant",
-      "summary": "Without namespacing, a name collision between orgs = a user receives another org's events. Data leak.",
+      "summary": "Namespace room names with tenant or org scope so realtime events never cross tenants.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -403,7 +403,7 @@
       "domain": "realtime-streaming",
       "group": "transport",
       "title": "Scaling real-time — via Redis adapter, not in-memory",
-      "summary": "Without it, user A is on instance 1, user B on instance 2 — they don't see each other.",
+      "summary": "Use a Redis adapter so WebSocket and SSE events reach clients on any app instance.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -426,7 +426,7 @@
       "domain": "realtime-streaming",
       "group": "transport",
       "title": "Pick one mechanism per flow — don't confuse SSE with WebSocket",
-      "summary": "WebSocket is operationally more expensive (sticky sessions, scaling, connections that don't close).",
+      "summary": "Use SSE for one-way LLM token streaming — reserve WebSocket for bidirectional chat.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -466,7 +466,7 @@
       "domain": "realtime-streaming",
       "group": "transport",
       "title": "WebSocket auth — at handshake, not per message",
-      "summary": "Authenticating per message = JWT verify on every keystroke. Expensive.",
+      "summary": "Authenticate WebSocket connections at handshake — not with JWT verification on every message.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -486,7 +486,7 @@
       "domain": "runtime-resilience",
       "group": "resilience",
       "title": "Error boundaries per domain",
-      "summary": "Without it, a bug in a small workspace widget wipes the entire screen, including the sidebar.",
+      "summary": "Wrap each domain's UI in an error boundary — one widget crash must not blank the whole shell.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -505,7 +505,7 @@
       "domain": "runtime-resilience",
       "group": "resilience",
       "title": "Migrations are part of the domain",
-      "summary": "A migration that needs two-team coordination = a feature that slips by a month.",
+      "summary": "Each domain owns its database migrations — no cross-domain schema edits.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -524,7 +524,7 @@
       "domain": "runtime-resilience",
       "group": "resilience",
       "title": "Observability is infrastructure, not an add-on",
-      "summary": "When something breaks, the first question is \"which domain?\" If the logs don't know — you're blind.",
+      "summary": "Standardize logs, metrics, and traces per domain so production incidents point to the right team.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -543,7 +543,7 @@
       "domain": "auth-security",
       "group": "security-hardening",
       "title": "Always authorize on an object loaded from the DB, not on user input",
-      "summary": "Authorizing on input = trusting the user. They can send another tenant's ID.",
+      "summary": "Load the resource from the DB and authorize against it — never trust IDs from the request body alone.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -562,7 +562,7 @@
       "domain": "auth-security",
       "group": "security-hardening",
       "title": "Secrets don't sit in code or logs",
-      "summary": "A leaked secret = a secret leaked to anyone with access to your log platform. Rotation is the only fix.",
+      "summary": "Secrets live in env or secret stores — never in source, committed config, or client bundles.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -581,7 +581,7 @@
       "domain": "auth-security",
       "group": "security-hardening",
       "title": "Rate limiting and CSRF are infrastructure, not optional",
-      "summary": "Without rate limiting, the login endpoint is open to brute force; an expensive endpoint is open to DoS.",
+      "summary": "Rate limiting and CSRF ship as shared infrastructure — wired once, not bolted on per route later.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -600,7 +600,7 @@
       "domain": "auth-security",
       "group": "security-hardening",
       "title": "Multi-tenancy — tenant is a required scope, not a reminder",
-      "summary": "One forgotten filter = a user sees another org's data. The most severe leak there is.",
+      "summary": "Every query scopes to the current tenant — authorization filters belong in the data layer, not just the controller.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -660,7 +660,7 @@
       "domain": "domain-isolation",
       "group": "dependencies",
       "title": "No shared global state",
-      "summary": "Global state is the fastest way to destroy a platform — untraceable dependencies.",
+      "summary": "No module-level mutable singletons — state injects at app entry so domains can run standalone.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -679,7 +679,7 @@
       "domain": "domain-isolation",
       "group": "dependencies",
       "title": "Dependencies flow one direction",
-      "summary": "Once `shared` knows a domain, it's not shared anymore.",
+      "summary": "Dependencies flow one way: apps → feature → data-access → shared — shared never imports a domain.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -698,7 +698,7 @@
       "domain": "domain-isolation",
       "group": "dependencies",
       "title": "Clear server vs client boundary",
-      "summary": "Server code leaking to client = bloated bundle, or worse, secret leak.",
+      "summary": "Tag every lib `scope:server`, `scope:client`, or `scope:isomorphic` — enforce at the bundler boundary.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -755,7 +755,7 @@
       "domain": "domain-isolation",
       "group": "boundaries",
       "title": "Explicit cross-domain contracts via Nx tags",
-      "summary": "The moment one domain reaches into another's internals, rule 1 silently breaks.",
+      "summary": "Cross-domain imports go through public barrel exports — Nx tags enforce who may depend on whom.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -774,7 +774,7 @@
       "domain": "domain-isolation",
       "group": "boundaries",
       "title": "Full test isolation",
-      "summary": "Without this, rule 1 is empty words — if tests need the whole system, dependencies live in code even if invisible.",
+      "summary": "Domain tests boot only their domain — not the whole platform graph.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -793,7 +793,7 @@
       "domain": "monorepo-hygiene",
       "group": "documentation",
       "title": "Documentation in a place you can't miss",
-      "summary": "In a platform, a new person doesn't learn \"the system\" — they learn one domain at a time. The README is the entry point.",
+      "summary": "Every domain lib ships a README — ownership, boundaries, and how to run it alone.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -812,7 +812,7 @@
       "domain": "monorepo-hygiene",
       "group": "ownership-build",
       "title": "Build artifacts are per-domain",
-      "summary": "If deploy is monolithic, rule 1 (domain separation) is theory. In practice you have one app.",
+      "summary": "Each domain produces its own build artifact — deploy, rollback, and monitor independently.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -871,7 +871,7 @@
       "domain": "monorepo-hygiene",
       "group": "schemas-config",
       "title": "Schemas and types — one source of truth",
-      "summary": "Schemas and types — one source of truth",
+      "summary": "Shared types live in one library — server and client import the same schema.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -892,7 +892,7 @@
       "domain": "testing-contracts",
       "group": "contracts",
       "title": "Testing — three tiers, not one",
-      "summary": "If everything is e2e, CI takes 40 minutes and rule 2 (`nx affected`) doesn't help.",
+      "summary": "Three test tiers — unit, integration, e2e — so CI stays fast and a red test names the broken layer.",
       "priority": "medium",
       "status": "active",
       "tags": [
@@ -911,7 +911,7 @@
       "domain": "platform-composition",
       "group": "composition",
       "title": "Composition, not inheritance",
-      "summary": "A component that inherits from context cannot be rendered alone in Storybook without faking the context.",
+      "summary": "UI libs receive behavior via props and slots — they do not pull from app context.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -930,7 +930,7 @@
       "domain": "platform-composition",
       "group": "composition",
       "title": "Configuration, not conditionals",
-      "summary": "A UI lib containing `if (context === 'embedded')` is no longer a lib — it's part of that host app.",
+      "summary": "Host-specific behavior passes in as props — shared libs do not sniff where they run.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -968,7 +968,7 @@
       "domain": "platform-composition",
       "group": "composition",
       "title": "Version your public contracts",
-      "summary": "Without versioning, every change becomes a cross-team coordination project.",
+      "summary": "Version public data-access exports — breaking changes ship as v2, not silent rewrites.",
       "priority": "high",
       "status": "active",
       "tags": [

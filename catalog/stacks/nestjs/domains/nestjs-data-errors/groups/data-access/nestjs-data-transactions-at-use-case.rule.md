@@ -16,7 +16,7 @@ related: []
 
 # Transactions sit at the use-case boundary, not inside a repository call
 
-A transaction inside a repository = the repository knows too much. It doesn't know if it's part of a larger flow.
+Transactions start and end at the use-case service — not in repositories or controllers.
 
 ## Why it matters
 

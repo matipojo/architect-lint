@@ -1,0 +1,33 @@
+name: Architect Lint Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  architect-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          plugin_marketplaces: |
+            https://github.com/matipojo/architect-lint.git
+          plugins: architect-lint@matipojo-architect-lint
+          prompt: |
+            /architect-lint-review
+
+            Review this pull request against the architect-lint catalog principles.
+            - Read .architect-lint.yaml for stacks, scope, and preset (use nx + nestjs, scope changed, preset recommended if missing)
+            - Read each applicable catalog Principle Record — never use cached skill content
+            - Emit Tier 1 findings with permalinks to https://matipojo.github.io/architect-lint/rules/{rule-id}
+            - Post findings as a PR review comment
+          claude_args: "--max-turns 10"

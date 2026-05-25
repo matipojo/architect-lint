@@ -1,0 +1,7 @@
+# Recommended stacks for a typical Nx + NestJS monorepo
+stacks:
+  - nx
+  - nestjs
+
+scope: changed
+preset: recommended

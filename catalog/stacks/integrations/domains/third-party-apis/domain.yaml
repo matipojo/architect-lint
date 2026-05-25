@@ -1,0 +1,8 @@
+id: third-party-apis
+title: Third-Party APIs
+description: External service clients, response contracts, and integration boundaries
+tags:
+  - integrations
+  - api
+order: 1
+stack: integrations

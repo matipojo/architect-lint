@@ -1,0 +1,12 @@
+node_modules/
+dist/
+website/dist/
+website/docs/.vitepress/dist/
+website/docs/.vitepress/cache/
+website/docs/.vitepress/.temp/
+website/src/data/
+.playwright-mcp/
+.DS_Store
+angie-architect/
+.research/
+.claudelint-ref/

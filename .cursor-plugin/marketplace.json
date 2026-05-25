@@ -1,0 +1,46 @@
+{
+  "name": "matipojo-architect-lint",
+  "description": "Architecture rules catalog plugins for Cursor.",
+  "version": "0.1.0",
+  "owner": {
+    "name": "matipojo"
+  },
+  "plugins": [
+    {
+      "name": "architect-lint",
+      "source": "./",
+      "description": "Full architecture rules catalog — 50 principles across 9 domains.",
+      "version": "0.1.0",
+      "author": { "name": "matipojo" },
+      "homepage": "https://matipojo.github.io/architect-lint/",
+      "repository": "https://github.com/matipojo/architect-lint",
+      "license": "MIT",
+      "keywords": ["architecture", "code-review", "nestjs", "monorepo"],
+      "category": "developer-tools"
+    },
+    {
+      "name": "architect-lint-domain-isolation",
+      "source": "./",
+      "description": "Domain isolation pack — boundaries, dependencies, governance.",
+      "version": "0.1.0",
+      "author": { "name": "matipojo" },
+      "homepage": "https://matipojo.github.io/architect-lint/rules/domain-isolation/",
+      "repository": "https://github.com/matipojo/architect-lint",
+      "license": "MIT",
+      "keywords": ["architecture", "nx", "monorepo"],
+      "category": "developer-tools"
+    },
+    {
+      "name": "architect-lint-realtime-streaming",
+      "source": "./",
+      "description": "Realtime & streaming pack — SSE, WebSocket, agent runs.",
+      "version": "0.1.0",
+      "author": { "name": "matipojo" },
+      "homepage": "https://matipojo.github.io/architect-lint/rules/realtime-streaming/",
+      "repository": "https://github.com/matipojo/architect-lint",
+      "license": "MIT",
+      "keywords": ["architecture", "sse", "websocket", "streaming"],
+      "category": "developer-tools"
+    }
+  ]
+}

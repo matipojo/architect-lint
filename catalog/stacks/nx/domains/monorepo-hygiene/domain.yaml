@@ -1,0 +1,9 @@
+id: monorepo-hygiene
+title: Monorepo Hygiene
+description: Documentation, SSOT schemas, config, CODEOWNERS, build artifacts
+tags:
+  - nx
+  - monorepo
+  - documentation
+order: 2
+stack: nx

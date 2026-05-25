@@ -1,0 +1,13 @@
+{
+  "name": "architect-lint",
+  "version": "0.1.0",
+  "description": "Open architecture rules catalog. Validates and reviews code against catalog/**/*.rule.yaml principles. Requires catalog + skills from the architect-lint repo.",
+  "author": {
+    "name": "matipojo",
+    "url": "https://github.com/matipojo"
+  },
+  "homepage": "https://matipojo.github.io/architect-lint/",
+  "repository": "https://github.com/matipojo/architect-lint",
+  "license": "MIT",
+  "keywords": ["architecture", "code-review", "nestjs", "monorepo", "lint"]
+}

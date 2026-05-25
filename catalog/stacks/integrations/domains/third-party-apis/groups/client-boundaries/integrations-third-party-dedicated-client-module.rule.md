@@ -9,12 +9,17 @@ since: 2026-05-25
 tags:
   - integrations
   - api
+  - server-to-external
 priority: high
 related:
   - integrations-third-party-response-schema-required
+  - nestjs-testing-generated-client-not-fetch
+  - nestjs-module-cross-module-via-services
 ---
 
-# Third-party APIs live in a dedicated client module
+# Server → external: dedicated client module per vendor
+
+**Scope: server → external vendor** (server-to-external). Your backend calling Stripe, SendGrid, or other third-party APIs — not browser-to-server calls to your API, not server-to-internal calls between your domains.
 
 External service calls go through one client module per vendor — not scattered `fetch` or SDK usage across features.
 
@@ -26,11 +31,12 @@ External service calls go through one client module per vendor — not scattered
 
 ## How to fix
 
-One client library or module per external vendor. It owns auth, base URL, retries, and maps raw responses to your schemas. Application code imports only that client. Code blocks below are illustrative, not prescriptive.
+One server-side client library or module per external vendor. It owns auth, base URL, retries, and maps raw responses to your schemas. Backend feature code imports only that client — not the browser `data-access` client, not another domain's NestJS service.
 
 ## Incorrect
 
 ```typescript
+// server-side service — calling an external vendor, not your frontend API
 async createCharge(amount: number) {
   const res = await fetch('https://api.vendor.example/v1/charges', {
     headers: { Authorization: `Bearer ${process.env.VENDOR_KEY}` },

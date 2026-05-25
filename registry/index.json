@@ -1,24 +1,27 @@
 {
-  "generatedAt": "2026-05-25T13:32:22.435Z",
+  "generatedAt": "2026-05-25T13:41:18.594Z",
   "rules": [
     {
       "id": "integrations-third-party-dedicated-client-module",
       "stack": "integrations",
       "domain": "third-party-apis",
       "group": "client-boundaries",
-      "title": "Third-party APIs live in a dedicated client module",
-      "summary": "External service calls go through one client module per vendor — not scattered `fetch` or SDK usage across features.",
+      "title": "Server → external: dedicated client module per vendor",
+      "summary": "**Scope: server → external vendor** (server-to-external). Your backend calling Stripe, SendGrid, or other third-party APIs — not browser-to-server calls to your API, not server-to-internal calls between your domains. External service calls go through one client module per vendor — not scattered `fetch` or SDK usage across features.",
       "priority": "high",
       "status": "active",
       "tags": [
         "integrations",
-        "api"
+        "api",
+        "server-to-external"
       ],
       "catalogPath": "catalog/stacks/integrations/domains/third-party-apis/groups/client-boundaries/integrations-third-party-dedicated-client-module.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/integrations-third-party-dedicated-client-module",
-      "rationale": "One client library or module per external vendor. It owns auth, base URL, retries, and maps raw responses to your schemas. Application code imports only that client. Code blocks below are illustrative, not prescriptive.",
+      "rationale": "One server-side client library or module per external vendor. It owns auth, base URL, retries, and maps raw responses to your schemas. Backend feature code imports only that client — not the browser `data-access` client, not another domain's NestJS service.",
       "related": [
-        "integrations-third-party-response-schema-required"
+        "integrations-third-party-response-schema-required",
+        "nestjs-testing-generated-client-not-fetch",
+        "nestjs-module-cross-module-via-services"
       ]
     },
     {
@@ -259,19 +262,23 @@
       "stack": "nestjs",
       "domain": "nestjs-modules",
       "group": "module-structure",
-      "title": "Cross-module communication via exported services, not repositories or DB",
-      "summary": "The repository is internal to the domain. The service is the public API.",
+      "title": "Server → internal: cross-domain via exported services, not repos or DB",
+      "summary": "**Scope: server → internal domain** (server-to-internal). One backend domain calling another inside your monolith — inject the exported service, not HTTP to `/api/...`, not the other domain's repository or tables. The repository is internal to the domain. The service is the public API.",
       "priority": "medium",
       "status": "active",
       "tags": [
         "nestjs",
         "modules",
-        "openapi"
+        "openapi",
+        "server-to-internal"
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/nestjs-modules/groups/module-structure/nestjs-module-cross-module-via-services.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-module-cross-module-via-services",
-      "rationale": "If `WorkspaceModule` needs catalog information, it does not inject `CatalogRepository` or hit the DB directly. It injects the `CatalogService` exported by `CatalogModule`.",
-      "related": []
+      "rationale": "If `WorkspaceModule` needs catalog information, it does not inject `CatalogRepository`, hit the DB directly, or `fetch` the catalog API. It injects the `CatalogService` exported by `CatalogModule`. Browser clients use a generated data-access client; external vendors use a dedicated integration client.",
+      "related": [
+        "nestjs-testing-generated-client-not-fetch",
+        "integrations-third-party-dedicated-client-module"
+      ]
     },
     {
       "id": "nestjs-module-domain-standalone",
@@ -684,21 +691,24 @@
       "stack": "nestjs",
       "domain": "testing-contracts",
       "group": "contracts",
-      "title": "Backend ↔ frontend communication via a generated client, not `fetch`",
-      "summary": "Hand-written fetch — API changes fail in the browser, not at compile time.",
+      "title": "Browser → server: generated data-access client, not `fetch`",
+      "summary": "**Scope: browser → server** (client-to-server). Browser or mobile app calling your own `/api/...` — not server-to-vendor calls, not server-to-server between your domains. Hand-written fetch to your API — changes fail in the browser, not at compile time.",
       "priority": "medium",
       "status": "active",
       "tags": [
         "testing",
         "openapi",
-        "contracts"
+        "contracts",
+        "browser-to-server"
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/testing-contracts/groups/contracts/nestjs-testing-generated-client-not-fetch.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-testing-generated-client-not-fetch",
-      "rationale": "Every domain with a backend produces a client (OpenAPI / tRPC / GraphQL codegen) as part of its `data-access` lib. The frontend does not write `fetch('/api/...')` by hand.",
+      "rationale": "Every domain with a backend produces a frontend `data-access` client (OpenAPI / tRPC / GraphQL codegen). UI and feature code import that client — they do not write `fetch('/api/...')` by hand. Server-to-vendor calls use a dedicated integration client. Server-to-internal domain calls use exported NestJS services, not HTTP between your own modules.",
       "related": [
         "nx-monorepo-schema-single-source",
-        "nestjs-config-openapi-from-code"
+        "nestjs-config-openapi-from-code",
+        "integrations-third-party-dedicated-client-module",
+        "nestjs-module-cross-module-via-services"
       ]
     },
     {

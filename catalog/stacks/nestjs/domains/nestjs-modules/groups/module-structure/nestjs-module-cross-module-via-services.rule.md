@@ -10,11 +10,16 @@ tags:
   - nestjs
   - modules
   - openapi
+  - server-to-internal
 priority: medium
-related: []
+related:
+  - nestjs-testing-generated-client-not-fetch
+  - integrations-third-party-dedicated-client-module
 ---
 
-# Cross-module communication via exported services, not repositories or DB
+# Server → internal: cross-domain via exported services, not repos or DB
+
+**Scope: server → internal domain** (server-to-internal). One backend domain calling another inside your monolith — inject the exported service, not HTTP to `/api/...`, not the other domain's repository or tables.
 
 The repository is internal to the domain. The service is the public API.
 
@@ -25,7 +30,7 @@ The repository is internal to the domain. The service is the public API.
 
 ## How to fix
 
-If `WorkspaceModule` needs catalog information, it does not inject `CatalogRepository` or hit the DB directly. It injects the `CatalogService` exported by `CatalogModule`.
+If `WorkspaceModule` needs catalog information, it does not inject `CatalogRepository`, hit the DB directly, or `fetch` the catalog API. It injects the `CatalogService` exported by `CatalogModule`. Browser clients use a generated data-access client; external vendors use a dedicated integration client.
 
 ## Incorrect
 

@@ -1,6 +1,46 @@
 {
-  "generatedAt": "2026-05-25T12:27:02.811Z",
+  "generatedAt": "2026-05-25T13:32:22.435Z",
   "rules": [
+    {
+      "id": "integrations-third-party-dedicated-client-module",
+      "stack": "integrations",
+      "domain": "third-party-apis",
+      "group": "client-boundaries",
+      "title": "Third-party APIs live in a dedicated client module",
+      "summary": "External service calls go through one client module per vendor — not scattered `fetch` or SDK usage across features.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "integrations",
+        "api"
+      ],
+      "catalogPath": "catalog/stacks/integrations/domains/third-party-apis/groups/client-boundaries/integrations-third-party-dedicated-client-module.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/integrations-third-party-dedicated-client-module",
+      "rationale": "One client library or module per external vendor. It owns auth, base URL, retries, and maps raw responses to your schemas. Application code imports only that client. Code blocks below are illustrative, not prescriptive.",
+      "related": [
+        "integrations-third-party-response-schema-required"
+      ]
+    },
+    {
+      "id": "integrations-third-party-response-schema-required",
+      "stack": "integrations",
+      "domain": "third-party-apis",
+      "group": "response-contracts",
+      "title": "External API responses use schema allowlists, not blocklist sanitization",
+      "summary": "Declare a response schema per integration and parse at the client boundary — never strip unknown fields with a deny list.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "integrations",
+        "api"
+      ],
+      "catalogPath": "catalog/stacks/integrations/domains/third-party-apis/groups/response-contracts/integrations-third-party-response-schema-required.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/integrations-third-party-response-schema-required",
+      "rationale": "Each client exports a `ResponseSchema` (Zod or JSON Schema) per operation. Parse at the boundary: `ResponseSchema.parse(raw)`. Persist and return only validated objects. No `INTERNAL_KEYS`, no destructuring `{ vendorMeta, ...safe }`. Code blocks below are illustrative, not prescriptive.",
+      "related": [
+        "integrations-third-party-dedicated-client-module"
+      ]
+    },
     {
       "id": "nestjs-auth-one-passport-strategy-per-method",
       "stack": "nestjs",
@@ -374,7 +414,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-structured-agent-events.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-structured-agent-events",
-      "rationale": "An agent's response streams as a sequence of typed events: `text-delta`, `tool-call-started`, `tool-call-completed`, `tool-call-failed`, `run-completed`. Not free text the client has to parse.",
+      "rationale": "An agent's response streams as a sequence of typed events: `text-delta`, `tool-call-started`, `tool-call-completed`, `tool-call-failed`, `run-completed`. Not free text the client has to parse.\n\nProject AI response stream events into this contract — do not persist or forward raw provider message payloads. Tool `result` fields must come from schema-validated tool output (see the related tool-output rule).",
       "related": [
         "nestjs-realtime-stream-tool-output-schema-required"
       ]
@@ -384,8 +424,8 @@
       "stack": "nestjs",
       "domain": "realtime-streaming",
       "group": "streaming",
-      "title": "Tool outputs defined by schema, not blocklist sanitization",
-      "summary": "Every agent tool declares an outputSchema; enforce at build time and validate at runtime — never strip internal fields with a growing block list.",
+      "title": "Agent payloads use schema allowlists, not blocklist sanitization",
+      "summary": "Define client and persistence payloads with explicit contracts — never strip internal AI response fields with a deny list.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -397,7 +437,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-tool-output-schema-required.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-tool-output-schema-required",
-      "rationale": "Every tool declares an explicit `outputSchema` (Zod or JSON Schema). The schema is the allowlist: only declared fields are persisted and returned.\n\n1. **Build-time enforcement** — registering a tool without `outputSchema` fails CI (or module load in dev). No exceptions for \"internal\" tools.\n2. **Runtime validation** — parse tool output against `outputSchema` before persistence and before emitting `tool-call-completed` events.\n3. **No blocklist sanitizer** — do not maintain a shared `INTERNAL_KEYS` list on run results, messages, or tool calls. If a field should not reach clients, it must not be in the schema.\n\nProvider-only metadata stays inside the LLM adapter layer and never enters the tool execution boundary.",
+      "rationale": "Every tool declares `outputSchema` and returns only schema-validated output from `execute`. Project AI response stream events into your `RunEvent` contract (related structured-events rule). Provider-only metadata stays in the LLM adapter. No deny lists, no destructuring internal fields off a raw response object. Code blocks below are illustrative, not prescriptive.",
       "related": [
         "nestjs-realtime-stream-structured-agent-events",
         "nestjs-realtime-stream-agent-runs-as-resource"
@@ -869,6 +909,27 @@
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nx-monorepo-owner-codeowners-boundaries",
       "rationale": "Map `.github/CODEOWNERS` per domain. A PR touching `libs/studio/*` requires Studio-team approval. A PR touching `libs/shared/*` requires platform-leads approval.",
       "related": []
+    },
+    {
+      "id": "nx-monorepo-principle-record-brevity",
+      "stack": "nx",
+      "domain": "monorepo-hygiene",
+      "group": "documentation",
+      "title": "Principle records — 60–70 lines max",
+      "summary": "Keep architect-lint `.rule.md` files short: one principle, compact examples, link related rules for depth.",
+      "priority": "medium",
+      "status": "active",
+      "tags": [
+        "nx",
+        "monorepo",
+        "documentation"
+      ],
+      "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/documentation/nx-monorepo-principle-record-brevity.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/nx-monorepo-principle-record-brevity",
+      "rationale": "Target **60–70 lines** per `.rule.md` (including frontmatter). `pnpm validate` fails above **70** for rules added on or after 2026-05-25.\n\nOne principle per file. Two or three tagged bullets in \"Why it matters\". One short \"How to fix\" paragraph. Incorrect and Correct examples show the pattern only — not full implementations. Split into a second rule or use `related:` when you need more depth.",
+      "related": [
+        "nx-monorepo-docs-readme-required"
+      ]
     },
     {
       "id": "nx-monorepo-schema-config-at-entry",

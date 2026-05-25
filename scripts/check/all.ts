@@ -50,6 +50,7 @@ function checkGenerated(): string[] {
     'skills/stacks/nx/SKILL.md',
     'skills/stacks/react/SKILL.md',
     'skills/stacks/nestjs/SKILL.md',
+    'skills/stacks/integrations/SKILL.md',
   ];
 
   for (const file of required) {

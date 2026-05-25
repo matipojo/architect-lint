@@ -29,6 +29,8 @@ Free-text streams can't drive UI state for tool calls, errors, or completion.
 
 An agent's response streams as a sequence of typed events: `text-delta`, `tool-call-started`, `tool-call-completed`, `tool-call-failed`, `run-completed`. Not free text the client has to parse.
 
+Project AI response stream events into this contract — do not persist or forward raw provider message payloads. Tool `result` fields must come from schema-validated tool output (see the related tool-output rule).
+
 ## Incorrect
 
 ```typescript
@@ -44,7 +46,7 @@ sse.addEventListener('message', (e) => {
 export type RunEvent =
   | { type: 'text-delta';          delta: string }
   | { type: 'tool-call-started';   toolCallId: string; tool: string; args: unknown }
-  | { type: 'tool-call-completed'; toolCallId: string; result: unknown }
+  | { type: 'tool-call-completed'; toolCallId: string; result: SearchSiteOutput /* per-tool outputSchema */ }
   | { type: 'tool-call-failed';    toolCallId: string; error: string }
   | { type: 'run-completed';       runId: string; tokensUsed: number }
   | { type: 'run-failed';          runId: string; error: string };

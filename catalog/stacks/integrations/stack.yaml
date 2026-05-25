@@ -1,0 +1,4 @@
+id: integrations
+title: Integrations
+description: Third-party APIs, external clients, and vendor response contracts
+order: 4

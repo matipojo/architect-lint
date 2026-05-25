@@ -10,7 +10,7 @@ Review changed code against principles in `catalog/stacks/` (via stack skills).
 ## Steps
 
 1. Read `.architect-lint.yaml` if present:
-   - `stacks`: which stacks to apply (`nx`, `react`, `nestjs`)
+   - `stacks`: which stacks to apply (nx / react / nestjs / integrations)
    - `scope`: `changed` | `all` (files to review)
    - `preset`: `recommended` | `baseline` | `strict` | `all`
 2. Load `registry/index.json` for rule metadata and permalinks.

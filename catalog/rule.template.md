@@ -13,7 +13,7 @@ replaced_by: null
 
 # Short human-readable title
 
-One-line summary shown in listings and Tier 1 review output.
+One-line summary shown in listings and Tier 1 review output. Keep the full file **60–70 lines** (max 70) — see `nx-monorepo-principle-record-brevity`.
 
 ## Why it matters
 

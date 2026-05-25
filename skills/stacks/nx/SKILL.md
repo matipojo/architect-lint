@@ -1,6 +1,6 @@
 ---
 name: architect-lint-nx
-description: Review Nx architecture principles (14 rules). Read catalog Principle Records at review time — never use cached content.
+description: Review Nx architecture principles (15 rules). Read catalog Principle Records at review time — never use cached content.
 ---
 
 # Nx
@@ -20,6 +20,7 @@ When reviewing, **READ** each rule file below. Do not use cached or inlined cont
 | nx-monorepo-docs-readme-required | `catalog/stacks/nx/domains/monorepo-hygiene/groups/documentation/nx-monorepo-docs-readme-required.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-monorepo-docs-readme-required |
 | nx-monorepo-owner-build-per-domain | `catalog/stacks/nx/domains/monorepo-hygiene/groups/ownership-build/nx-monorepo-owner-build-per-domain.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-monorepo-owner-build-per-domain |
 | nx-monorepo-owner-codeowners-boundaries | `catalog/stacks/nx/domains/monorepo-hygiene/groups/ownership-build/nx-monorepo-owner-codeowners-boundaries.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-monorepo-owner-codeowners-boundaries |
+| nx-monorepo-principle-record-brevity | `catalog/stacks/nx/domains/monorepo-hygiene/groups/documentation/nx-monorepo-principle-record-brevity.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-monorepo-principle-record-brevity |
 | nx-monorepo-schema-config-at-entry | `catalog/stacks/nx/domains/monorepo-hygiene/groups/schemas-config/nx-monorepo-schema-config-at-entry.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-monorepo-schema-config-at-entry |
 | nx-monorepo-schema-single-source | `catalog/stacks/nx/domains/monorepo-hygiene/groups/schemas-config/nx-monorepo-schema-single-source.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-monorepo-schema-single-source |
 | nx-testing-three-tiers | `catalog/stacks/nx/domains/testing-contracts/groups/contracts/nx-testing-three-tiers.rule.md` | https://matipojo.github.io/architect-lint/rules/nx-testing-three-tiers |

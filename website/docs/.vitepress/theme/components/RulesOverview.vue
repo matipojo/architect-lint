@@ -20,7 +20,15 @@ const stackIcons: Record<string, string> = {
   nx: '⬡',
   react: '⚛',
   nestjs: '🐈',
+  integrations: '🔌',
 };
+
+const stackNames = computed(() => {
+  const titles = stacks.map((s) => s.title);
+  if (titles.length <= 1) return titles[0] ?? '';
+  if (titles.length === 2) return `${titles[0]} and ${titles[1]}`;
+  return `${titles.slice(0, -1).join(', ')}, and ${titles[titles.length - 1]}`;
+});
 
 function stackRuleCount(stackId: string): number {
   return stats.byStack[stackId] ?? 0;
@@ -53,7 +61,7 @@ const stacksWithDomains = computed(() =>
   <div class="arch-overview">
     <p class="arch-overview-lead">
       Browse <strong>{{ stats.total }}</strong> architecture principles across
-      <strong>Nx</strong>, <strong>React</strong>, and <strong>NestJS</strong>.
+      <strong>{{ stackNames }}</strong>.
       Each rule lives in <code>catalog/stacks/**/*.rule.md</code> — this site is generated from those files.
       New here? See <a :href="withBase('/guide/getting-started')">Getting Started</a>.
     </p>

@@ -43,6 +43,7 @@ Add `.architect-lint.yaml` to your repo:
 stacks:
   - nx
   - nestjs
+  - integrations
 scope: changed
 preset: recommended
 ```

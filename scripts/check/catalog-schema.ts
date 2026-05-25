@@ -21,6 +21,9 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
 const MAX_GROUP_SIZE = 20;
+const MAX_RULE_LINE_COUNT = 70;
+/** Rules with since before this date are grandfathered from the line-count check. */
+const RULE_LINE_COUNT_SINCE = '2026-05-25';
 
 function findRuleFiles(dir: string): string[] {
   const results: string[] = [];
@@ -73,7 +76,15 @@ export function validateCatalog(): string[] {
     }
 
     try {
-      const rule = parseRuleMarkdown(readFileSync(file, 'utf8'), rel);
+      const raw = readFileSync(file, 'utf8');
+      const rule = parseRuleMarkdown(raw, rel);
+      const lineCount = raw.split('\n').length;
+
+      if (rule.since >= RULE_LINE_COUNT_SINCE && lineCount > MAX_RULE_LINE_COUNT) {
+        errors.push(
+          `${rel}: ${lineCount} lines exceeds max ${MAX_RULE_LINE_COUNT} (target 60–70)`,
+        );
+      }
 
       if (rule.id !== filename) {
         errors.push(`${rel}: id "${rule.id}" does not match filename "${filename}"`);

@@ -11,7 +11,7 @@ Architect Lint runs AI architecture reviews against a catalog of principles. Eve
 ## Prerequisites
 
 - An **AI coding agent** — Cursor, Claude Code, Codex, or any agent that can run slash commands and read project skills
-- A repo with **Nx**, **React**, or **NestJS** code to review
+- A repo with **Nx**, **React**, **NestJS**, or **third-party integrations** to review
 - For **GitHub CI** (optional): `ANTHROPIC_API_KEY` in repository secrets — the bundled workflow uses [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions)
 
 Claude Code is **not** required for local reviews. Pick whichever agent your team already uses.
@@ -71,13 +71,14 @@ Add `.architect-lint.yaml` at the repo root. All agents and CI read the same fil
 stacks:
   - nx
   - nestjs
+  - integrations
 scope: changed
 preset: recommended
 ```
 
 | Field | Values | Purpose |
 | --- | --- | --- |
-| `stacks` | `nx`, `react`, `nestjs` | Which rule sets apply to your codebase |
+| `stacks` | `nx`, `react`, `nestjs`, `integrations` | Which rule sets apply to your codebase |
 | `scope` | `changed`, `all` | Review changed files only, or the whole tree |
 | `preset` | `recommended`, `baseline`, `strict`, `all` | How many rules to apply |
 

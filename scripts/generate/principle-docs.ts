@@ -234,9 +234,11 @@ User opens the permalink for bad/good examples and related principles.
   }
 
   const stacks = loadStacks();
+  const stackTitles = stacks.map((s) => s.title).join(', ');
+  const stackIds = stacks.map((s) => s.id).join(' / ');
   const orchestrator = `---
 name: architect-lint
-description: Route architecture reviews to stack-specific architect-lint skills (Nx, React, NestJS). Use when reviewing code against professional architecture principles, running /architect-lint-review, or when the user asks about architecture standards.
+description: Route architecture reviews to stack-specific architect-lint skills (${stackTitles}). Use when reviewing code against professional architecture principles, running /architect-lint-review, or when the user asks about architecture standards.
 ---
 
 # architect-lint
@@ -257,7 +259,7 @@ ${stacks
 ## Workflow
 
 1. Read \`.architect-lint.yaml\` in the consumer repo (if present) to select stacks and review scope.
-2. Pick the narrowest stack skill for the change (nx / react / nestjs).
+2. Pick the narrowest stack skill for the change (${stackIds}).
 3. **Read** each referenced \`*.rule.md\` file before citing a violation.
 4. Output findings with permalinks to \`${rulePermalink('{rule-id}')}\`.
 
@@ -281,7 +283,7 @@ Review changed code against principles in \`catalog/stacks/\` (via stack skills)
 ## Steps
 
 1. Read \`.architect-lint.yaml\` if present:
-   - \`stacks\`: which stacks to apply (\`nx\`, \`react\`, \`nestjs\`)
+   - \`stacks\`: which stacks to apply (${stackIds})
    - \`scope\`: \`changed\` | \`all\` (files to review)
    - \`preset\`: \`recommended\` | \`baseline\` | \`strict\` | \`all\`
 2. Load \`registry/index.json\` for rule metadata and permalinks.

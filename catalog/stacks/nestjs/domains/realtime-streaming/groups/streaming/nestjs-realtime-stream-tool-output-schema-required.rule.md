@@ -18,79 +18,46 @@ related:
   - nestjs-realtime-stream-agent-runs-as-resource
 ---
 
-# Tool outputs defined by schema, not blocklist sanitization
+# Agent payloads use schema allowlists, not blocklist sanitization
 
-Every agent tool declares an outputSchema; enforce at build time and validate at runtime — never strip internal fields with a growing block list.
+Define client and persistence payloads with explicit contracts — never strip internal AI response fields with a deny list.
 
 ## Why it matters
 
-- [data-leak] Blocklist sanitization misses new provider or SDK fields (`thoughtSignature`, `providerMetadata`, `providerOptions`) — model internals leak into Mongo and client-facing API payloads.
-- [unclear-failure] A new SDK version adds a field and the block list silently fails until someone notices in production.
-- [api-drift] Tool results are `unknown` blobs — persistence, replay, and the frontend cannot rely on a stable contract.
+- [data-leak] Blocklists miss new provider fields in the AI response — internals leak into Mongo and API payloads.
+- [unclear-failure] New fields in the AI response leak until someone updates the deny list.
+- [api-drift] Raw AI response parts or unvalidated tool output have no stable contract.
 
 ## How to fix
 
-Every tool declares an explicit `outputSchema` (Zod or JSON Schema). The schema is the allowlist: only declared fields are persisted and returned.
-
-1. **Build-time enforcement** — registering a tool without `outputSchema` fails CI (or module load in dev). No exceptions for "internal" tools.
-2. **Runtime validation** — parse tool output against `outputSchema` before persistence and before emitting `tool-call-completed` events.
-3. **No blocklist sanitizer** — do not maintain a shared `INTERNAL_KEYS` list on run results, messages, or tool calls. If a field should not reach clients, it must not be in the schema.
-
-Provider-only metadata stays inside the LLM adapter layer and never enters the tool execution boundary.
+Every tool declares `outputSchema` and returns only schema-validated output from `execute`. Project AI response stream events into your `RunEvent` contract (related structured-events rule). Provider-only metadata stays in the LLM adapter. No deny lists, no destructuring internal fields off a raw response object. Code blocks below are illustrative, not prescriptive.
 
 ## Incorrect
 
 ```typescript
-// libs/agents/backend-feature/src/lib/sanitize-run-result.ts
-const INTERNAL_KEYS = [
-  'providerOptions',
-  'providerMetadata',
-  'thoughtSignature',
-  // grows with every SDK release
-];
-
-export function sanitizeRunResult(messages: Message[]): Message[] {
-  return messages.map((m) => stripKeys(m, INTERNAL_KEYS));
+const INTERNAL_KEYS = ['providerMetadata', 'thoughtSignature'];
+export function sanitizeRunResult(msgs: AgentMessage[]) {
+  return msgs.map((m) => stripKeys(m, INTERNAL_KEYS));
 }
-
-// tool with no output contract
+await this.runs.save({ parts: aiResponse.parts });
 export const searchSiteTool = {
-  name: 'search_site',
-  execute: async (input) => this.searchService.find(input.query), // raw SDK / DB shape
+  execute: async (input) => this.searchService.find(input.query),
 };
 ```
 
 ## Correct
 
 ```typescript
-// libs/agents/backend-feature/src/lib/tools/search-site.tool.ts
 export const searchSiteTool = defineTool({
-  name: 'search_site',
-  inputSchema: z.object({ query: z.string().min(1) }),
-  outputSchema: z.object({
-    matches: z.array(z.object({ id: z.string(), title: z.string() })),
-  }),
-  execute: async ({ query }) => {
-    const raw = await this.searchService.find(query);
-    return searchSiteTool.outputSchema.parse(raw);
-  },
+  outputSchema: z.object({ matches: z.array(z.object({ id: z.string(), title: z.string() })) }),
+  execute: async ({ query }) =>
+    searchSiteTool.outputSchema.parse(await this.searchService.find(query)),
 });
-
-// libs/agents/backend-feature/src/lib/register-tools.ts
-export function registerTools(tools: ToolDefinition[]) {
-  for (const tool of tools) {
-    if (!tool.outputSchema) {
-      throw new Error(`Tool "${tool.name}" is missing outputSchema`);
-    }
+function toRunEvent(chunk: AgentStreamEvent, out: Map<string, unknown>): RunEvent | null {
+  if (chunk.type === 'text-delta') return { type: 'text-delta', delta: chunk.delta };
+  if (chunk.type === 'tool-completed') {
+    return { type: 'tool-call-completed', toolCallId: chunk.id, result: out.get(chunk.id)! };
   }
+  return null;
 }
-
-// runner — validate before persist / stream
-const result = await tool.execute(args);
-const safeResult = tool.outputSchema.parse(result);
-await this.runs.appendToolCall({ runId, toolCallId, result: safeResult });
 ```
-
-## When not to apply
-
-Tools that return opaque binary blobs (file downloads) may use a dedicated schema (`z.object({ url: z.string().url() })` or `{ bytes: z.string().base64() }`) rather than skipping validation entirely.

@@ -50,6 +50,7 @@ This repo ships Cursor skills under `skills/`. **Read and follow the relevant sk
 | `architect-lint-nx` | `skills/stacks/nx/SKILL.md` | Nx monorepo / domain isolation / monorepo hygiene changes |
 | `architect-lint-react` | `skills/stacks/react/SKILL.md` | React platform composition changes |
 | `architect-lint-nestjs` | `skills/stacks/nestjs/SKILL.md` | NestJS modules, auth, data, realtime, resilience changes |
+| `architect-lint-integrations` | `skills/stacks/integrations/SKILL.md` | Third-party APIs, external clients, vendor response contracts |
 
 ### Review rules
 
@@ -62,7 +63,7 @@ This repo ships Cursor skills under `skills/`. **Read and follow the relevant sk
 
 ### Source of truth
 
-- **Catalog**: `catalog/stacks/{nx,react,nestjs}/**/*.rule.md` — edit rules here.
+- **Catalog**: `catalog/stacks/{nx,react,nestjs,integrations}/**/*.rule.md` — edit rules here.
 - **Schema**: `packages/codegen/schema.ts` — every rule must validate.
 - **Template**: `catalog/rule.template.md` — required fields and sections for new rules.
 
@@ -85,7 +86,7 @@ pnpm docs:build        # production build
 
 ### Adding or changing a rule
 
-1. Create or edit `{rule-id}.rule.md` under the correct stack/domain/group (`rule-id` must start with `nx-`, `react-`, or `nestjs-`).
+1. Create or edit `{rule-id}.rule.md` under the correct stack/domain/group (`rule-id` must start with `nx-`, `react-`, `nestjs-`, or `integrations-`).
 2. Run `pnpm validate` and fix any schema errors.
 3. Run `pnpm docs:generate` to refresh skills, index, and website data.
 

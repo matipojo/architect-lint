@@ -1,16 +1,18 @@
-export const STACKS = ['nx', 'react', 'nestjs'] as const;
+export const STACKS = ['nx', 'react', 'nestjs', 'integrations'] as const;
 export type Stack = (typeof STACKS)[number];
 
 export const STACK_PREFIX: Record<Stack, string> = {
   nx: 'nx-',
   react: 'react-',
   nestjs: 'nestjs-',
+  integrations: 'integrations-',
 };
 
 /** Which stack owns each domain folder (testing-contracts may appear in nx and nestjs) */
 export const DOMAIN_STACK: Record<string, Stack> = {
   'domain-isolation': 'nx',
   'monorepo-hygiene': 'nx',
+  'third-party-apis': 'integrations',
   'platform-composition': 'react',
   'nestjs-modules': 'nestjs',
   'nestjs-data-errors': 'nestjs',
@@ -26,6 +28,7 @@ export function expectedStackForRule(domain: string, ruleId: string, fileStack?:
   if (ruleId.startsWith('nx-')) return 'nx';
   if (ruleId.startsWith('react-')) return 'react';
   if (ruleId.startsWith('nestjs-')) return 'nestjs';
+  if (ruleId.startsWith('integrations-')) return 'integrations';
   return DOMAIN_STACK[domain] ?? 'nestjs';
 }
 

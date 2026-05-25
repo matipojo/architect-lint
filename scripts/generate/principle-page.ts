@@ -99,6 +99,7 @@ export function domainDisplayName(domainId: string): string {
     'realtime-streaming': 'Realtime & Streaming',
     'runtime-resilience': 'Runtime Resilience',
     'testing-contracts': 'Testing & Contracts',
+    'third-party-apis': 'Third-Party APIs',
   };
   return names[domainId] ?? domainId;
 }
@@ -108,6 +109,7 @@ export function stackDisplayName(stackId: string): string {
     nx: 'Nx',
     react: 'React',
     nestjs: 'NestJS',
+    integrations: 'Integrations',
   };
   return names[stackId] ?? stackId;
 }

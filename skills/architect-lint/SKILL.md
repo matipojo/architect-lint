@@ -13,7 +13,7 @@ Orchestrator for stack-specific architecture principle skills. Each skill refere
 | --- | --- | --- |
 | Nx | `architect-lint-nx` | 14 |
 | React | `architect-lint-react` | 4 |
-| NestJS | `architect-lint-nestjs` | 32 |
+| NestJS | `architect-lint-nestjs` | 33 |
 
 ## Workflow
 

@@ -1,6 +1,6 @@
 ---
 name: architect-lint-nestjs
-description: Review NestJS architecture principles (32 rules). Read catalog Principle Records at review time — never use cached content.
+description: Review NestJS architecture principles (33 rules). Read catalog Principle Records at review time — never use cached content.
 ---
 
 # NestJS
@@ -28,6 +28,7 @@ When reviewing, **READ** each rule file below. Do not use cached or inlined cont
 | nestjs-realtime-stream-idempotency-keys | `catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-idempotency-keys.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-idempotency-keys |
 | nestjs-realtime-stream-llm-cancellation-backpressure | `catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-llm-cancellation-backpressure.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-llm-cancellation-backpressure |
 | nestjs-realtime-stream-structured-agent-events | `catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-structured-agent-events.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-structured-agent-events |
+| nestjs-realtime-stream-tool-output-schema-required | `catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-tool-output-schema-required.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-tool-output-schema-required |
 | nestjs-realtime-transport-namespaced-rooms | `catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-namespaced-rooms.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-namespaced-rooms |
 | nestjs-realtime-transport-redis-adapter-scaling | `catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-redis-adapter-scaling.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-redis-adapter-scaling |
 | nestjs-realtime-transport-sse-vs-websocket | `catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-sse-vs-websocket.rule.md` | https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-sse-vs-websocket |

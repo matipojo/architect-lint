@@ -10,11 +10,11 @@ hero:
     alt: Layered architecture principles with lint check
   actions:
     - theme: brand
+      text: Get Started
+      link: /guide/getting-started
+    - theme: alt
       text: Browse principles
       link: /rules/
-    - theme: alt
-      text: View on GitHub
-      link: https://github.com/matipojo/architect-lint
 
 features:
   - icon: 📋

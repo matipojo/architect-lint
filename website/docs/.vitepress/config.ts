@@ -48,8 +48,19 @@ export default defineConfig({
   },
   themeConfig: {
     logo: '/logo.svg',
-    nav: [{ text: 'Principles', link: '/rules/', activeMatch: '/rules/' }],
-    sidebar: mapSidebar(sidebarData as SidebarGroup[]),
+    nav: [
+      { text: 'Get Started', link: '/guide/getting-started', activeMatch: '/guide/' },
+      { text: 'Principles', link: '/rules/', activeMatch: '/rules/' },
+    ],
+    sidebar: {
+      '/guide/': [
+        {
+          text: 'Guide',
+          items: [{ text: 'Getting Started', link: '/guide/getting-started' }],
+        },
+      ],
+      '/rules/': mapSidebar(sidebarData as SidebarGroup[]),
+    },
     editLink: {
       text: 'Suggest change on GitHub',
     },

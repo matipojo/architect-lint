@@ -55,6 +55,7 @@ const stacksWithDomains = computed(() =>
       Browse <strong>{{ stats.total }}</strong> architecture principles across
       <strong>Nx</strong>, <strong>React</strong>, and <strong>NestJS</strong>.
       Each rule lives in <code>catalog/stacks/**/*.rule.md</code> — this site is generated from those files.
+      New here? See <a :href="withBase('/guide/getting-started')">Getting Started</a>.
     </p>
 
     <h2>Stacks</h2>
@@ -99,19 +100,6 @@ const stacksWithDomains = computed(() =>
           <span class="arch-domain-card-desc">{{ domain.description }}</span>
         </a>
       </div>
-    </section>
-
-    <section class="arch-getting-started">
-      <h2>Using in your repo</h2>
-      <p>Add <code>.architect-lint.yaml</code> to select stacks and review scope:</p>
-      <div class="arch-code-panel">
-        <pre><code>stacks:
-  - nx
-  - nestjs
-scope: changed
-preset: recommended</code></pre>
-      </div>
-      <p>Then run <code>/architect-lint-review</code> in Cursor or Claude.</p>
     </section>
   </div>
 </template>

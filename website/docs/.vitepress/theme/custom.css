@@ -872,24 +872,6 @@
   line-height: 1.5;
 }
 
-.arch-getting-started {
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--vp-c-divider);
-}
-
-.arch-code-panel {
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  background: var(--vp-c-bg-soft);
-  overflow-x: auto;
-}
-
-.arch-code-panel pre {
-  margin: 0;
-}
 
 .mermaid-block {
   margin: 1rem 0;

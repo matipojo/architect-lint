@@ -12,7 +12,8 @@ tags:
   - websocket
   - streaming
 priority: medium
-related: []
+related:
+  - nestjs-realtime-stream-tool-output-schema-required
 ---
 
 # Tool calls and agent output — structured events, not free text

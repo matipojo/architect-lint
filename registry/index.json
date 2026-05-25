@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T23:16:15.086Z",
+  "generatedAt": "2026-05-24T23:34:57.552Z",
   "rules": [
     {
       "id": "nestjs-auth-one-passport-strategy-per-method",
@@ -154,7 +154,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/nestjs-data-errors/groups/data-access/nestjs-data-nestjs-exceptions.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-data-nestjs-exceptions",
-      "rationale": "Throwing `BadRequestException`, `NotFoundException`, `ForbiddenException` lets NestJS map to the right HTTP status. `throw new Error()` collapses to a generic 500 and hides real failures.",
+      "rationale": "Throwing `BadRequestException`, `NotFoundException`, `ForbiddenException` lets NestJS map to the right HTTP status. `throw new Error()` collapses to a generic 500 and hides real failures.\n\nEven better: domain exceptions mapped by a NestJS exception filter to a unified error format. The service doesn't know about HTTP — it throws domain errors. The filter maps.",
       "related": []
     },
     {
@@ -277,7 +277,7 @@
       "domain": "realtime-streaming",
       "group": "streaming",
       "title": "Agent runs are a resource, not an ephemeral stream",
-      "summary": "The user closes the tab mid-response and re-opens — you need to show where it stopped.",
+      "summary": "An agent run is a persisted resource with an ID and lifecycle — the SSE stream is a window into it, not the run itself.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -288,7 +288,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-agent-runs-as-resource.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-agent-runs-as-resource",
-      "rationale": "An agent run (the text streaming to the user) is a resource with an ID — not just a passing stream. It is persisted in the DB with state (`pending`, `running`, `completed`, `failed`, `canceled`), accumulated output, and tool calls.",
+      "rationale": "An agent run (the text streaming to the user) is a resource with an ID — not just a passing stream. It is persisted in the DB with state (`pending`, `running`, `completed`, `failed`, `canceled`), accumulated output, and tool calls. The stream is a window into the resource, not the resource itself.\n\nImplementing this rule requires a **documented disconnect policy** (see the cancellation modes in the related LLM-streaming rule). Explicit cancel (`DELETE` / Stop button / `POST .../cancel`) must exist regardless of the chosen policy. Client resume must not be broken by a naive `req.on('close')` abort.",
       "related": [
         "nestjs-realtime-stream-llm-cancellation-backpressure",
         "nestjs-realtime-transport-redis-adapter-scaling"
@@ -351,7 +351,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/streaming/nestjs-realtime-stream-llm-cancellation-backpressure.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-realtime-stream-llm-cancellation-backpressure",
-      "rationale": "The user closes the tab mid-response? The upstream LLM call must abort. The server stops paying.\nThe LLM emits faster than the client can consume? Push backpressure.",
+      "rationale": "The user closes the tab mid-response? The upstream LLM call must abort. The server stops paying.\nThe LLM emits faster than the client can consume? Push backpressure.\n\n**Cancellation mode depends on run durability.** The example below applies to **ephemeral streams** — no durable run, no Redis resume. When the run is durable/resumable (see related rules), HTTP disconnect is not always abandonment, and `req.on('close')` → abort breaks page-refresh resume.\n\n| Mode | When | Cancel on HTTP disconnect? |\n| --- | --- | --- |\n| **Ephemeral** | One-shot SSE, no resume | Yes — `req.on('close')` → abort |\n| **Durable / resumable** | Run persisted, Redis buffer, `GET .../stream` resume | Ask the user — product trade-off, not a fixed default |\n| **Cost guard** | Durable + idle timeout | Abort if no consumer reconnects within N minutes |\n| **Explicit only** | Host opts into cost-first | Only `DELETE` / Stop aborts |\n\nPage refresh and tab close look **identical** to the server (TCP drop). Backpressure (propagating consumer slowness to the LLM stream) applies in **both** modes regardless of the chosen cancel policy.",
       "related": [
         "nestjs-realtime-transport-redis-adapter-scaling",
         "nestjs-realtime-stream-agent-runs-as-resource"
@@ -414,7 +414,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/realtime-streaming/groups/transport/nestjs-realtime-transport-redis-adapter-scaling.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-realtime-transport-redis-adapter-scaling",
-      "rationale": "The moment you have more than one server instance, you can't keep connections in process memory. Redis (or similar) is the broker that fans events between instances.",
+      "rationale": "The moment you have more than one server instance, you can't keep connections in process memory. Redis (or similar) is the broker that fans events between instances. After wiring, `server.to(roomId).emit(...)` reaches every instance and every user in the room.\n\nFor **SSE resumable streams**, the same Redis (or similar) broker lets instance B serve a `GET .../stream` resume when instance A handled the original `POST /stream`. That satisfies this rule for cross-instance relay — it does **not** require keeping the LLM alive after disconnect. Relay + abort-on-idle is valid.",
       "related": [
         "nestjs-realtime-stream-llm-cancellation-backpressure",
         "nestjs-realtime-stream-agent-runs-as-resource"
@@ -491,8 +491,8 @@
       "status": "active",
       "tags": [
         "react",
-        "observability",
-        "migrations"
+        "error-boundary",
+        "resilience"
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/runtime-resilience/groups/resilience/nestjs-resilience-error-boundaries-per-domain.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-resilience-error-boundaries-per-domain",
@@ -509,13 +509,13 @@
       "priority": "medium",
       "status": "active",
       "tags": [
-        "react",
-        "observability",
+        "nestjs",
+        "database",
         "migrations"
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/runtime-resilience/groups/resilience/nestjs-resilience-migrations-in-domain.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-resilience-migrations-in-domain",
-      "rationale": "A DB migration lives in the domain's `data-access` lib. One domain doesn't touch another's tables. A schema change = a PR inside that domain, not in infrastructure.",
+      "rationale": "A DB migration lives in the domain's `data-access` lib. One domain doesn't touch another's tables. A schema change = a PR inside that domain, not in infrastructure.\n\nForeign-key direction matters: the **consumer** holds the link to the **owner**, not the other way around. If workspace needs to link a workflow to a catalog item, the FK lives on `workflows.item_id` — not on the catalog table.",
       "related": []
     },
     {
@@ -528,9 +528,9 @@
       "priority": "medium",
       "status": "active",
       "tags": [
-        "react",
+        "nestjs",
         "observability",
-        "migrations"
+        "logging"
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/runtime-resilience/groups/resilience/nestjs-resilience-observability-infrastructure.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-resilience-observability-infrastructure",
@@ -591,7 +591,7 @@
       ],
       "catalogPath": "catalog/stacks/nestjs/domains/auth-security/groups/security-hardening/nestjs-security-rate-limit-csrf-infrastructure.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nestjs-security-rate-limit-csrf-infrastructure",
-      "rationale": "`@nestjs/throttler` on every endpoint. CSRF token on every state-changing operation from a cookie-based client. Baseline headers via `helmet` by default.",
+      "rationale": "`@nestjs/throttler` on every endpoint. CSRF token on every state-changing operation from a cookie-based client. Baseline headers via `helmet` by default. All three ship as global infrastructure — wired once in `AppModule` / `main.ts`, not bolted on per route later.",
       "related": []
     },
     {
@@ -689,7 +689,7 @@
       ],
       "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/dependencies/nx-isolation-deps-one-direction.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nx-isolation-deps-one-direction",
-      "rationale": "Layering: `apps → features → data-access/ui → util/shared`. `shared` may not know about a specific domain. `ui` may not import `feature`. Nx enforces with `type:` tags.",
+      "rationale": "Layering: `apps → features → data-access/ui → util/shared`. `shared` may not know about a specific domain. `ui` may not import `feature`. Nx enforces with `type:` tags.\n\n`shared` provides a mechanism (a registry, an interface, a base class). The domain registers into it from its own app entry point. `nx graph` shows flow goes one way.",
       "related": []
     },
     {
@@ -717,7 +717,7 @@
       "domain": "domain-isolation",
       "group": "boundaries",
       "title": "Full separation between domains",
-      "summary": "Dev speed — don't load the whole system to fix one bug.",
+      "summary": "Every domain is a standalone app with its own backend, frontend, and tests — runnable alone, with no cross-domain shell.",
       "priority": "high",
       "status": "active",
       "tags": [
@@ -727,7 +727,7 @@
       ],
       "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/boundaries/nx-isolation-full-separation.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nx-isolation-full-separation",
-      "rationale": "Every domain is a standalone app: own backend, own frontend, runnable alone. The test: I want to work on catalog — I bring up that app alone, open the browser, and work. No workspace, no workflow builder, nothing else.",
+      "rationale": "Every domain is a standalone app: own backend, own frontend, runnable alone. The test: I want to work on catalog — I bring up that app alone, open the browser, and work. No workspace, no workflow builder, nothing else.\n\nVerification: `nx serve catalog` runs with zero connection to workspace. `nx graph` shows islands, not a pile.",
       "related": []
     },
     {
@@ -784,7 +784,7 @@
       ],
       "catalogPath": "catalog/stacks/nx/domains/domain-isolation/groups/boundaries/nx-isolation-test-isolation.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nx-isolation-test-isolation",
-      "rationale": "`nx affected:test` is the default. CI runs only the tests for what changed.",
+      "rationale": "`nx affected:test` is the default. CI runs only the tests for what changed. Each domain's tests use that domain's code only — no cross-domain `setupX()` helpers or unrelated mocks.\n\nA test that needs the whole system up = red flag the architecture is wrong.",
       "related": []
     },
     {

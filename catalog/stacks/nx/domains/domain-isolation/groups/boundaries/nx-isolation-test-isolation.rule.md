@@ -26,19 +26,41 @@ Domain tests boot only their domain — not the whole platform graph.
 
 ## How to fix
 
-`nx affected:test` is the default. CI runs only the tests for what changed.
+`nx affected:test` is the default. CI runs only the tests for what changed. Each domain's tests use that domain's code only — no cross-domain `setupX()` helpers or unrelated mocks.
+
+A test that needs the whole system up = red flag the architecture is wrong.
 
 ## Incorrect
 
-```yaml
-# .github/workflows/ci.yml
-- run: pnpm nx run-many --target=test --all
+```typescript
+// .github/workflows/ci.yml
+// - run: pnpm nx run-many --target=test --all
+
+// apps/catalog/tests/item-creation.test.ts
+import { setupWorkspace } from '../../workspace/test-helpers';
+import { mockWorkflowRuntime } from '../../workspace/mocks';
+
+test('creates an item', async () => {
+  await setupWorkspace();           // why?
+  mockWorkflowRuntime();            // unrelated to catalog
+  const item = await createItem();
+  expect(item).toBeDefined();
+});
 ```
 
 ## Correct
 
-```yaml
-- run: pnpm nx affected --target=test --base=origin/main
-- run: pnpm nx affected --target=lint --base=origin/main
-- run: pnpm nx affected --target=build --base=origin/main
+```typescript
+// .github/workflows/ci.yml
+// - run: pnpm nx affected --target=test --base=origin/main
+// - run: pnpm nx affected --target=lint --base=origin/main
+// - run: pnpm nx affected --target=build --base=origin/main
+
+// apps/catalog/tests/item-creation.test.ts
+import { createItem } from '../src/items';
+
+test('creates an item', async () => {
+  const item = await createItem({ name: 'My Item' });
+  expect(item.id).toBeDefined();
+});
 ```

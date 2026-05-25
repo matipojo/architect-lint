@@ -16,7 +16,7 @@ related: []
 
 # Full separation between domains
 
-Dev speed — don't load the whole system to fix one bug.
+Every domain is a standalone app with its own backend, frontend, and tests — runnable alone, with no cross-domain shell.
 
 ## Why it matters
 
@@ -28,6 +28,8 @@ Dev speed — don't load the whole system to fix one bug.
 ## How to fix
 
 Every domain is a standalone app: own backend, own frontend, runnable alone. The test: I want to work on catalog — I bring up that app alone, open the browser, and work. No workspace, no workflow builder, nothing else.
+
+Verification: `nx serve catalog` runs with zero connection to workspace. `nx graph` shows islands, not a pile.
 
 ## Incorrect
 

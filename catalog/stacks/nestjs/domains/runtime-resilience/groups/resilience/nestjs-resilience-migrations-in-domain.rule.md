@@ -7,8 +7,8 @@ status: active
 replaced_by: null
 since: 2026-05-01
 tags:
-  - react
-  - observability
+  - nestjs
+  - database
   - migrations
 priority: medium
 related: []
@@ -27,11 +27,13 @@ Each domain owns its database migrations — no cross-domain schema edits.
 
 A DB migration lives in the domain's `data-access` lib. One domain doesn't touch another's tables. A schema change = a PR inside that domain, not in infrastructure.
 
+Foreign-key direction matters: the **consumer** holds the link to the **owner**, not the other way around. If workspace needs to link a workflow to a catalog item, the FK lives on `workflows.item_id` — not on the catalog table.
+
 ## Incorrect
 
 ```sql
--- migrations/2026_05_add_agent_to_sites.sql (where does it live? who owns it?)
-ALTER TABLE sites ADD COLUMN active_agent_id UUID REFERENCES agents(id);
+-- migrations/2026_05_add_workflow_to_items.sql (where does it live? who owns it?)
+ALTER TABLE items ADD COLUMN active_workflow_id UUID REFERENCES workflows(id);
 -- now catalog knows about workflows. The workspace domain injected a column into catalog.
 ```
 
@@ -39,5 +41,11 @@ ALTER TABLE sites ADD COLUMN active_agent_id UUID REFERENCES agents(id);
 
 ```sql
 -- libs/catalog/data-access/migrations/2026_05_add_slug_index.sql
-CREATE INDEX CONCURRENTLY sites_slug_idx ON sites (slug);
+-- Changes to the `items` table live in the catalog domain.
+CREATE INDEX CONCURRENTLY items_slug_idx ON items (slug);
+
+-- libs/workspace/data-access/migrations/2026_05_add_item_link.sql
+-- The consumer (workspace) holds the link in its own table.
+ALTER TABLE workflows ADD COLUMN item_id UUID REFERENCES items(id);
+CREATE INDEX workflows_item_id_idx ON workflows (item_id);
 ```

@@ -21,6 +21,7 @@ UI libs receive behavior via props and slots — they do not pull from app conte
 ## Why it matters
 
 - [hard-to-test] A component that inherits from context cannot be rendered alone in Storybook without faking the context.
+- [hard-to-change] Composition enables reuse without "variants" — one component, assembled differently per host. Inheritance forces a new variant for every new context.
 
 ## How to fix
 

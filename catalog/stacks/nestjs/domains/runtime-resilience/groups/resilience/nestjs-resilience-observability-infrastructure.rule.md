@@ -7,9 +7,9 @@ status: active
 replaced_by: null
 since: 2026-05-01
 tags:
-  - react
+  - nestjs
   - observability
-  - migrations
+  - logging
 priority: medium
 related: []
 ---

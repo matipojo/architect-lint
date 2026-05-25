@@ -8,8 +8,8 @@ replaced_by: null
 since: 2026-05-01
 tags:
   - react
-  - observability
-  - migrations
+  - error-boundary
+  - resilience
 priority: medium
 related: []
 ---

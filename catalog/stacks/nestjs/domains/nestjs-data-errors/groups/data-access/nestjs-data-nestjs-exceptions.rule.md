@@ -27,6 +27,8 @@ Map domain failures to NestJS HTTP exceptions — clients and logs get consisten
 
 Throwing `BadRequestException`, `NotFoundException`, `ForbiddenException` lets NestJS map to the right HTTP status. `throw new Error()` collapses to a generic 500 and hides real failures.
 
+Even better: domain exceptions mapped by a NestJS exception filter to a unified error format. The service doesn't know about HTTP — it throws domain errors. The filter maps.
+
 ## Incorrect
 
 ```typescript
@@ -41,11 +43,46 @@ async getSite(id: string) {
 ## Correct
 
 ```typescript
+// Option A — built-in NestJS exceptions at the service boundary
 async getSite(id: string, requester: User) {
   const site = await this.repo.findOne({ where: { id } });
   if (!site) throw new NotFoundException(`Site ${id} not found`);
   if (!site.isPublic && site.ownerId !== requester.id) {
     throw new ForbiddenException('Cannot access this site');
+  }
+  return site;
+}
+
+// Option B — domain exceptions + a filter (preferred for larger apps)
+// libs/catalog/backend-feature/src/lib/errors.ts
+export class SiteNotFoundError extends Error {
+  constructor(public siteId: string) { super(`Site ${siteId} not found`); }
+}
+export class SiteForbiddenError extends Error {
+  constructor(public siteId: string) { super(`Cannot access site ${siteId}`); }
+}
+
+// libs/shared/backend/src/lib/domain-exception.filter.ts
+@Catch()
+export class DomainExceptionFilter implements ExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost) {
+    const res = host.switchToHttp().getResponse();
+    if (exception instanceof SiteNotFoundError) {
+      return res.status(404).json({ code: 'site_not_found', siteId: exception.siteId });
+    }
+    if (exception instanceof SiteForbiddenError) {
+      return res.status(403).json({ code: 'site_forbidden', siteId: exception.siteId });
+    }
+    throw exception;
+  }
+}
+
+// service stays HTTP-agnostic
+async getSite(id: string, requester: User) {
+  const site = await this.repo.findOne({ where: { id } });
+  if (!site) throw new SiteNotFoundError(id);
+  if (!site.isPublic && site.ownerId !== requester.id) {
+    throw new SiteForbiddenError(id);
   }
   return site;
 }

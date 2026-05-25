@@ -25,12 +25,23 @@ Cancel downstream LLM work when the client disconnects and apply backpressure wh
 
 - [wastes-money] Without cancellation, you pay for a response no one reads. At scale this is real money.
 - [wastes-money] Without backpressure, the server accumulates unsent responses and explodes on memory.
-- [wastes-money] When the client disconnected — downstream work keeps running
+- [wastes-money] Client disconnected but downstream LLM work keeps running — pure waste.
 
 ## How to fix
 
 The user closes the tab mid-response? The upstream LLM call must abort. The server stops paying.
 The LLM emits faster than the client can consume? Push backpressure.
+
+**Cancellation mode depends on run durability.** The example below applies to **ephemeral streams** — no durable run, no Redis resume. When the run is durable/resumable (see related rules), HTTP disconnect is not always abandonment, and `req.on('close')` → abort breaks page-refresh resume.
+
+| Mode | When | Cancel on HTTP disconnect? |
+| --- | --- | --- |
+| **Ephemeral** | One-shot SSE, no resume | Yes — `req.on('close')` → abort |
+| **Durable / resumable** | Run persisted, Redis buffer, `GET .../stream` resume | Ask the user — product trade-off, not a fixed default |
+| **Cost guard** | Durable + idle timeout | Abort if no consumer reconnects within N minutes |
+| **Explicit only** | Host opts into cost-first | Only `DELETE` / Stop aborts |
+
+Page refresh and tab close look **identical** to the server (TCP drop). Backpressure (propagating consumer slowness to the LLM stream) applies in **both** modes regardless of the chosen cancel policy.
 
 ## Incorrect
 

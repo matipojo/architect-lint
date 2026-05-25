@@ -21,10 +21,13 @@ Dependencies flow one way: apps → feature → data-access → shared — share
 ## Why it matters
 
 - [hidden-coupling] Once `shared` knows a domain, it's not shared anymore.
+- [hard-to-change] Adding a new domain requires editing `shared` — every new domain ripples through cross-team review.
 
 ## How to fix
 
 Layering: `apps → features → data-access/ui → util/shared`. `shared` may not know about a specific domain. `ui` may not import `feature`. Nx enforces with `type:` tags.
+
+`shared` provides a mechanism (a registry, an interface, a base class). The domain registers into it from its own app entry point. `nx graph` shows flow goes one way.
 
 ## Incorrect
 

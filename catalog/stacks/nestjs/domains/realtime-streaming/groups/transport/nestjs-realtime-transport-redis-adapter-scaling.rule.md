@@ -31,7 +31,9 @@ Use a Redis adapter so WebSocket and SSE events reach clients on any app instanc
 
 ## How to fix
 
-The moment you have more than one server instance, you can't keep connections in process memory. Redis (or similar) is the broker that fans events between instances.
+The moment you have more than one server instance, you can't keep connections in process memory. Redis (or similar) is the broker that fans events between instances. After wiring, `server.to(roomId).emit(...)` reaches every instance and every user in the room.
+
+For **SSE resumable streams**, the same Redis (or similar) broker lets instance B serve a `GET .../stream` resume when instance A handled the original `POST /stream`. That satisfies this rule for cross-instance relay — it does **not** require keeping the LLM alive after disconnect. Relay + abort-on-idle is valid.
 
 ## Incorrect
 

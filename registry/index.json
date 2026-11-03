@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T13:41:18.594Z",
+  "generatedAt": "2026-11-03T12:11:24.415Z",
   "rules": [
     {
       "id": "integrations-third-party-dedicated-client-module",
@@ -978,7 +978,7 @@
       ],
       "catalogPath": "catalog/stacks/nx/domains/monorepo-hygiene/groups/schemas-config/nx-monorepo-schema-single-source.rule.md",
       "docUrl": "https://matipojo.github.io/architect-lint/rules/nx-monorepo-schema-single-source",
-      "rationale": "The `Site` type isn't written twice. It lives in one library (usually `data-access` or a dedicated schemas lib), and both server and client import from it.",
+      "rationale": "The `Site` type isn't written twice. It lives in one library (usually `data-access` or a dedicated schemas lib), and both server and client import from it.\n\nA shared type belongs in the package that owns it. Apps import it from that package — they never redefine or copy it locally.",
       "related": [
         "nestjs-testing-generated-client-not-fetch"
       ]

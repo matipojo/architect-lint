@@ -1,6 +1,6 @@
 ---
 name: architect-lint-integrations
-description: Review Integrations architecture principles (2 rules). Read catalog Principle Records at review time — never use cached content.
+description: Review Integrations architecture principles (3 rules). Read catalog Principle Records at review time — never use cached content.
 ---
 
 # Integrations
@@ -11,6 +11,7 @@ When reviewing, **READ** each rule file below. Do not use cached or inlined cont
 | --- | --- | --- |
 | integrations-third-party-dedicated-client-module | `catalog/stacks/integrations/domains/third-party-apis/groups/client-boundaries/integrations-third-party-dedicated-client-module.rule.md` | https://matipojo.github.io/architect-lint/rules/integrations-third-party-dedicated-client-module |
 | integrations-third-party-response-schema-required | `catalog/stacks/integrations/domains/third-party-apis/groups/response-contracts/integrations-third-party-response-schema-required.rule.md` | https://matipojo.github.io/architect-lint/rules/integrations-third-party-response-schema-required |
+| integrations-third-party-webhook-signature-verification | `catalog/stacks/integrations/domains/third-party-apis/groups/client-boundaries/integrations-third-party-webhook-signature-verification.rule.md` | https://matipojo.github.io/architect-lint/rules/integrations-third-party-webhook-signature-verification |
 
 ## Output format (Tier 1)
 

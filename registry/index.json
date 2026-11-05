@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T12:11:24.415Z",
+  "generatedAt": "2026-11-05T20:57:56.307Z",
   "rules": [
     {
       "id": "integrations-third-party-dedicated-client-module",
@@ -41,6 +41,29 @@
       "docUrl": "https://matipojo.github.io/architect-lint/rules/integrations-third-party-response-schema-required",
       "rationale": "Each client exports a `ResponseSchema` (Zod or JSON Schema) per operation. Parse at the boundary: `ResponseSchema.parse(raw)`. Persist and return only validated objects. No `INTERNAL_KEYS`, no destructuring `{ vendorMeta, ...safe }`. Code blocks below are illustrative, not prescriptive.",
       "related": [
+        "integrations-third-party-dedicated-client-module"
+      ]
+    },
+    {
+      "id": "integrations-third-party-webhook-signature-verification",
+      "stack": "integrations",
+      "domain": "third-party-apis",
+      "group": "client-boundaries",
+      "title": "Webhook endpoints must verify cryptographic signatures before processing payloads",
+      "summary": "Verify webhook HMAC signatures against the raw payload before decoding JSON or executing business logic.",
+      "priority": "high",
+      "status": "active",
+      "tags": [
+        "integrations",
+        "api",
+        "webhooks",
+        "security"
+      ],
+      "catalogPath": "catalog/stacks/integrations/domains/third-party-apis/groups/client-boundaries/integrations-third-party-webhook-signature-verification.rule.md",
+      "docUrl": "https://matipojo.github.io/architect-lint/rules/integrations-third-party-webhook-signature-verification",
+      "rationale": "Verify the vendor's cryptographic signature (HMAC-SHA256) at the boundary using the raw, unparsed request buffer and secret before invoking business logic or parsing the body.",
+      "related": [
+        "integrations-third-party-response-schema-required",
         "integrations-third-party-dedicated-client-module"
       ]
     },
